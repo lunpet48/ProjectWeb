@@ -3,7 +3,6 @@ package com.webproject.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +17,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
@@ -42,7 +42,8 @@ public class Product implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int _id;
+	@Column(name = "productId")
+	private int productId;
 	
 	@Column(nullable = false)
 	@Size(max = 1000)
@@ -77,19 +78,19 @@ public class Product implements Serializable {
 	@Column(columnDefinition = "boolean default true")
 	private Boolean isSelling;
 	
-	private List<String> listImages;
+	private String[] listImages;
 	
 	@ManyToOne
-	@JoinColumn(name = "_id")
-	@Column(nullable = false)
+	@JoinColumn(name = "categoryId")
+	@NotNull
 	private Category categoryId;
 	
-	@OneToMany(mappedBy = "_id")
-	private Set<StyleValue> styleValueIds;
+	@OneToMany(mappedBy = "styleValueId")
+	private List<StyleValue> styleValueIds;
 	
 	@ManyToOne
-	@JoinColumn(name = "_id")
-	@Column(nullable = false)
+	@JoinColumn(name = "storeId")
+	@NotNull
 	private Store storeId;
 	
 	@Column(columnDefinition = "int default 3")

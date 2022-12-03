@@ -35,12 +35,13 @@ public class StyleValue implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int _id;
+	@Column(name = "styleValueId")
+	private int styleValueId;
 	
 	private String name;
 	
 	@ManyToOne
-	@JoinColumn(name = "_id")
+	@JoinColumn(name = "styleId")
 	private Style styleId;
 	
 	@Column(columnDefinition = "boolean default false")

@@ -16,6 +16,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
@@ -35,7 +36,8 @@ import lombok.Setter;
 public class Store {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int _id;
+	@Column(name = "storeId")
+	private int storeId;
 	
 	@Column(unique = true, nullable = false)
 	@Size(max = 100)
@@ -49,11 +51,11 @@ public class Store {
 	private String slug;
 	
 	@OneToOne
-	@JoinColumn(name = "ownerId", referencedColumnName = "_id")
-	@Column(nullable = false)
+	@JoinColumn(name = "ownerId", referencedColumnName = "userId")
+	@NotNull
 	private User ownerId;
 	
-	@OneToMany(mappedBy = "_id")
+	@OneToMany(mappedBy = "userId")
 	private List<User> staffIds;
 	
 	@Column(columnDefinition = "boolean default false")
@@ -64,17 +66,17 @@ public class Store {
 	
 	private String avatar;
 	private String cover;
-	private List<String> featuredImages;
+	private String[] featuredImages;
 	
 	@OneToOne
-	@JoinColumn(name = "commissionId", referencedColumnName = "_id")
+	@JoinColumn(name = "commissionId", referencedColumnName = "commissionId")
 	private Commission commissionId;
 	private int point;
 	
 	@Column(columnDefinition = "int default 3")
 	@Max(value = 5)
 	@Min(value = 0)
-	private List<Integer> rating;
+	private int[] rating;
 	
 	@Column(columnDefinition = "double default 0")
 	private double eWallet;

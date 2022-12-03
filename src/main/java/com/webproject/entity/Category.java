@@ -13,6 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
@@ -38,7 +39,8 @@ public class Category implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int _id;
+	@Column(name = "categoryId")
+	private int categoryId;
 	
 	@Column(unique = true, nullable = false)
 	@Size(max = 32)
@@ -46,18 +48,20 @@ public class Category implements Serializable {
 	
 	private String slug;
 	
-	@Column(nullable = false)
+	@NotNull
 	@OneToOne
-	@JoinColumn(name = "categoryId", referencedColumnName = "_id")
-	private Category categoryId;
+	@JoinColumn(name = "categoryChildId", referencedColumnName = "categoryId")
+	private Category categoryChildId;
 	
 	private String image;
 	
 	@Column(columnDefinition = "boolean default false")
 	private Boolean isDeleted;
 	
+	@Column(name = "createdAt")
 	private Date createdAt;
 	
+	@Column(name = "updatedAt")
 	private Date updatedAt;
 
 	@PrePersist

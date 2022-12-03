@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
@@ -36,7 +35,8 @@ public class Delivery implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int _id;
+	@Column(name = "deliveryId")
+	private int deliveryId;
 	
 	@Column(nullable = false, unique = true)
 	@Size(max = 100)

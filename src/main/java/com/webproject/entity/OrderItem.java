@@ -2,7 +2,7 @@ package com.webproject.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +17,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -40,21 +41,22 @@ public class OrderItem implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int _id;
+	@Column(name = "orderItemId")
+	private int orderItemId;
 	
 	@ManyToOne
-	@JoinColumn(name = "_id")
-	@Column(nullable = false)
+	@JoinColumn(name = "orderId", referencedColumnName = "orderId")
+	@NotNull
 	private Order orderId;
 	
 	@OneToOne
-	@JoinColumn(name = "productId", referencedColumnName = "_id")
-	@Column(nullable = false)
+	@JoinColumn(name = "productId", referencedColumnName = "productId")
+	@NotNull
 	private Product productId;
 	
-	@OneToMany(mappedBy = "_id")
-	@Column(nullable = false)
-	private Set<StyleValue> styleValueIds;
+	@OneToMany(mappedBy = "styleValueId")
+	@NotNull
+	private List<StyleValue> styleValueIds;
 	
 	@Column(nullable = false)
 	@Min(value = 1)

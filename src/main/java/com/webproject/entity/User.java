@@ -2,7 +2,6 @@ package com.webproject.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,7 +27,7 @@ import lombok.Setter;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "User")
+@Table(name = "Users")
 public class User implements Serializable {
 	/**
 	 * 
@@ -37,7 +36,8 @@ public class User implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int _id;
+	@Column(name = "userId")
+	private int userId;
 
 	@Size(max = 32)
 	@NotNull
@@ -72,7 +72,7 @@ public class User implements Serializable {
 	@Column(columnDefinition = "varchar(200) default 'User'")
 	private String role;
 
-	private List<String> addresses;
+	private String[] addresses;
 	private String avatar;
 	private String cover;
 	private int point;

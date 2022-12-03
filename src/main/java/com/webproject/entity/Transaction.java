@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,16 +37,17 @@ public class Transaction implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int _id;
+	@Column(name = "transactionId")
+	private int transactionId;
 
 	@ManyToOne
-	@JoinColumn(name = "_id")
-	@Column(nullable = false)
+	@JoinColumn(name = "userId")
+	@NotNull
 	private User userId;
 
 	@ManyToOne
-	@JoinColumn(name = "_id")
-	@Column(nullable = false)
+	@JoinColumn(name = "storeId")
+	@NotNull
 	private Store storeId;
 
 	@Column(nullable = false)

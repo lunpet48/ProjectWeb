@@ -41,20 +41,18 @@ public class CartItem implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int _id;
+	@Column(name = "cartItemId")
+	private int cartItemId;
 	
 	@ManyToOne
-	@JoinColumn(name = "_id")
-	@Column(nullable = false)
+	@JoinColumn(name = "cartId")
 	private Cart cartId;
 	
 	@OneToOne
-	@JoinColumn(name = "productId", referencedColumnName = "_id")
-	@Column(nullable = false)
+	@JoinColumn(name = "productId", referencedColumnName = "productId")
 	private Product productId;
 	
-	@OneToMany(mappedBy = "_id")
-	@Column(nullable = false)
+	@OneToMany(mappedBy = "styleValueId")
 	private List<StyleValue> styleValueIds;
 	
 	@Column(nullable = false)

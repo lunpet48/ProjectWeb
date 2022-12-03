@@ -29,7 +29,8 @@ import lombok.Setter;
 public class StoreLevel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int _id;
+	@Column(name = "storeLevelId")
+	private int storeLevelId;
 	
 	@Column(unique = true, nullable = false)
 	@Size(max = 32)

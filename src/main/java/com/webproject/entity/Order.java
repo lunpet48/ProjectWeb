@@ -10,12 +10,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,7 +32,8 @@ import lombok.Setter;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "Order")
+@Table(name = "Orders")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Order implements Serializable{
 
 	/**
@@ -40,24 +43,23 @@ public class Order implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int _id;
+	@Column(name = "orderId")
+	private int orderId;
 	
 	@ManyToOne
-	@JoinColumn(name = "_id")
-	@Column(nullable = false)
+	@JoinColumn(name = "userId")
 	private User userId;
 	
 	@ManyToOne
-	@JoinColumn(name = "_id")
-	@Column(nullable = false)
+	@JoinColumn(name = "storeId")
 	private Store storeId;
 	
 	@OneToOne
-	@JoinColumn(name = "deliveryId", referencedColumnName = "_id")
-	@Column(nullable = false)
+	@JoinColumn(name = "deliveryId", referencedColumnName = "deliveryId")
 	private Delivery deliveryId;
 	
-	@Column(nullable = false)
+	@ManyToOne
+	@JoinColumn(name =  "commissionId")
 	private Commission commissionId;
 	
 	@Column(nullable = false)

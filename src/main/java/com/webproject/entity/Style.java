@@ -36,13 +36,14 @@ public class Style implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int _id;
+	@Column(name = "styleId")
+	private int styleId;
 
 	@Column(unique = true, nullable = false)
 	private String name;
 	
 	@ManyToOne
-	@JoinColumn(name = "_id")
+	@JoinColumn(name = "categoryId")
 	private Category categoryId;
 	
 	@Column(columnDefinition = "boolean default false")

@@ -36,16 +36,15 @@ public class UserFollowProduct implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int _id;
+	@Column(name = "userFollowProductId")
+	private int userFollowProductId;
 	
 	@ManyToOne
-	@JoinColumn(name = "_id")
-	@Column(nullable = false)
+	@JoinColumn(name = "userId")
 	private User userId;
 	
 	@ManyToOne
-	@JoinColumn(name = "_id")
-	@Column(nullable = false)
+	@JoinColumn(name = "productId")
 	private Product productId;
 	
 	private Date createdAt;
