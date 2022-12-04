@@ -28,7 +28,7 @@ import lombok.Setter;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "Transaction")
+@Table(name = "Transactions")
 public class Transaction implements Serializable {
 	/**
 	 * 
@@ -37,8 +37,7 @@ public class Transaction implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "transactionId")
-	private int transactionId;
+	private int _id;
 
 	@ManyToOne
 	@JoinColumn(name = "userId")

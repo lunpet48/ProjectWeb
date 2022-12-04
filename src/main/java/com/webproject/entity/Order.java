@@ -16,9 +16,6 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -33,7 +30,6 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "Orders")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Order implements Serializable{
 
 	/**
@@ -43,8 +39,7 @@ public class Order implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "orderId")
-	private int orderId;
+	private int _id;
 	
 	@ManyToOne
 	@JoinColumn(name = "userId")
@@ -55,7 +50,7 @@ public class Order implements Serializable{
 	private Store storeId;
 	
 	@OneToOne
-	@JoinColumn(name = "deliveryId", referencedColumnName = "deliveryId")
+	@JoinColumn(name = "deliveryId", referencedColumnName = "_id")
 	private Delivery deliveryId;
 	
 	@ManyToOne
@@ -68,10 +63,10 @@ public class Order implements Serializable{
 	@Column(nullable = false)
 	private String phone;
 	
-	@Column(nullable = false, columnDefinition = "nvarchar(200) default 'not precessed'")
+	//@Column(nullable = false, columnDefinition = "nvarchar(200) default 'not precessed'")
 	private String status;
 	
-	@Column(columnDefinition = "boolean default false")
+	//@Column(columnDefinition = "boolean default false")
 	private Boolean isPaidBefore;
 	
 	@Column(nullable = false)

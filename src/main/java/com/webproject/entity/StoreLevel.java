@@ -29,8 +29,7 @@ import lombok.Setter;
 public class StoreLevel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "storeLevelId")
-	private int storeLevelId;
+	private int _id;
 	
 	@Column(unique = true, nullable = false)
 	@Size(max = 32)
@@ -42,7 +41,7 @@ public class StoreLevel {
 	@Column(nullable = false)
 	private double discount;
 	
-	@Column(columnDefinition = "boolean default false")
+	//@Column(columnDefinition = "boolean default false")
 	private Boolean isDeleted;
 	
 	private Date createdAt;

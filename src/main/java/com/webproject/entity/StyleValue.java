@@ -3,7 +3,6 @@ package com.webproject.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,8 +34,7 @@ public class StyleValue implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "styleValueId")
-	private int styleValueId;
+	private int _id;
 	
 	private String name;
 	
@@ -44,7 +42,7 @@ public class StyleValue implements Serializable {
 	@JoinColumn(name = "styleId")
 	private Style styleId;
 	
-	@Column(columnDefinition = "boolean default false")
+	//@Column(columnDefinition = "boolean default false")
 	private Boolean isDeleted;
 	
 	private Date createdAt;

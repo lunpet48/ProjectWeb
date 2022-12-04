@@ -42,8 +42,7 @@ public class Product implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "productId")
-	private int productId;
+	private int _id;
 	
 	@Column(nullable = false)
 	@Size(max = 1000)
@@ -68,14 +67,14 @@ public class Product implements Serializable {
 	@Min(value = 0)
 	private int quantity;
 	
-	@Column(columnDefinition = "int default 0")
+	//@Column(columnDefinition = "int default 0")
 	@Min(value = 0)
 	private int sold;
 	
-	@Column(columnDefinition = "boolean default true")
+	//@Column(columnDefinition = "boolean default true")
 	private Boolean isActive;
 	
-	@Column(columnDefinition = "boolean default true")
+	//@Column(columnDefinition = "boolean default true")
 	private Boolean isSelling;
 	
 	private String[] listImages;
@@ -85,7 +84,7 @@ public class Product implements Serializable {
 	@NotNull
 	private Category categoryId;
 	
-	@OneToMany(mappedBy = "styleValueId")
+	@OneToMany(mappedBy = "_id")
 	private List<StyleValue> styleValueIds;
 	
 	@ManyToOne
@@ -93,7 +92,7 @@ public class Product implements Serializable {
 	@NotNull
 	private Store storeId;
 	
-	@Column(columnDefinition = "int default 3")
+	//@Column(columnDefinition = "int default 3")
 	@Min(value = 0)
 	@Max(value = 5)
 	private int rating;

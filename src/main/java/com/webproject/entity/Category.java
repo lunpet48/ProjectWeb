@@ -39,23 +39,22 @@ public class Category implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "categoryId")
-	private int categoryId;
+	private int _id;
 	
-	@Column(unique = true, nullable = false)
 	@Size(max = 32)
+	@Column(unique = true, nullable = false)
 	private String name;
 	
 	private String slug;
 	
 	@NotNull
 	@OneToOne
-	@JoinColumn(name = "categoryChildId", referencedColumnName = "categoryId")
-	private Category categoryChildId;
+	@JoinColumn(name = "categoryId", referencedColumnName = "_id")
+	private Category categoryId;
 	
 	private String image;
 	
-	@Column(columnDefinition = "boolean default false")
+	//@Column(columnDefinition = "boolean default false")
 	private Boolean isDeleted;
 	
 	@Column(name = "createdAt")

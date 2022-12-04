@@ -1,22 +1,16 @@
 package com.webproject.entity;
 
-import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,32 +25,19 @@ import lombok.Setter;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "CartItem")
-public class CartItem implements Serializable{
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
+@Table(name="UserFollowStore")
+public class UserFollowStore {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int _id;
 	
 	@ManyToOne
-	@JoinColumn(name = "cartId")
-	private Cart cartId;
+	@JoinColumn(name = "userId")
+	private User userId;
 	
-	@OneToOne
-	@JoinColumn(name = "productId", referencedColumnName = "_id")
-	private Product productId;
-	
-	@OneToMany(mappedBy = "_id")
-	private List<StyleValue> styleValueIds;
-	
-	@Column(nullable = false)
-	@Min(value = 1)
-	private int count;
+	@ManyToOne
+	@JoinColumn(name = "storeId")
+	private Store storeId;
 	
 	private Date createdAt;
 	private Date updatedAt;

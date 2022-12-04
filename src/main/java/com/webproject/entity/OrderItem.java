@@ -41,20 +41,19 @@ public class OrderItem implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "orderItemId")
-	private int orderItemId;
+	private int _id;
 	
 	@ManyToOne
-	@JoinColumn(name = "orderId", referencedColumnName = "orderId")
+	@JoinColumn(name = "orderId", referencedColumnName = "_id")
 	@NotNull
 	private Order orderId;
 	
 	@OneToOne
-	@JoinColumn(name = "productId", referencedColumnName = "productId")
+	@JoinColumn(name = "productId", referencedColumnName = "_id")
 	@NotNull
 	private Product productId;
 	
-	@OneToMany(mappedBy = "styleValueId")
+	@OneToMany(mappedBy = "_id")
 	@NotNull
 	private List<StyleValue> styleValueIds;
 	

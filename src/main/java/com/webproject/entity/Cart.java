@@ -37,11 +37,10 @@ public class Cart implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "cartId")
-	private int cartId;
+	private int _id;
 
 	@OneToOne
-	@JoinColumn(name = "userId", referencedColumnName = "userId")
+	@JoinColumn(name = "userId", referencedColumnName = "_id")
 	private User userId;
 
 	@ManyToOne

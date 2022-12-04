@@ -32,55 +32,54 @@ import lombok.Setter;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "Store")
+@Table(name = "Stores")
 public class Store {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "storeId")
-	private int storeId;
-	
+	private int _id;
+
 	@Column(unique = true, nullable = false)
 	@Size(max = 100)
 	private String name;
-	
+
 	@Column(nullable = false)
 	@Size(max = 1000)
 	private String bio;
-	
+
 	@Column(unique = true)
 	private String slug;
-	
+
 	@OneToOne
-	@JoinColumn(name = "ownerId", referencedColumnName = "userId")
+	@JoinColumn(name = "ownerId", referencedColumnName = "_id")
 	@NotNull
 	private User ownerId;
-	
-	@OneToMany(mappedBy = "userId")
+
+	@OneToMany(mappedBy = "_id")
 	private List<User> staffIds;
-	
-	@Column(columnDefinition = "boolean default false")
+
+	//@Column(columnDefinition = "boolean default false")
 	private Boolean isActive;
-	
-	@Column(columnDefinition = "boolean default false")
+
+	//@Column(columnDefinition = "boolean default false")
 	private Boolean isOpen;
-	
+
 	private String avatar;
 	private String cover;
 	private String[] featuredImages;
-	
+
 	@OneToOne
-	@JoinColumn(name = "commissionId", referencedColumnName = "commissionId")
+	@JoinColumn(name = "commissionId", referencedColumnName = "_id")
 	private Commission commissionId;
 	private int point;
-	
-	@Column(columnDefinition = "int default 3")
+
+	//@Column(columnDefinition = "int default 3")
 	@Max(value = 5)
 	@Min(value = 0)
 	private int[] rating;
-	
-	@Column(columnDefinition = "double default 0")
+
+	//@Column(columnDefinition = "double default 0")
 	private double eWallet;
-	
+
 	private Date createdAt;
 	private Date updatedAt;
 
@@ -93,5 +92,5 @@ public class Store {
 	void updatedAt() {
 		this.updatedAt = new Date();
 	}
-	
+
 }

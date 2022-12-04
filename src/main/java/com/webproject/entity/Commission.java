@@ -37,8 +37,7 @@ public class Commission implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "commissionId")
-	private int commissionId;
+	private int _id;
 	
 	@Column(unique = true, nullable = false)
 	@Size(max = 32)
@@ -52,7 +51,7 @@ public class Commission implements Serializable {
 	@Size(max = 3000)
 	private String description;
 	
-	@Column(columnDefinition = "boolean default false")
+	//@Column(columnDefinition = "boolean default false")
 	private Boolean isDeleted;
 	
 	private Date createdAt;

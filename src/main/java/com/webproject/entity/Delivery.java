@@ -35,8 +35,7 @@ public class Delivery implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "deliveryId")
-	private int deliveryId;
+	private int _id;
 	
 	@Column(nullable = false, unique = true)
 	@Size(max = 100)
@@ -50,7 +49,7 @@ public class Delivery implements Serializable{
 	@Min(value = 0)
 	private int price;
 	
-	@Column(columnDefinition = "boolean default false")
+	//@Column(columnDefinition = "boolean default false")
 	private Boolean isDeleted;
 	
 	private Date createdAt;

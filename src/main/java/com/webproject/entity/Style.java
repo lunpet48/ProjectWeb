@@ -36,8 +36,7 @@ public class Style implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "styleId")
-	private int styleId;
+	private int _id;
 
 	@Column(unique = true, nullable = false)
 	private String name;
@@ -46,7 +45,7 @@ public class Style implements Serializable {
 	@JoinColumn(name = "categoryId")
 	private Category categoryId;
 	
-	@Column(columnDefinition = "boolean default false")
+	//@Column(columnDefinition = "boolean default false")
 	private Boolean isDeleted;
 	
 	private Date createdAt;

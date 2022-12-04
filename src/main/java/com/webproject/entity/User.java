@@ -36,8 +36,7 @@ public class User implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "userId")
-	private int userId;
+	private int _id;
 
 	@Size(max = 32)
 	@NotNull
@@ -58,19 +57,19 @@ public class User implements Serializable {
 	@Column(unique = true)
 	private String phone;
 
-	@Column(columnDefinition = "boolean default false")
-	private Boolean isEmailActive;
+	//@Column(name = "isEmailActive",nullable = false, columnDefinition = "boolean default false")
+	private boolean isEmailActive;
 
-	@Column(columnDefinition = "boolean default false")
-	private Boolean isPhoneActive;
+	//@Column(name = "isPhoneActive",nullable = false,columnDefinition = "boolean default false")
+	private boolean isPhoneActive;
 
 	private String salt;
 
 	@NotNull
 	private String hashedPassword;
 
-	@Column(columnDefinition = "varchar(200) default 'User'")
-	private String role;
+	//@Column(name = "roles",nullable = false,columnDefinition = "varchar(200) default 'User'")
+	private String roles;
 
 	private String[] addresses;
 	private String avatar;
