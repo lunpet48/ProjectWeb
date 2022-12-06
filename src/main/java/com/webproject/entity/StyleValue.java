@@ -34,7 +34,7 @@ public class StyleValue implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int _id;
+	private Long _id;
 	
 	private String name;
 	

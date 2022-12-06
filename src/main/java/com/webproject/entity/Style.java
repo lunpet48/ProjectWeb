@@ -36,7 +36,7 @@ public class Style implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int _id;
+	private Long _id;
 
 	@Column(unique = true, nullable = false)
 	private String name;

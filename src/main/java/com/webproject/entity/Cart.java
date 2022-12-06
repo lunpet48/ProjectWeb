@@ -37,7 +37,7 @@ public class Cart implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int _id;
+	private Long _id;
 
 	@OneToOne
 	@JoinColumn(name = "userId", referencedColumnName = "_id")

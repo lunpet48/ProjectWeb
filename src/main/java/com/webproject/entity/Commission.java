@@ -37,7 +37,7 @@ public class Commission implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int _id;
+	private Long _id;
 	
 	@Column(unique = true, nullable = false)
 	@Size(max = 32)

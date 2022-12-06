@@ -41,7 +41,7 @@ public class CartItem implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int _id;
+	private Long _id;
 	
 	@ManyToOne
 	@JoinColumn(name = "cartId")
