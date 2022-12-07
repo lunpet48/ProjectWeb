@@ -75,24 +75,24 @@ public class StoreController {
 		Store entity = new Store();
 		BeanUtils.copyProperties(store, entity);
 
-		// if (!store.getAvatarFile().isEmpty()) {
-		if (true) {
+		if (!store.getAvatarFile().isEmpty()) {
+		//if (true) {
 			UUID uuid = UUID.randomUUID();
 			String uuString = uuid.toString();
 			entity.setAvatar(storageService.getStorageFilename(store.getAvatarFile(), uuString));
 			storageService.store(store.getAvatarFile(), entity.getAvatar());
 		}
 
-		// if (!store.getCoverFile().isEmpty()) {
-		if (true) {
+		if (!store.getCoverFile().isEmpty()) {
+		//if (true) {
 			UUID uuid = UUID.randomUUID();
 			String uuString = uuid.toString();
 			entity.setCover(storageService.getStorageFilename(store.getCoverFile(), uuString));
 			storageService.store(store.getCoverFile(), entity.getCover());
 		}
 
-		// if (store.getFeaturedImagesFile().length != 0) {
-		if (true) {
+		if (store.getFeaturedImagesFile().length != 0) {
+		//if (true) {
 			String[] temp = new String[store.getFeaturedImagesFile().length];
 			int index = 0;
 			for (MultipartFile x : store.getFeaturedImagesFile()) {
@@ -126,14 +126,14 @@ public class StoreController {
 	@GetMapping("edit")
 	public ModelAndView edit(ModelMap model, HttpSession session) {
 		// User temp = (User) session.getAttribute("user");
-		Optional<Store> opt = Optional.of(storeService.findByOwnerId(1L));
+		Optional<Store> opt = Optional.of(storeService.findByOwnerId(10L));
 
 		StoreModel store = new StoreModel();
 		if (opt.isPresent()) {
 			Store entity = opt.get();
 			BeanUtils.copyProperties(entity, store);
 			model.addAttribute("store", store);
-			return new ModelAndView("vendor/store", model);
+			return new ModelAndView("vendor/store/store", model);
 		}
 		model.addAttribute("message", "Store không tồn tại");
 

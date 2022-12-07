@@ -34,21 +34,21 @@
 								id="bio">
 						</div>
 						<div>
-							<label for="avatar" class="form-label">Avatar:</label> <input
-								type="file" class="form-control-file" value="${store.avatar}"
+							<label for="avatarFile" class="form-label">Avatar:</label> <input
+								type="file" class="form-control-file" value="${store.avatarFile}"
 								onchange = "chooseFile(this)" accept=".jpg, .png"
-								name="avatar" id="avatar" >
+								name="avatarFile" id="avatarFile" >
 						</div>
 						<div>
-							<label for="cover" class="form-label">Cover:</label> <input
-								type="file" class="form-control-file" value="${store.cover}"
-								name="cover" id="cover">
+							<label for="coverFile" class="form-label">Cover:</label> <input
+								type="file" class="form-control-file" value="${store.coverFile}"
+								name="coverFile" id="coverFile">
 						</div>
 						<div>
-							<label for="featuredImages" class="form-label">Featured
+							<label for="featuredImagesFile" class="form-label">Featured
 								Images</label> <input type="file" class="form-control-file"
-								value="${store.featuredImages}" name="featuredImages"
-								id="featuredImages" multiple="multiple">
+								value="${store.featuredImagesFile}" name="featuredImagesFile"
+								id="featuredImagesFile" multiple="multiple">
 						</div>
 					</div>
 				</div>

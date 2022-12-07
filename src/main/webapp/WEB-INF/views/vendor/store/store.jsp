@@ -53,7 +53,7 @@
 								<td><img src="/vendor/store/images/${store.cover}"></td>
 
 								<td><c:forEach items="${store.featuredImages }" var="temp">
-										<img src="/vendor/store/images/${tempFile}">
+										<img src="/vendor/store/images/${temp}">
 									</c:forEach>
 								</td>
 								<td><a href="/vendor/store/edit"
