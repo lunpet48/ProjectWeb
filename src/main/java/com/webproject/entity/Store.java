@@ -46,12 +46,10 @@ public class Store {
 	@Size(max = 1000)
 	private String bio;
 
-	@Column(unique = true)
 	private String slug;
 
 	@OneToOne
 	@JoinColumn(name = "ownerId", referencedColumnName = "_id")
-	@NotNull
 	private User ownerId;
 
 	@OneToMany(mappedBy = "_id")
@@ -73,8 +71,6 @@ public class Store {
 	private int point;
 
 	//@Column(columnDefinition = "int default 3")
-	@Max(value = 5)
-	@Min(value = 0)
 	private int[] rating;
 
 	//@Column(columnDefinition = "double default 0")
