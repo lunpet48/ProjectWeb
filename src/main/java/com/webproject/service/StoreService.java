@@ -31,4 +31,6 @@ public interface StoreService {
 
 	Store findByOwnerId(Long ownerId);
 
+	void updateStore(Store entity) throws Exception;
+
 }

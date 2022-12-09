@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,19 +28,27 @@ public class StoreServiceImpl implements StoreService {
 
 	@Override
 	public <S extends Store> S save(S entity) {
-		/*
-		 * if (entity.get_id() != null) { Optional<Store> opt =
-		 * findById(entity.get_id()); if (opt.isPresent()) { if
-		 * (StringUtils.isEmpty(entity.getAvatar())) {
-		 * entity.setAvatar(opt.get().getAvatar()); } else {
-		 * entity.setAvatar(entity.getAvatar()); } if
-		 * (StringUtils.isEmpty(entity.getCover())) {
-		 * entity.setCover(opt.get().getCover()); } else {
-		 * entity.setCover(entity.getCover()); } if
-		 * (StringUtils.isEmpty(entity.getFeaturedImages())) {
-		 * entity.setFeaturedImages(opt.get().getFeaturedImages()); } else {
-		 * entity.setFeaturedImages(entity.getFeaturedImages()); } } }
-		 */
+		if (entity.get_id() != null) {
+			Optional<Store> opt = findById(entity.get_id());
+			if (opt.isPresent()) {
+				if (StringUtils.isEmpty(entity.getAvatar())) {
+					entity.setAvatar(opt.get().getAvatar());
+				} else {
+					entity.setAvatar(entity.getAvatar());
+				}
+				if (StringUtils.isEmpty(entity.getCover())) {
+					entity.setCover(opt.get().getCover());
+				} else {
+					entity.setCover(entity.getCover());
+				}
+				if (StringUtils.isEmpty(entity.getFeaturedImages())) {
+					entity.setFeaturedImages(opt.get().getFeaturedImages());
+				} else {
+					entity.setFeaturedImages(entity.getFeaturedImages());
+				}
+			}
+		}
+
 		return storeRepo.save(entity);
 	}
 
@@ -85,6 +95,26 @@ public class StoreServiceImpl implements StoreService {
 	@Override
 	public void deleteAll() {
 		storeRepo.deleteAll();
+	}
+
+	@Override
+	@Transactional(rollbackOn = Exception.class)
+	public void updateStore(Store entity) throws Exception {
+		/*
+		 * if (entity.get_id() != null) { Optional<Store> opt =
+		 * findById(entity.get_id()); if (opt.isPresent()) { if
+		 * (StringUtils.isEmpty(entity.getAvatar())) {
+		 * entity.setAvatar(opt.get().getAvatar()); } else {
+		 * entity.setAvatar(entity.getAvatar()); } if
+		 * (StringUtils.isEmpty(entity.getCover())) {
+		 * entity.setCover(opt.get().getCover()); } else {
+		 * entity.setCover(entity.getCover()); } if
+		 * (StringUtils.isEmpty(entity.getFeaturedImages())) {
+		 * entity.setFeaturedImages(opt.get().getFeaturedImages()); } else {
+		 * entity.setFeaturedImages(entity.getFeaturedImages()); } } }
+		 */
+		storeRepo.updateStore(entity.getBio(), entity.getAvatar(), entity.getCover(), entity.getFeaturedImages(),
+				entity.get_id());
 	}
 
 }

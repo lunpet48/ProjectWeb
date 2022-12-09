@@ -1,17 +1,16 @@
 package com.webproject.controller;
 
-import java.util.Optional;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,12 +18,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.webproject.entity.Store;
-import com.webproject.model.StoreModel;
 import com.webproject.service.StorageService;
 import com.webproject.service.StoreService;
 
@@ -47,9 +45,9 @@ public class StoreController {
 	}
 
 	@GetMapping("")
-	public String getStore(ModelMap model, HttpSession session) {
+	public String getStore(Model model, HttpSession session) {
 		// User user = (User) session.getAttribute("user");
-		Long x = (long) 10;
+		Long x = (long) 2;
 		Store store = storeService.findByOwnerId(x);
 		model.addAttribute("store", store);
 		return "vendor/store/store";
@@ -57,7 +55,7 @@ public class StoreController {
 
 	@GetMapping("create")
 	public String createStore(ModelMap model) {
-		StoreModel store = new StoreModel();
+		Store store = new Store();
 		store.setIsActive(false);
 		store.setIsOpen(false);
 		model.addAttribute("store", store);
@@ -65,78 +63,102 @@ public class StoreController {
 	}
 
 	@PostMapping("create")
-	public ModelAndView create(ModelMap model, @Valid @ModelAttribute("store") StoreModel store, BindingResult result) {
+	public String create(Model model, @Valid @ModelAttribute("store") Store store,
+			@RequestParam("avatarFile") MultipartFile avatarFile,
+			@RequestParam("featuredImagesFile") MultipartFile[] featuredImagesFile,
+			@RequestParam("coverFile") MultipartFile coverFile, BindingResult result) {
 
-		/*
-		 * if (result.hasErrors()) { return new
-		 * ModelAndView("vendor/store/createStore"); }
-		 */
-
-		Store entity = new Store();
-		BeanUtils.copyProperties(store, entity);
-
-		if (!store.getAvatarFile().isEmpty()) {
-		//if (true) {
-			UUID uuid = UUID.randomUUID();
-			String uuString = uuid.toString();
-			entity.setAvatar(storageService.getStorageFilename(store.getAvatarFile(), uuString));
-			storageService.store(store.getAvatarFile(), entity.getAvatar());
+		if (result.hasErrors()) {
+			return "vendor/store/createStore";
 		}
 
-		if (!store.getCoverFile().isEmpty()) {
-		//if (true) {
+		if (!avatarFile.isEmpty()) { // if (true) {
 			UUID uuid = UUID.randomUUID();
 			String uuString = uuid.toString();
-			entity.setCover(storageService.getStorageFilename(store.getCoverFile(), uuString));
-			storageService.store(store.getCoverFile(), entity.getCover());
+			store.setAvatar(storageService.getStorageFilename(avatarFile, uuString));
+			storageService.store(avatarFile, store.getAvatar());
 		}
 
-		if (store.getFeaturedImagesFile().length != 0) {
-		//if (true) {
-			String[] temp = new String[store.getFeaturedImagesFile().length];
+		if (!coverFile.isEmpty()) { // if (true) {
+			UUID uuid = UUID.randomUUID();
+			String uuString = uuid.toString();
+			store.setCover(storageService.getStorageFilename(coverFile, uuString));
+			storageService.store(coverFile, store.getCover());
+		}
+
+		if (featuredImagesFile.length != 0) { // if (true) {
+			String[] temp = new String[featuredImagesFile.length];
 			int index = 0;
-			for (MultipartFile x : store.getFeaturedImagesFile()) {
+			for (MultipartFile x : featuredImagesFile) {
 				UUID uuid = UUID.randomUUID();
 				String uuString = uuid.toString();
 				temp[index] = storageService.getStorageFilename(x, uuString);
 				index++;
 			}
-			entity.setFeaturedImages(temp);
-			storageService.store(store.getFeaturedImagesFile(), entity.getFeaturedImages());
+			store.setFeaturedImages(temp);
+			storageService.store(featuredImagesFile, store.getFeaturedImages());
 		}
-
-		storeService.save(entity);
+		storeService.save(store);
 		model.addAttribute("message", "Tạo thành công");
-		return new ModelAndView("vendor/store/createStore", model);
+		return "vendor/store/createStore";
 	}
 
 	@PostMapping("update-info")
-	public ModelAndView updateInfoStore(ModelMap model, @Valid @ModelAttribute("store") StoreModel store,
-			BindingResult result) {
+	public String updateInfoStore(Model model, @Valid @ModelAttribute("store") Store store,
+			@RequestParam("avatarFile") MultipartFile avatarFile,
+			@RequestParam("featuredImagesFile") MultipartFile[] featuredImagesFile,
+			@RequestParam("coverFile") MultipartFile coverFile, BindingResult result) throws Exception {
 		if (result.hasErrors()) {
-			return new ModelAndView("vendor/store/updateInfoStore");
+			return "vendor/store/editStore";
 		}
-		Store entity = new Store();
-		BeanUtils.copyProperties(store, entity);
-		storeService.save(entity);
+		// BeanUtils.copyProperties(store, entity);
+		
+		  System.out.println("----------------------------------------");
+		  System.out.println(store.get_id());
+		 
+		if (!avatarFile.isEmpty()) { // if (true) {
+			UUID uuid = UUID.randomUUID();
+			String uuString = uuid.toString();
+			store.setAvatar(storageService.getStorageFilename(avatarFile, uuString));
+			storageService.store(avatarFile, store.getAvatar());
+		}
+
+		if (!coverFile.isEmpty()) { // if (true) {
+			UUID uuid = UUID.randomUUID();
+			String uuString = uuid.toString();
+			store.setCover(storageService.getStorageFilename(coverFile, uuString));
+			storageService.store(coverFile, store.getCover());
+		}
+
+		if (featuredImagesFile.length != 0) { // if (true) {
+			String[] temp = new String[featuredImagesFile.length];
+			int index = 0;
+			for (MultipartFile x : featuredImagesFile) {
+				UUID uuid = UUID.randomUUID();
+				String uuString = uuid.toString();
+				temp[index] = storageService.getStorageFilename(x, uuString);
+				index++;
+			}
+			store.setFeaturedImages(temp);
+			storageService.store(featuredImagesFile, store.getFeaturedImages());
+		}
+		
+		//storeService.save(store);
+		storeService.updateStore(store);
 		model.addAttribute("message", "Chỉnh sửa thành công");
-		return new ModelAndView("forward:/vendor/store/update-info", model);
+		return "forward:/vendor/store/update-info";
 	}
 
 	@GetMapping("edit")
-	public ModelAndView edit(ModelMap model, HttpSession session) {
+	public String edit(Model model, HttpSession session) {
 		// User temp = (User) session.getAttribute("user");
-		Optional<Store> opt = Optional.of(storeService.findByOwnerId(10L));
-
-		StoreModel store = new StoreModel();
-		if (opt.isPresent()) {
-			Store entity = opt.get();
-			BeanUtils.copyProperties(entity, store);
+		Store store = storeService.findByOwnerId(2L);
+		if (store != null) {
 			model.addAttribute("store", store);
-			return new ModelAndView("vendor/store/store", model);
+			return "vendor/store/editStore";
 		}
 		model.addAttribute("message", "Store không tồn tại");
 
-		return new ModelAndView("forward:vendor/store/create", model);
+		return "forward:vendor/store/edit";
 	}
 }

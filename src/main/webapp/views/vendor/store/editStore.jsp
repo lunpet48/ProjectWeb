@@ -7,21 +7,22 @@
 <meta charset="UTF-8">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/css/bootstrap.min.css" />
-<title>Tạo cửa hàng</title>
+<title>Chỉnh sửa cửa hàng</title>
 </head>
 <body>
 	<section class="row">
 		<div class="col-6 offset-3 mt-4">
-			<form action="<c:url value="/vendor/store/create"/>" method="post" enctype="multipart/form-data">
+			<form action="<c:url value="/vendor/store/update-info"/>"
+				method="post" enctype="multipart/form-data">
 				<div class="card">
 					<div class="card-header">
-						<h2>Tạo cửa hàng</h2>
+						<h2>Chỉnh sửa cửa hàng</h2>
 					</div>
 					<div class="card-body">
 						<div>
 							<label for="_id" class="form-label">Store ID:</label> <input
-								type="text" readonly="readonly" class="form-control"
-								value="${store._id}" id="_id">
+								type="text"  class="form-control"
+								value="${store._id}" name="_id" id="_id">
 						</div>
 						<div>
 							<label for="name" class="form-label">Store's name:</label> <input
@@ -35,24 +36,24 @@
 						</div>
 						<div>
 							<label for="avatarFile" class="form-label">Avatar:</label> <input
-								type="file" class="form-control-file" value="${store.avatarFile}"
-								onchange = "chooseFile(this)" accept=".jpg, .png"
-								name="avatarFile" id="avatarFile" >
+								type="file" class="form-control-file"
+								value="${avatarFile}" onchange="chooseFile(this)"
+								accept=".jpg, .png" name="avatarFile" id="avatarFile">
 						</div>
 						<div>
 							<label for="coverFile" class="form-label">Cover:</label> <input
-								type="file" class="form-control-file" value="${store.coverFile}"
+								type="file" class="form-control-file" value="${coverFile}"
 								name="coverFile" id="coverFile">
 						</div>
 						<div>
 							<label for="featuredImagesFile" class="form-label">Featured
 								Images</label> <input type="file" class="form-control-file"
-								value="${store.featuredImagesFile}" name="featuredImagesFile"
+								value="${featuredImagesFile}" name="featuredImagesFile"
 								id="featuredImagesFile" multiple="multiple">
 						</div>
 					</div>
 				</div>
-				<input type="submit" value="Tạo cửa hàng">
+				<input type="submit" value="Lưu">
 			</form>
 		</div>
 	</section>
