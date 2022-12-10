@@ -21,23 +21,22 @@
 					<div class="card-body">
 						<div>
 							<label for="_id" class="form-label">Store ID:</label> <input
-								type="text"  class="form-control"
+								type="text" readonly="readonly" class="form-control"
 								value="${store._id}" name="_id" id="_id">
 						</div>
 						<div>
 							<label for="name" class="form-label">Store's name:</label> <input
-								type="text" class="form-control" value="${store.name }"
+								type="text" class="form-control" value="${store.name}"
 								name="name" id="name">
 						</div>
 						<div>
 							<label for="bio" class="form-label">Store's bio:</label> <input
-								type="text" class="form-control" value="${store.bio}" name="bio"
+								type="text" class="form-control" name="bio" value="${store.bio}"
 								id="bio">
 						</div>
 						<div>
 							<label for="avatarFile" class="form-label">Avatar:</label> <input
-								type="file" class="form-control-file"
-								value="${avatarFile}" onchange="chooseFile(this)"
+								type="file" class="form-control-file" value="${avatarFile}"
 								accept=".jpg, .png" name="avatarFile" id="avatarFile">
 						</div>
 						<div>
@@ -51,6 +50,7 @@
 								value="${featuredImagesFile}" name="featuredImagesFile"
 								id="featuredImagesFile" multiple="multiple">
 						</div>
+
 					</div>
 				</div>
 				<input type="submit" value="Lưu">

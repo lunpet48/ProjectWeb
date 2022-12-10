@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.webproject.entity.Store;
+import com.webproject.entity.User;
 import com.webproject.service.StorageService;
 import com.webproject.service.StoreService;
 
@@ -86,7 +87,7 @@ public class StoreController {
 			storageService.store(coverFile, store.getCover());
 		}
 
-		if (featuredImagesFile.length != 0) { // if (true) {
+		if (!featuredImagesFile[0].isEmpty()) { // if (true) {
 			String[] temp = new String[featuredImagesFile.length];
 			int index = 0;
 			for (MultipartFile x : featuredImagesFile) {
@@ -105,32 +106,34 @@ public class StoreController {
 
 	@PostMapping("update-info")
 	public String updateInfoStore(Model model, @Valid @ModelAttribute("store") Store store,
-			@RequestParam("avatarFile") MultipartFile avatarFile,
+			@RequestParam("_id") Long id, @RequestParam("avatarFile") MultipartFile avatarFile,
 			@RequestParam("featuredImagesFile") MultipartFile[] featuredImagesFile,
 			@RequestParam("coverFile") MultipartFile coverFile, BindingResult result) throws Exception {
+
 		if (result.hasErrors()) {
 			return "vendor/store/editStore";
 		}
-		// BeanUtils.copyProperties(store, entity);
-		
-		  System.out.println("----------------------------------------");
-		  System.out.println(store.get_id());
-		 
-		if (!avatarFile.isEmpty()) { // if (true) {
+
+		store.set_id(id);
+
+		if (!avatarFile.isEmpty()) {
+			// if (false) {
 			UUID uuid = UUID.randomUUID();
 			String uuString = uuid.toString();
 			store.setAvatar(storageService.getStorageFilename(avatarFile, uuString));
 			storageService.store(avatarFile, store.getAvatar());
 		}
 
-		if (!coverFile.isEmpty()) { // if (true) {
+		if (!coverFile.isEmpty()) {
+			// if (false) {
 			UUID uuid = UUID.randomUUID();
 			String uuString = uuid.toString();
 			store.setCover(storageService.getStorageFilename(coverFile, uuString));
 			storageService.store(coverFile, store.getCover());
 		}
+		
 
-		if (featuredImagesFile.length != 0) { // if (true) {
+		if (!featuredImagesFile[0].isEmpty()) {
 			String[] temp = new String[featuredImagesFile.length];
 			int index = 0;
 			for (MultipartFile x : featuredImagesFile) {
@@ -142,11 +145,10 @@ public class StoreController {
 			store.setFeaturedImages(temp);
 			storageService.store(featuredImagesFile, store.getFeaturedImages());
 		}
-		
-		//storeService.save(store);
-		storeService.updateStore(store);
+		storeService.save(store);
+		// storeService.updateStore(store);
 		model.addAttribute("message", "Chỉnh sửa thành công");
-		return "forward:/vendor/store/update-info";
+		return "vendor/store/store";
 	}
 
 	@GetMapping("edit")

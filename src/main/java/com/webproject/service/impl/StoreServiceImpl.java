@@ -46,6 +46,12 @@ public class StoreServiceImpl implements StoreService {
 				} else {
 					entity.setFeaturedImages(entity.getFeaturedImages());
 				}
+				if (entity.getOwnerId() == null) {
+					entity.setOwnerId(opt.get().getOwnerId());
+				}
+				if(entity.getCreatedAt() == null) {
+					entity.setCreatedAt(opt.get().getCreatedAt());
+				}
 			}
 		}
 
