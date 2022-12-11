@@ -1,5 +1,6 @@
 package com.webproject.controller;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -101,7 +102,7 @@ public class StoreController {
 		}
 		storeService.save(store);
 		model.addAttribute("message", "Tạo thành công");
-		return "vendor/store/createStore";
+		return "redirect:/vendor/store";
 	}
 
 	@PostMapping("update-info")
@@ -131,7 +132,6 @@ public class StoreController {
 			store.setCover(storageService.getStorageFilename(coverFile, uuString));
 			storageService.store(coverFile, store.getCover());
 		}
-		
 
 		if (!featuredImagesFile[0].isEmpty()) {
 			String[] temp = new String[featuredImagesFile.length];
@@ -162,5 +162,19 @@ public class StoreController {
 		model.addAttribute("message", "Store không tồn tại");
 
 		return "forward:vendor/store/edit";
+	}
+
+	@GetMapping("delete")
+	public String delete(Model model, @RequestParam(name = "_id") Long id) {
+		//User
+		Optional<Store> opt = storeService.findById(id);
+		if(opt.isPresent())
+		{
+			Store store = opt.get();
+			store.setOwnerId(null);
+			storeService.save(store);
+		}
+		model.addAttribute("message", "Xóa thành công");
+		return "redirect:/vendor/store";
 	}
 }

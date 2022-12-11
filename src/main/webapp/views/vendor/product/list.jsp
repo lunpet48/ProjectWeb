@@ -19,7 +19,6 @@
 	integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<link rel='stylesheet' href="/store.css">
 <title>Insert title</title>
 </head>
 <body>
@@ -38,30 +37,32 @@
 					<table class="table table-striped table-responsive">
 						<thead class="thead-inverse">
 							<tr>
-								<th>Store ID</th>
-								<th>Store's name</th>
-								<th>Store's bio</th>
-								<th>Avatar</th>
-								<th>Cover</th>
-								<th>Features Images</th>
+								<th>Product ID</th>
+								<th>Product's name</th>
+								<th>Product's description</th>
+								<th>Price</th>
+								<th>Promotional Price</th>
+								<th>List Images</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td scope="row">${store._id}</td>
-								<td>${store.name}</td>
-								<td>${store.bio}</td>
-								<td><img src="/vendor/store/images/${store.avatar}"></td>
-								<td><img src="/vendor/store/images/${store.cover}"></td>
+							<c:forEach items="${listProducts }" var="item">
+								<tr>
+									<td scope="row">${item._id}</td>
+									<td>${item.name}</td>
+									<td>${item.description}</td>
+									<td>${item.price}</td>
+									<td>${item.promotionalPrice}</td>
 
-								<td><c:forEach items="${store.featuredImages }" var="temp">
-										<img src="/vendor/store/images/${temp}">
-									</c:forEach></td>
-								<td><a href="/vendor/store/edit"
-									class="btn btn-outline-warning"><i class="fa fa-edit"></i></a>
-								<td><a href="/vendor/store/delete?_id=${store._id }"
-									class="btn btn-outline-danger"><i class="fa fa-trash"></i></a>
-							</tr>
+									<td><c:forEach items="${item.listImages }" var="temp">
+											<img src="/vendor/store/product/images/${temp}">
+										</c:forEach></td>
+									<td><a href="/vendor/store/product/edit"
+										class="btn btn-outline-warning"><i class="fa fa-edit"></i></a>
+									<td><a href="/vendor/store/product/delete?_id=${temp._id }"
+										class="btn btn-outline-danger"><i class="fa fa-trash"></i></a>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>

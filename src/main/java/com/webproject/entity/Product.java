@@ -15,18 +15,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Data
 @Getter
 @Setter
 @NoArgsConstructor
@@ -48,7 +45,6 @@ public class Product implements Serializable {
 	@Size(max = 1000)
 	private String name;
 	
-	@Column(unique = true)
 	private String slug;
 	
 	@Column(nullable = false)
@@ -81,7 +77,6 @@ public class Product implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "categoryId")
-	@NotNull
 	private Category categoryId;
 	
 	@OneToMany(mappedBy = "_id")
@@ -89,12 +84,9 @@ public class Product implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "storeId")
-	@NotNull
 	private Store storeId;
 	
 	//@Column(columnDefinition = "int default 3")
-	@Min(value = 0)
-	@Max(value = 5)
 	private int rating;
 	
 	private Date createdAt;
