@@ -57,9 +57,9 @@
 									<td><c:forEach items="${item.listImages }" var="temp">
 											<img src="/vendor/store/product/images/${temp}">
 										</c:forEach></td>
-									<td><a href="/vendor/store/product/edit"
+									<td><a href="/vendor/store/product/edit/${item._id}"
 										class="btn btn-outline-warning"><i class="fa fa-edit"></i></a>
-									<td><a href="/vendor/store/product/delete?_id=${temp._id }"
+									<td><a href="/vendor/store/product/delete?id=${item._id }"
 										class="btn btn-outline-danger"><i class="fa fa-trash"></i></a>
 								</tr>
 							</c:forEach>

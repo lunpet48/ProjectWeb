@@ -58,7 +58,8 @@ public class ProductController {
 
 	@GetMapping("")
 	public String getAll(Model model, HttpSession session) {
-		//User user = (User) session.getAttribute("user");
+		// User user = (User) session.getAttribute("user");
+		//Điều kiện 
 		Store store = storeService.findByOwnerId(2L);
 		List<Product> result = productService.findAllByStoreId(store.get_id());
 		model.addAttribute("listProducts", result);
@@ -83,10 +84,10 @@ public class ProductController {
 		if (result.hasErrors()) {
 			return "vendor/product/createProduct";
 		}
-		
+
 		Store store = storeService.findByOwnerId(2L);
 		product.setStoreId(store);
-		
+
 		Optional<Category> cate = categoryService.findById(cateId);
 		product.setCategoryId(cate.get());
 
@@ -104,6 +105,64 @@ public class ProductController {
 		}
 		productService.save(product);
 		model.addAttribute("message", "Tạo thành công");
+		return "redirect:/vendor/store/product";
+	}
+
+	@GetMapping("edit/{productId}")
+	public String edit(Model model, HttpSession session, @PathVariable("productId") Long id) {
+		// User temp = (User) session.getAttribute("user");
+		Optional<Product> opt = productService.findById(id);
+		//Thêm điều kiện là phải cùng của store đó thì mới get được
+		if (opt.isPresent()) {
+			Product product = opt.get();
+			model.addAttribute("product", product);
+			return "vendor/product/editProduct";
+		}
+		model.addAttribute("message", "Product không tồn tại");
+
+		return "forward:vendor/product";
+	}
+
+	@PostMapping("edit/{id}")
+	public String update(Model model, @Valid @ModelAttribute("product") Product product,
+			@PathVariable("id") Long id,
+			@RequestParam("listImagesFile") MultipartFile[] listImagesFile, BindingResult result) throws Exception {
+
+		if (result.hasErrors()) {
+			return "vendor/store/editStore";
+		}
+
+		product.set_id(id);
+
+		if (!listImagesFile[0].isEmpty()) {
+			String[] temp = new String[listImagesFile.length];
+			int index = 0;
+			for (MultipartFile x : listImagesFile) {
+				UUID uuid = UUID.randomUUID();
+				String uuString = uuid.toString();
+				temp[index] = storageService.getStorageFilename(x, uuString);
+				index++;
+			}
+			product.setListImages(temp);
+			storageService.store(listImagesFile, product.getListImages());
+		}
+		productService.save(product);
+		
+		model.addAttribute("message", "Chỉnh sửa thành công");
+		return "redirect:/vender/store/product";
+	}
+	
+	@GetMapping("delete")
+	public String delete(Model model, @RequestParam(name = "id") Long id) {
+		//User
+		Optional<Product> opt = productService.findById(id);
+		if(opt.isPresent())
+		{
+			Product product = opt.get();
+			product.setStoreId(null);
+			productService.save(product);
+		}
+		model.addAttribute("message", "Xóa thành công");
 		return "redirect:/vendor/store/product";
 	}
 }

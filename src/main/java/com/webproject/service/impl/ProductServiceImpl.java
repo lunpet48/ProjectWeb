@@ -8,8 +8,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.webproject.entity.Product;
+import com.webproject.entity.Store;
 import com.webproject.repository.ProductRepo;
 import com.webproject.service.ProductService;
 
@@ -20,6 +22,25 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public <S extends Product> S save(S entity) {
+		if (entity.get_id() != null) {
+			Optional<Product> opt = findById(entity.get_id());
+			if (opt.isPresent()) {
+				if (StringUtils.isEmpty(entity.getListImages())) {
+					entity.setListImages(opt.get().getListImages());
+				} else {
+					entity.setListImages(entity.getListImages());
+				}
+				if (entity.getStoreId() == null) {
+					entity.setStoreId(opt.get().getStoreId());
+				}
+				if (entity.getCategoryId() == null) {
+					entity.setCategoryId(opt.get().getCategoryId());
+				}
+				if(entity.getCreatedAt() == null) {
+					entity.setCreatedAt(opt.get().getCreatedAt());
+				}
+			}
+		}
 		return productRepo.save(entity);
 	}
 
