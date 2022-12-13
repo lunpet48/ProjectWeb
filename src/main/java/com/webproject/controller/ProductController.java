@@ -63,7 +63,7 @@ public class ProductController {
 		Store store = storeService.findByOwnerId(2L);
 		List<Product> result = productService.findAllByStoreId(store.get_id());
 		model.addAttribute("listProducts", result);
-		return "vendor/product/list";
+		return "vendor/product/tables";
 	}
 
 	@GetMapping("create")

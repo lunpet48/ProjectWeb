@@ -12,10 +12,6 @@ import com.webproject.model.StoreModel;
 public class HomeController {
 	@GetMapping("")
 	public String createStore(ModelMap model) {
-		StoreModel store = new StoreModel();
-		store.setIsActive(false);
-		store.setIsOpen(false);
-		model.addAttribute("store", store);
-		return "vendor/store/createStore";
+		return "vendor/tables";
 	}
 }

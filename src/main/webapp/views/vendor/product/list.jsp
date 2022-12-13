@@ -22,7 +22,7 @@
 <title>Insert title</title>
 </head>
 <body>
-<%@ include file="fragments/header.jsp" %>  
+	<%@ include file="fragments/header.jsp"%>
 	<section class="row">
 		<div class="col mt-4">
 			<div class="card">
@@ -59,9 +59,13 @@
 											<img src="/vendor/store/product/images/${temp}">
 										</c:forEach></td>
 									<td><a href="/vendor/store/product/edit/${item._id}"
-										class="btn btn-outline-warning"><i class="fa fa-edit"></i></a>
+										class="btn btn-info btn-circle"> <i
+											class="fas fa-info-circle"></i>
+									</a></td>
+
 									<td><a href="/vendor/store/product/delete?id=${item._id }"
-										class="btn btn-outline-danger"><i class="fa fa-trash"></i></a>
+										class="btn btn-danger btn-circle"> <i class="fas fa-trash"></i>
+									</a></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -74,6 +78,6 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous"></script>
-	<%@ include file="fragments/footer.jsp" %>  
+	<%@ include file="fragments/footer.jsp"%>
 </body>
 </html>

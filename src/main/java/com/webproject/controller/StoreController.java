@@ -52,7 +52,7 @@ public class StoreController {
 		Long x = (long) 2;
 		Store store = storeService.findByOwnerId(x);
 		model.addAttribute("store", store);
-		return "vendor/store/store";
+		return "vendor/store/profile";
 	}
 
 	@GetMapping("create")
@@ -177,4 +177,9 @@ public class StoreController {
 		model.addAttribute("message", "Xóa thành công");
 		return "redirect:/vendor/store";
 	}
+	
+	/*
+	 * @GetMapping("orders") public String getOrder(Model model, HttpSession
+	 * session) { }
+	 */
 }
