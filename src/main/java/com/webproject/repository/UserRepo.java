@@ -22,5 +22,5 @@ public interface UserRepo extends JpaRepository<User, Long> {
 	@Query(value = "SELECT count(*) FROM USERS where month(createdAt)=?", nativeQuery = true)
 	int countByMonth(int month);
 	
-	
+	User findByEmail(String email);
 }

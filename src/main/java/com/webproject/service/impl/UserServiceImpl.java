@@ -37,12 +37,17 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return userRepo.countByDate(date);
 	}
-
-	public static void main(String[] args) {
-		UserServiceImpl userServiceImpl = new UserServiceImpl();
-		List<User> users = userServiceImpl.findAll();
-		for (User user : users) {
-			System.out.println(user.getEmail());
-		}
+	
+	@Override
+	public User findByEmail(String email) {
+		return userRepo.findByEmail(email);
 	}
+
+	@Override
+	public <S extends User> S save(S entity) {
+		return userRepo.save(entity);
+	}
+
+	
+	
 }

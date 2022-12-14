@@ -70,11 +70,11 @@ public class User implements Serializable {
 	//@Column(name = "roles",nullable = false,columnDefinition = "varchar(200) default 'User'")
 	private String roles;
 
-	private String[] addresses;
+	private String address;
 	private String avatar;
 	private String cover;
-	private int point;
-	private double eWallet;
+	private Integer point;
+	private Double eWallet;
 	private Date createdAt;
 	private Date updatedAt;
 

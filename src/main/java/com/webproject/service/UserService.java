@@ -14,5 +14,9 @@ public interface UserService {
 	List<User>newUsers();
 	
 	int countByDate(Date date);
+
+	<S extends User> S save(S entity);
+
+	User findByEmail(String email);
 	
 }
