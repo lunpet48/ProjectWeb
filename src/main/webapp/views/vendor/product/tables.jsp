@@ -308,8 +308,9 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					Bạn có muốn xóa sản phẩm này không? <input readonly="readonly"
-						type="text" class="id" value="${id}" name="id" id="did">
+					Bạn có muốn xóa sản phẩm này không?
+				</div>
+				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">Hủy</button>
 					<a class="btn btn-primary" href="#" id="deleteYes">Có</a>

@@ -177,20 +177,11 @@
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 
-					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">Tables</h1>
-					<p class="mb-4">
-						DataTables is a third party plugin that is used to generate the
-						demo table below. For more information about DataTables, please
-						visit the <a target="_blank" href="https://datatables.net">official
-							DataTables documentation</a>.
-					</p>
-
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">DataTables
-								Example</h6>
+							<h6 class="m-0 font-weight-bold text-primary">Thông tin cửa
+								hàng</h6>
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">
@@ -220,10 +211,14 @@
 													var="temp">
 													<img src="/vendor/store/images/${temp}">
 												</c:forEach></td>
-											<td><a href="/vendor/store/edit"
-												class="btn btn-outline-warning"><i class="fa fa-edit"></i></a>
-											<td><a href="/vendor/store/delete?_id=${store._id }"
-												class="btn btn-outline-danger"><i class="fa fa-trash"></i></a>
+											<td><a href="#" data-toggle="modal"
+												data-target="#editModal"
+												class="btn btn-outline-warning editStore"><i
+													class="fa fa-edit"></i></a>
+											<td><a href="#" data-toggle="modal"
+												data-target="#deleteModal"
+												class="btn btn-outline-danger deleteStore"><i
+													class="fa fa-trash"></i></a>
 										</tr>
 									</tbody>
 								</table>
@@ -281,6 +276,86 @@
 		</div>
 	</div>
 
+	<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">Bạn có muốn xóa cửa hàng này không?</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">Hủy</button>
+					<a class="btn btn-primary" href="#" id="deleteYes">Có</a>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="editModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="<c:url value="/vendor/store/update-info"/>"
+						id="editYes" method="post" enctype="multipart/form-data">
+						<div class="card">
+							<div class="card-header">
+								<h2>Chỉnh sửa cửa hàng</h2>
+							</div>
+							<div class="card-body">
+								<div>
+									<label for="_id" class="form-label">Store ID:</label> <input
+										type="text" readonly="readonly" class="form-control"
+										value="${store._id}" name="_id" id="_id">
+								</div>
+								<div>
+									<label for="name" class="form-label">Store's name:</label> <input
+										type="text" class="form-control" value="${store.name}"
+										name="name" id="name">
+								</div>
+								<div>
+									<label for="bio" class="form-label">Store's bio:</label> <input
+										type="text" class="form-control" name="bio"
+										value="${store.bio}" id="bio">
+								</div>
+								<div>
+									<label for="avatarFile" class="form-label">Avatar:</label> <input
+										type="file" class="form-control-file" value="${avatarFile}"
+										accept=".jpg, .png" name="avatarFile" id="avatarFile">
+								</div>
+								<div>
+									<label for="coverFile" class="form-label">Cover:</label> <input
+										type="file" class="form-control-file" value="${coverFile}"
+										name="coverFile" id="coverFile">
+								</div>
+								<div>
+									<label for="featuredImagesFile" class="form-label">Featured
+										Images</label> <input type="file" class="form-control-file"
+										value="${featuredImagesFile}" name="featuredImagesFile"
+										id="featuredImagesFile" multiple="multiple">
+								</div>
+
+							</div>
+						</div>
+						<input type="submit" value="Lưu">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<!-- Bootstrap core JavaScript-->
 	<script src="/js/jquery.min.js"></script>
 	<script src="/js/bootstrap.bundle.min.js"></script>
@@ -303,7 +378,21 @@
 
 	<!-- Page level custom scripts -->
 	<script src="/js/demo/datatables-demo.js"></script>
-
+	<script type="text/javascript">
+		$(".editStore").click(function() {
+			let id = $(this).closest("tr").find("td").eq(0).html()
+			let name = $(this).closest("tr").find("td").eq(1).html()
+			let bio = $(this).closest("tr").find("td").eq(2).html()
+			$("#editModal #id").val(id)
+			$("#editModal #name").val(name)
+			$("#editModal #bio").val(bio)
+		})
+		$(".deleteStore").click(function() {
+			let id = $(this).closest("tr").find("td").eq(0).html()
+			let test = document.getElementById("deleteYes")
+			test.setAttribute("href", "/vendor/store/delete?_id=" + id);
+		})
+	</script>
 </body>
 
 </html>

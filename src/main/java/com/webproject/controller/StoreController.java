@@ -154,7 +154,7 @@ public class StoreController {
 		storeService.save(store);
 		// storeService.updateStore(store);
 		model.addAttribute("message", "Chỉnh sửa thành công");
-		return "vendor/store/store";
+		return "redirect:/vendor/store";
 	}
 
 	@GetMapping("edit")
