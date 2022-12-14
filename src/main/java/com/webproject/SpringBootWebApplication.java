@@ -31,5 +31,5 @@ public class SpringBootWebApplication {
 		resolver.setDefaultEncoding("UTF-8");
 		return resolver;
 	}
-
+	
 }
