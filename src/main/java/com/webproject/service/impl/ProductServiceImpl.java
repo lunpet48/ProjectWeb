@@ -73,6 +73,11 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> findAllByStoreId(Long storeId) {
 		return productRepo.findAllByStoreId(storeId);
 	}
+
+	@Override
+	public long count() {
+		return productRepo.count();
+	}
 	
 	
 }

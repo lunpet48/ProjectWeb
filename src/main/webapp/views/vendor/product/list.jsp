@@ -53,7 +53,7 @@
 									<td>${item.name}</td>
 									<td>${item.description}</td>
 									<td>${item.price}</td>
-									<td>${item.promotionalPrice}</td>
+									<td>${item.categoryId.name}</td>
 
 									<td><c:forEach items="${item.listImages }" var="temp">
 											<img src="/vendor/store/product/images/${temp}">

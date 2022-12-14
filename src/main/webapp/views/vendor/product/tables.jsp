@@ -56,16 +56,24 @@
 
 			<!-- Nav Item - Dashboard -->
 			<li class="nav-item active"><a class="nav-link"
-				href="http://localhost:8080/vendor/store"> <i
-					class="fas fa-fw fa-tachometer-alt"></i> <span>Store
-						Information</span></a></li>
+				href="http://localhost:8080/vendor/store/dashboard"> <i
+					class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
 
 			<li class="nav-item active"><a class="nav-link"
+				href="http://localhost:8080/vendor/store"> <i
+					class="fas fa-fw fa-tachometer-alt"></i> <span>Store
+						Information</span></a></li>
+
+			<hr class="sidebar-divider">
+
+			<li class="nav-item active"><a class="nav-link"
 				href="http://localhost:8080/vendor/store/product"> <i
 					class="fa-brands fa-product-hunt"></i> <span>Product</span></a></li>
+
+			<hr class="sidebar-divider">
 
 			<li class="nav-item active"><a class="nav-link"
 				href="http://localhost:8080/vendor/store/orders"> <i
@@ -165,19 +173,20 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">Tables</h1>
-					<p class="mb-4">
-						DataTables is a third party plugin that is used to generate the
-						demo table below. For more information about DataTables, please
-						visit the <a target="_blank" href="https://datatables.net">official
-							DataTables documentation</a>.
-					</p>
+					<h1 class="h3 mb-2 text-gray-800">Quản lý sản phẩm</h1>
 
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
-						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">DataTables
-								Example</h6>
+						<div
+							class="card-header py-3 d-flex align-items-center justify-content-between">
+							<h6 class="m-0 font-weight-bold text-primary ">Danh sách sản
+								phẩm</h6>
+							<div class="d-flex justify-content-between">
+								<a href="#" class="btn btn-primary btn-circle"
+									data-toggle="modal" data-target="#addModal"> <i
+									class="fa-solid fa-plus"></i>
+								</a>
+							</div>
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">
@@ -214,19 +223,20 @@
 												<td>${item.name}</td>
 												<td>${item.description}</td>
 												<td>${item.price}</td>
-												<td>${item.promotionalPrice}</td>
+												<td>${item.categoryId.name}</td>
 
 												<td><c:forEach items="${item.listImages }" var="temp">
 														<img src="/vendor/store/product/images/${temp}">
 													</c:forEach></td>
-												<td><a href="/vendor/store/product/edit/${item._id}"
-													class="btn btn-info btn-circle"> <i
+												<td><a href="#"
+													class="btn btn-info btn-circle editProduct"
+													data-toggle="modal" data-target="#editModal"> <i
 														class="fas fa-info-circle"></i>
 												</a></td>
 
-												<td><a
-													href="/vendor/store/product/delete?id=${item._id }"
-													class="btn btn-danger btn-circle"> <i
+												<td><a href="#"
+													class="btn btn-danger btn-circle deleteProduct"
+													data-toggle="modal" data-target="#deleteModal"> <i
 														class="fas fa-trash"></i>
 												</a></td>
 											</tr>
@@ -287,6 +297,149 @@
 		</div>
 	</div>
 
+	<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					Bạn có muốn xóa sản phẩm này không? <input readonly="readonly"
+						type="text" class="id" value="${id}" name="id" id="did">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">Hủy</button>
+					<a class="btn btn-primary" href="#" id="deleteYes">Có</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="editModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<form action="#" id="editYes" method="post"
+						enctype="multipart/form-data">
+						<div class="card">
+							<div class="card-header">
+								<h2>Chỉnh sửa sản phẩm</h2>
+							</div>
+							<div class="card-body">
+								<div>
+									<input readonly="readonly" type="text" class="form-control id"
+										value="${product._id}" name="id" id="id">
+								</div>
+								<div>
+									<label for="name" class="form-label">Product's name:</label> <input
+										type="text" class="form-control" value="${product.name }"
+										name="name" id="name">
+								</div>
+								<div>
+									<label for="description" class="form-label">Description:</label>
+									<input type="text" class="form-control"
+										value="${product.description}" name="description"
+										id="description">
+								</div>
+								<div>
+									<label for="price" class="form-label">Price:</label> <input
+										type="text" class="form-control" value="${product.price}"
+										name="price" id="price">
+								</div>
+								<div>
+									<label for="cateId" class="form-label">Category:</label> <select
+										name="cateId" id="cateId" class="form-control">
+										<option value="1">Quần áo nam</option>
+										<option value="2">Quần áo nữ</option>
+										<option value="3">Quần áo trẻ em</option>
+									</select>
+								</div>
+								<div>
+									<label for="listImagesFile" class="form-label">List
+										Images</label> <input type="file" class="form-control-file"
+										value="${listImagesFile}" name="listImagesFile"
+										id="listImagesFile" multiple="multiple">
+								</div>
+							</div>
+						</div>
+						<input type="submit" class="btn btn-primary mt-2" value="Save">
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="addModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<form action="<c:url value="/vendor/store/product/create"/>"
+						method="post" enctype="multipart/form-data">
+						<div class="card">
+							<div class="card-header">
+								<h2>Tạo sản phẩm</h2>
+							</div>
+							<div class="card-body">
+								<div>
+									<label for="name" class="form-label">Product's name:</label> <input
+										type="text" class="form-control" value="${product.name }"
+										name="name" id="name">
+								</div>
+								<div>
+									<label for="description" class="form-label">Description:</label>
+									<input type="text" class="form-control"
+										value="${product.description}" name="description"
+										id="description">
+								</div>
+								<div>
+									<label for="price" class="form-label">Price:</label> <input
+										type="text" class="form-control" value="${product.price}"
+										name="price" id="price">
+								</div>
+								<div>
+									<label for="cateId" class="form-label">Category:</label> <select
+										name="cateId" id="cateId" class="form-control">
+										<option value="1">Quần áo nam</option>
+										<option value="2">Quần áo nữ</option>
+										<option value="3">Quần áo trẻ em</option>
+									</select>
+								</div>
+								<div>
+									<label for="listImagesFile" class="form-label">List
+										Images</label> <input type="file" class="form-control-file"
+										value="${listImagesFile}" name="listImagesFile"
+										id="listImagesFile" multiple="multiple">
+								</div>
+							</div>
+						</div>
+						<input class="btn btn-primary mt-2" type="submit" value="Create">
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<!-- Bootstrap core JavaScript-->
 	<script src="/js/jquery.min.js"></script>
 	<script src="/js/bootstrap.bundle.min.js"></script>
@@ -309,7 +462,27 @@
 
 	<!-- Page level custom scripts -->
 	<script src="/js/demo/datatables-demo.js"></script>
-
+	<script type="text/javascript">
+		$(".editProduct").click(function() {
+			let id = $(this).closest("tr").find("td").eq(0).html()
+			let name = $(this).closest("tr").find("td").eq(1).html()
+			let description = $(this).closest("tr").find("td").eq(2).html()
+			let price = $(this).closest("tr").find("td").eq(3).html()
+			let cate = $(this).closest("tr").find("td").eq(4).html()
+			let test = document.getElementById("editYes")
+			test.setAttribute("action", "/vendor/store/product/edit/" + id);
+			$("#editModal #id").val(id)
+			$("#editModal #name").val(name)
+			$("#editModal #description").val(description)
+			$("#editModal #price").val(price)
+			$("#editModal #cateId").val(cate)
+		})
+		$(".deleteProduct").click(function() {
+			let id = $(this).closest("tr").find("td").eq(0).html()
+			let test = document.getElementById("deleteYes")
+			test.setAttribute("href", "/vendor/store/product/delete?id=" + id);
+		})
+	</script>
 </body>
 
 </html>

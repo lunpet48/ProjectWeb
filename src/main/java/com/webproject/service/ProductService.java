@@ -25,4 +25,6 @@ public interface ProductService {
 
 	List<Product> findAllByStoreId(Long storeId);
 
+	long count();
+
 }

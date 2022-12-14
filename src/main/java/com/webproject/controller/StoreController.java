@@ -1,5 +1,6 @@
 package com.webproject.controller;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,8 +24,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.webproject.entity.Product;
 import com.webproject.entity.Store;
 import com.webproject.entity.User;
+import com.webproject.service.ProductService;
 import com.webproject.service.StorageService;
 import com.webproject.service.StoreService;
 
@@ -36,6 +39,9 @@ public class StoreController {
 
 	@Autowired
 	private StorageService storageService;
+
+	@Autowired
+	private ProductService productService;
 
 	@GetMapping("images/{filename:.+}")
 	@ResponseBody
@@ -166,10 +172,9 @@ public class StoreController {
 
 	@GetMapping("delete")
 	public String delete(Model model, @RequestParam(name = "_id") Long id) {
-		//User
+		// User
 		Optional<Store> opt = storeService.findById(id);
-		if(opt.isPresent())
-		{
+		if (opt.isPresent()) {
 			Store store = opt.get();
 			store.setOwnerId(null);
 			storeService.save(store);
@@ -177,7 +182,17 @@ public class StoreController {
 		model.addAttribute("message", "Xóa thành công");
 		return "redirect:/vendor/store";
 	}
-	
+
+	@GetMapping("dashboard")
+	public String dashboard(Model model, HttpSession session) {
+		// User user ............
+		Store store = storeService.findByOwnerId(2L);
+		List<Product> result = productService.findAllByStoreId(store.get_id());
+		int count = result.size();
+		model.addAttribute("count", count);
+		return "vendor/index";
+	}
+
 	/*
 	 * @GetMapping("orders") public String getOrder(Model model, HttpSession
 	 * session) { }

@@ -56,7 +56,7 @@ public class ProductController {
 				.body(file);
 	}
 
-	@GetMapping("")
+	@RequestMapping("")
 	public String getAll(Model model, HttpSession session) {
 		// User user = (User) session.getAttribute("user");
 		//Điều kiện 
@@ -66,16 +66,13 @@ public class ProductController {
 		return "vendor/product/tables";
 	}
 
-	@GetMapping("create")
-	public String create(Model model) {
-		Product product = new Product();
-		product.setPromotionalPrice(0);
-		product.setQuantity(0);
-		product.setIsActive(Boolean.TRUE);
-		product.setIsSelling(Boolean.TRUE);
-		model.addAttribute("product", product);
-		return "vendor/product/createProduct";
-	}
+	/*
+	 * @GetMapping("create") public String create(Model model) { Product product =
+	 * new Product(); product.setPromotionalPrice(0); product.setQuantity(0);
+	 * product.setIsActive(Boolean.TRUE); product.setIsSelling(Boolean.TRUE);
+	 * model.addAttribute("product", product); return
+	 * "vendor/product/createProduct"; }
+	 */
 
 	@PostMapping("create")
 	public String createProduct(Model model, @Valid @ModelAttribute("product") Product product,
@@ -116,6 +113,7 @@ public class ProductController {
 		if (opt.isPresent()) {
 			Product product = opt.get();
 			model.addAttribute("product", product);
+			//return "vendor/product/editProduct";
 			return "vendor/product/editProduct";
 		}
 		model.addAttribute("message", "Product không tồn tại");
@@ -126,13 +124,15 @@ public class ProductController {
 	@PostMapping("edit/{id}")
 	public String update(Model model, @Valid @ModelAttribute("product") Product product,
 			@PathVariable("id") Long id,
+			@RequestParam("cateId") Long cateId,
 			@RequestParam("listImagesFile") MultipartFile[] listImagesFile, BindingResult result) throws Exception {
 
 		if (result.hasErrors()) {
 			return "vendor/store/editStore";
 		}
-
+		
 		product.set_id(id);
+		product.setCategoryId(categoryService.findById(cateId).get());
 
 		if (!listImagesFile[0].isEmpty()) {
 			String[] temp = new String[listImagesFile.length];
@@ -149,7 +149,7 @@ public class ProductController {
 		productService.save(product);
 		
 		model.addAttribute("message", "Chỉnh sửa thành công");
-		return "redirect:/vender/store/product";
+		return "forward:/vendor/store/product";
 	}
 	
 	@GetMapping("delete")
@@ -163,6 +163,6 @@ public class ProductController {
 			productService.save(product);
 		}
 		model.addAttribute("message", "Xóa thành công");
-		return "redirect:/vendor/store/product";
+		return "forward:/vendor/store/product";
 	}
 }

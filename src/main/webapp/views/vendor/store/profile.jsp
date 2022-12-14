@@ -56,6 +56,10 @@
 
 			<!-- Nav Item - Dashboard -->
 			<li class="nav-item active"><a class="nav-link"
+				href="http://localhost:8080/vendor/store/dashboard"> <i
+					class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+			<hr class="sidebar-divider">
+			<li class="nav-item active"><a class="nav-link"
 				href="http://localhost:8080/vendor/store"> <i
 					class="fas fa-fw fa-tachometer-alt"></i> <span>Store
 						Information</span></a></li>
@@ -66,10 +70,15 @@
 			<li class="nav-item active"><a class="nav-link"
 				href="http://localhost:8080/vendor/store/product"> <i
 					class="fa-brands fa-product-hunt"></i> <span>Product</span></a></li>
-
+			<hr class="sidebar-divider">
 			<li class="nav-item active"><a class="nav-link"
 				href="http://localhost:8080/vendor/store/orders"> <i
 					class="fa-solid fa-cart-shopping"></i> <span>Orders</span></a></li>
+
+			<!-- Sidebar Toggler (Sidebar) -->
+			<div class="text-center d-none d-md-inline">
+				<button class="rounded-circle border-0" id="sidebarToggle"></button>
+			</div>
 
 		</ul>
 		<!-- End of Sidebar -->
