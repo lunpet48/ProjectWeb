@@ -43,5 +43,11 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryRepo.findById(id);
 	}
 
+	@Override
+	public void deleteById(Long id) {
+		// TODO Auto-generated method stub
+		categoryRepo.deleteById(id);
+	}
+
 	
 }
