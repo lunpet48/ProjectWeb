@@ -307,9 +307,7 @@
 						<span aria-hidden="true">×</span>
 					</button>
 				</div>
-				<div class="modal-body">
-					Bạn có muốn xóa sản phẩm này không?
-				</div>
+				<div class="modal-body">Bạn có muốn xóa sản phẩm này không?</div>
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">Hủy</button>
@@ -420,10 +418,14 @@
 								<div>
 									<label for="cateId" class="form-label">Category:</label> <select
 										name="cateId" id="cateId" class="form-control">
-										<option value="1">Quần áo nam</option>
-										<option value="2">Quần áo nữ</option>
-										<option value="3">Quần áo trẻ em</option>
+										<c:forEach items="${listCates}" var="item">
+											<option value="${item._id}">${item.name}</option>
+										</c:forEach>
 									</select>
+								</div>
+								<div>
+									<a class="btn btn-primary m-2" href="#" data-toggle="modal"
+										data-target="#styleModal">Thêm thuộc tính</a>
 								</div>
 								<div>
 									<label for="listImagesFile" class="form-label">List
@@ -440,6 +442,31 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="modal fade" id="styleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="">
+					
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">Hủy</button>
+					<a class="btn btn-primary" href="#" id="deleteYes">Có</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
 
 	<!-- Bootstrap core JavaScript-->
 	<script src="/js/jquery.min.js"></script>

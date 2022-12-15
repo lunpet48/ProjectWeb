@@ -26,11 +26,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.webproject.entity.Category;
 import com.webproject.entity.Product;
 import com.webproject.entity.Store;
+import com.webproject.entity.Style;
 import com.webproject.entity.User;
 import com.webproject.service.CategoryService;
 import com.webproject.service.ProductService;
 import com.webproject.service.StorageService;
 import com.webproject.service.StoreService;
+import com.webproject.service.StyleService;
 
 @Controller
 @RequestMapping("vendor/store/product")
@@ -46,6 +48,9 @@ public class ProductController {
 
 	@Autowired
 	private CategoryService categoryService;
+	
+	@Autowired
+	private StyleService styleService;
 	
 	@Autowired
 	HttpSession session;
@@ -64,7 +69,10 @@ public class ProductController {
 		User user = (User) session.getAttribute("user");
 		Store store = storeService.findByOwnerId(user.get_id());
 		List<Product> result = productService.findAllByStoreId(store.get_id());
+		List<Category> listCates = categoryService.findAll();
+		//List<Style> listStyles = styleService.findByCategoryId();
 		model.addAttribute("listProducts", result);
+		model.addAttribute("listCates", listCates);
 		return "vendor/product/tables";
 	}
 
