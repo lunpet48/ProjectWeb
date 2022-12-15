@@ -49,7 +49,15 @@ public class WebController {
 	public String homePage(ModelMap model, HttpSession session) {
 		User user = (User) session.getAttribute("user");
 		System.err.println(user);
+		model.addAttribute("page", "home");
 		return "web/trangchu";
+	}
+	
+	@GetMapping("category-list")
+	public String categoryPage(ModelMap model, HttpSession session) {
+		User user = (User) session.getAttribute("user");
+		model.addAttribute("page", "category");
+		return "web/CategoryList";
 	}
 	
 	@GetMapping("store/{id}")

@@ -9,7 +9,6 @@
 <link rel='stylesheet' href="/css/login/login.css">
 <link rel='stylesheet' href="/css/alertMessage.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script src="/js/login.js"></script>
 </head>
 <body>
 	

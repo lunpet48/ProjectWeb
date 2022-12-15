@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Trang chủ</title>
+<title>LTWEB</title>
 <link rel='stylesheet' href="/css/web/product.css">
 </head>
 <body>
