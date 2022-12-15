@@ -11,6 +11,7 @@
 body
 {
     font-family: 'Roboto', sans-serif;
+    background-color: #F5F5F5;
 }
 a
 {
@@ -71,4 +72,17 @@ footer {
 }
 footer a {
     color: #f8f9fa!important
+}
+
+.navbar-expand-md .navbar-collapse{
+    flex-direction: column;
+}
+
+.searchfield{
+	width: 750px !important;
+    height: 40px;
+    margin: 10px;
+}
+.btn-search{
+	width: 45px;
 }
