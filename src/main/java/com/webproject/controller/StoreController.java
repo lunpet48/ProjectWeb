@@ -43,6 +43,9 @@ public class StoreController {
 	@Autowired
 	private ProductService productService;
 
+	@Autowired
+	HttpSession session;
+
 	@GetMapping("images/{filename:.+}")
 	@ResponseBody
 	public ResponseEntity<Resource> serverFile(@PathVariable String filename) {
@@ -53,16 +56,23 @@ public class StoreController {
 	}
 
 	@GetMapping("")
-	public String getStore(Model model, HttpSession session) {
-		// User user = (User) session.getAttribute("user");
-		Long x = (long) 2;
-		Store store = storeService.findByOwnerId(x);
+	public String getStore(Model model) {
+		User user = (User) session.getAttribute("user");
+		if (user == null)
+			return "redirect:/account/login";
+		Store store = storeService.findByOwnerId(user.get_id());
 		model.addAttribute("store", store);
 		return "vendor/store/profile";
 	}
 
 	@GetMapping("create")
 	public String createStore(ModelMap model) {
+		User user = (User) session.getAttribute("user");
+		if (user == null)
+			return "redirect:/account/login";
+		Store temp = storeService.findByOwnerId(user.get_id());
+		if(temp != null)
+			return "redirect:/vendor/store/";
 		Store store = new Store();
 		store.setIsActive(false);
 		store.setIsOpen(false);
@@ -157,22 +167,22 @@ public class StoreController {
 		return "redirect:/vendor/store";
 	}
 
-	@GetMapping("edit")
-	public String edit(Model model, HttpSession session) {
-		// User temp = (User) session.getAttribute("user");
-		Store store = storeService.findByOwnerId(2L);
-		if (store != null) {
-			model.addAttribute("store", store);
-			return "vendor/store/editStore";
-		}
-		model.addAttribute("message", "Store không tồn tại");
-
-		return "forward:vendor/store/edit";
-	}
+	/*
+	 * @GetMapping("edit") public String edit(Model model) { User temp = (User)
+	 * session.getAttribute("user"); Store store =
+	 * storeService.findByOwnerId(temp.get_id()); if (store != null) {
+	 * model.addAttribute("store", store); return "vendor/store/editStore"; }
+	 * model.addAttribute("message", "Store không tồn tại");
+	 * 
+	 * return "forward:vendor/store/edit"; }
+	 */
 
 	@GetMapping("delete")
 	public String delete(Model model, @RequestParam(name = "_id") Long id) {
-		// User
+		User user = (User) session.getAttribute("user");
+		if (user == null)
+			return "redirect:/account/login";
+		
 		Optional<Store> opt = storeService.findById(id);
 		if (opt.isPresent()) {
 			Store store = opt.get();
@@ -184,9 +194,11 @@ public class StoreController {
 	}
 
 	@GetMapping("dashboard")
-	public String dashboard(Model model, HttpSession session) {
-		// User user ............
-		Store store = storeService.findByOwnerId(2L);
+	public String dashboard(Model model) {
+		User user = (User) session.getAttribute("user");
+		if (user == null)
+			return "redirect:/account/login";
+		Store store = storeService.findByOwnerId(user.get_id());
 		List<Product> result = productService.findAllByStoreId(store.get_id());
 		int count = result.size();
 		model.addAttribute("count", count);

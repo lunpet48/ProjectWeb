@@ -46,6 +46,9 @@ public class ProductController {
 
 	@Autowired
 	private CategoryService categoryService;
+	
+	@Autowired
+	HttpSession session;
 
 	@GetMapping("images/{filename:.+}")
 	@ResponseBody
@@ -58,9 +61,8 @@ public class ProductController {
 
 	@RequestMapping("")
 	public String getAll(Model model, HttpSession session) {
-		// User user = (User) session.getAttribute("user");
-		//Điều kiện 
-		Store store = storeService.findByOwnerId(2L);
+		User user = (User) session.getAttribute("user");
+		Store store = storeService.findByOwnerId(user.get_id());
 		List<Product> result = productService.findAllByStoreId(store.get_id());
 		model.addAttribute("listProducts", result);
 		return "vendor/product/tables";
@@ -105,21 +107,18 @@ public class ProductController {
 		return "redirect:/vendor/store/product";
 	}
 
-	@GetMapping("edit/{productId}")
-	public String edit(Model model, HttpSession session, @PathVariable("productId") Long id) {
-		// User temp = (User) session.getAttribute("user");
-		Optional<Product> opt = productService.findById(id);
-		//Thêm điều kiện là phải cùng của store đó thì mới get được
-		if (opt.isPresent()) {
-			Product product = opt.get();
-			model.addAttribute("product", product);
-			//return "vendor/product/editProduct";
-			return "vendor/product/editProduct";
-		}
-		model.addAttribute("message", "Product không tồn tại");
-
-		return "forward:vendor/product";
-	}
+	/*
+	 * @GetMapping("edit/{productId}") public String edit(Model model, HttpSession
+	 * session, @PathVariable("productId") Long id) { User temp = (User)
+	 * session.getAttribute("user"); Optional<Product> opt =
+	 * productService.findById(id); //Thêm điều kiện là phải cùng của store đó thì
+	 * mới get được if (opt.isPresent() ) { Product product = opt.get();
+	 * model.addAttribute("product", product); //return
+	 * "vendor/product/editProduct"; return "vendor/product/editProduct"; }
+	 * model.addAttribute("message", "Product không tồn tại");
+	 * 
+	 * return "forward:vendor/product"; }
+	 */
 
 	@PostMapping("edit/{id}")
 	public String update(Model model, @Valid @ModelAttribute("product") Product product,
@@ -154,7 +153,10 @@ public class ProductController {
 	
 	@GetMapping("delete")
 	public String delete(Model model, @RequestParam(name = "id") Long id) {
-		//User
+		User user = (User) session.getAttribute("user");
+		if (user == null)
+			return "redirect:/account/login";
+		
 		Optional<Product> opt = productService.findById(id);
 		if(opt.isPresent())
 		{
