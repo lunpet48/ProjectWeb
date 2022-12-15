@@ -4,72 +4,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<!-- Google Web Fonts -->
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link
-	href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
-	rel="stylesheet">
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Font Awesome -->
+<!-- Bootstrap CSS -->
 <link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
-	rel="stylesheet">
-
-<!-- Libraries Stylesheet -->
-<link href="css/animate.min.css" rel="stylesheet">
-<link href="css/owl.carousel.min.css" rel="stylesheet">
-<link href="css/style.css" rel="stylesheet">
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
 <link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.rtl.min.css"
-	integrity="sha512-tC3gnye8BsHmrW3eRP3Nrj/bs+CSVUfzkjOlfLNrfvcbKXFxk5+b8dQCZi9rgVFjDudwipXfqEhsKMMgRZGCDw=="
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+	integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-	<h2>${store.name }</h2>
-
-	<div class="container-fluid pt-5 pb-3">
-		<h2
-			class="section-title position-relative text-uppercase mx-xl-5 mb-4">
-			<span class="bg-secondary pr-3">Recent Products</span>
-		</h2>
-		<div class="row px-xl-5">
-			<c:forEach var="item" items="${listProducts }">
-				<div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-					<div class="product-item bg-light mb-4">
-						<div class="product-img position-relative overflow-hidden">
-							<img class="img-fluid w-100" src="/images/${item.listImages[0] }"
-								alt="">
-							<div class="product-action">
-								<a class="btn btn-outline-dark btn-square" href=""><i
-									class="fa fa-shopping-cart"></i></a> <a
-									class="btn btn-outline-dark btn-square" href=""><i
-									class="far fa-heart"></i></a> <a
-									class="btn btn-outline-dark btn-square" href=""><i
-									class="fa fa-sync-alt"></i></a> <a
-									class="btn btn-outline-dark btn-square" href=""><i
-									class="fa fa-search"></i></a>
+	<%@ include file="/common/web/header.jsp"%>
+	<br />
+	<div class="container mt-3">
+		<div class="row">
+			<div class="col-sm">
+				<div class="card">
+					<div class="card-header bg-primary text-white text-uppercase">
+						<i class="fa fa-star"></i> Last products
+					</div>
+					<div class="card-body">
+						<c:forEach items="${listProducts }" var="item">
+						<div class="product-card">
+							<div class="product-tumb">
+								<img src="/images/${item.listImages[0]}" alt="">
+							</div>
+							<div class="product-details">
+								<p>${item.name }</p>
+								<div class="product-bottom-details">
+									<div class="product-price">
+										<span>${item.price }</span>
+									</div>
+									<div class="product-links">
+										<a href=""><i class="fa fa-shopping-cart"></i></a>
+									</div>
+								</div>
 							</div>
 						</div>
-						<div class="text-center py-4">
-							<a class="h6 text-decoration-none text-truncate" href=""><span>${item.name}</span></a>
-							<div
-								class="d-flex align-items-center justify-content-center mt-2">
-								<h5>${item.price}</h5>
-							</div>
-						</div>
+						</c:forEach>
 					</div>
 				</div>
-			</c:forEach>
+			</div>
 		</div>
 	</div>
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js"
-		integrity="sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g=="
-		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<%@ include file="/common/web/footer.jsp"%>
 </body>
 </html>

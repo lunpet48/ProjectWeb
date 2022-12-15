@@ -83,8 +83,8 @@ public class ProductController {
 		if (result.hasErrors()) {
 			return "vendor/product/createProduct";
 		}
-
-		Store store = storeService.findByOwnerId(2L);
+		User user = (User) session.getAttribute("user");
+		Store store = storeService.findByOwnerId(user.get_id());
 		product.setStoreId(store);
 
 		Optional<Category> cate = categoryService.findById(cateId);
