@@ -41,56 +41,74 @@
 			<!-- sidebar -->
 
 			<div class="main_content">
-				<style>
-.maintable tr>*:nth-child(5) {
-	display: none;
-}
-</style>
+
 				<div class="main_content__body">
+
 					<div class="main_content__body-title">
-						<p>Danh sách tài khoản người dùng</p>
+						<p>Quản lí Categories</p>
 
 					</div>
+					<%@ include file="/common/admin/info.jsp"%>
 					<table class="table maintable">
 						<thead>
 							<tr>
-								<th class="cbx-all" style="width: 10px;"><input
-									type="checkbox" id="" name="" value=""></th>
-								<th>Last name</th>
-								<th>First name</th>
-								<th>Địa chỉ</th>
-								<th>Email</th>
-								<th>SĐT</th>
-								<th>Point</th>
-								<th>Active</th>
+								<th>Image</th>
+								<th>Category name</th>
+								<th>Slug</th>
+								<th>Status</th>
+								<th>CreatedAT</th>
+								<th>updatedAt</th>
+								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
+							<c:forEach var="item" items="${categories}">
 
 
 
-							<c:forEach var="item" items="${listuser}">
 								<tr class="odd gradeX">
-									<td><input type="checkbox" id="" name="" value=""></td>
-
-									<td>${item.firstName }</td>
-
-									<td>${item.lastName }</td>
-									<td>${item.addresses}</td>
-									<td>${item.email}</td>
-									<td>${item.phone}</td>
-									<td>${item.point}</td>
 
 
+
+									<td><c:url value="/admin/category/images/${item.image}"
+											var="imgUrl" /> <img width="50px" height="50px"
+										src="/admin/category/images/${item.image}"></td>
+
+									<td>${item.name }</td>
+
+									<td>${item.slug}</td>
+
+									<td><c:if test="${item.isDeleted == true}">
+
+											<span class="label label-sm label-success"> Hoạt động
+											</span>
+
+										</c:if> <c:if test="${item.isDeleted ==false}">
+
+											<span class="label label-sm label-warning"> Khóa </span>
+
+										</c:if></td>
+									<td>${item.createdAt}</td>
+									<td>${item.updatedAt}</td>
+									<td><a
+										href="<c:url value='/admin/category/edit/${item._id}'/>"
+										class="center"><i class="fa-solid fa-pen-to-square"></i></a> |
+										<a href="<c:url value='/admin/category/delete/${item._id }'/>"
+										class="center"><i
+											class="fa-solid fa-trash delete-multi-row grow-btn-when-hover"></i></a></td>
 
 								</tr>
 
 							</c:forEach>
-
 						</tbody>
 					</table>
 				</div>
 				<div class="main_content__footer">
+					<a href="<c:url value='/admin/category/add'/>"><i
+						class="fa-solid fa-circle-plus addbtn grow-btn-when-hover"></i> </a> <a
+						href="<c:url value='/admin/category'/>"><i
+						class="fa-solid fa-arrows-rotate refreshbtn grow-btn-when-hover"></i>
+					</a>
 					<div class="pagination">
 						<a href="#" id="first-page"><i class="fa-solid fa-angles-left"></i></a>
 						<a href="#" id="pre-page"><i class="fa-solid fa-angle-left"></i></a>
@@ -99,7 +117,6 @@
 							href="#" id="last-page"><i class="fa-solid fa-angles-right"></i></a>
 					</div>
 				</div>
-
 				<!-- script for action in page -->
 				<script>
 					// display active item

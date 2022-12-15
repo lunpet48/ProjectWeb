@@ -24,11 +24,11 @@
               </a>
               
               <div class="sub-menu">
-                <a href="<c:url value='/admin/user'/>" class="item sub-item">
+                <a href="<c:url value='/admin/user/all'/>" class="item sub-item">
                   Tài khoản
                 </a>
                 <a href="<c:url value='/admin/customer'/>" class="item sub-item">
-                  Khách hàng
+                  Thống kê
                 </a>
                 <a href="<c:url value='/admin/employee'/>" class="item sub-item">
                   Nhân viên
@@ -49,8 +49,10 @@
               </a>
               
               <div class="sub-menu">
-                
-                <a href="<c:url value='/admin/Product'/>" class="item sub-item">
+                <a href="<c:url value='/admin/category'/>" class="item sub-item">
+                  Danh mục
+                </a>
+                <a href="<c:url value='/admin/product'/>" class="item sub-item">
                   Sản phẩm
                 </a>
                 <a href="<c:url value='/admin/order'/>" class="item sub-item">

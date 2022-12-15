@@ -47,10 +47,10 @@ public class Category implements Serializable {
 	
 	private String slug;
 	
-	@NotNull
-	@OneToOne
-	@JoinColumn(name = "categoryId", referencedColumnName = "_id")
-	private Category categoryId;
+//	@NotNull
+//	@OneToOne
+//	@JoinColumn(name = "categoryId", referencedColumnName = "_id")
+//	private Category categoryId;
 	
 	private String image;
 	
