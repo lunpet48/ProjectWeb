@@ -61,6 +61,8 @@ public class StoreController {
 		if (user == null)
 			return "redirect:/account/login";
 		Store store = storeService.findByOwnerId(user.get_id());
+		if(store == null) 
+			return "redirect:/vendor/store/create";
 		model.addAttribute("store", store);
 		return "vendor/store/profile";
 	}
@@ -89,7 +91,10 @@ public class StoreController {
 		if (result.hasErrors()) {
 			return "vendor/store/createStore";
 		}
-
+		
+		User user = (User) session.getAttribute("user");
+		store.setOwnerId(user);
+		
 		if (!avatarFile.isEmpty()) { // if (true) {
 			UUID uuid = UUID.randomUUID();
 			String uuString = uuid.toString();
