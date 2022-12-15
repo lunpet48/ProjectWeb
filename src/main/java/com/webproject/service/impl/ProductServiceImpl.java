@@ -78,6 +78,11 @@ public class ProductServiceImpl implements ProductService {
 	public long count() {
 		return productRepo.count();
 	}
+
+	@Override
+	public List<Product> findLastestProduct() {
+		return productRepo.findLastestProduct();
+	}
 	
 	
 }

@@ -27,4 +27,6 @@ public interface ProductService {
 
 	long count();
 
+	List<Product> findLastestProduct();
+
 }

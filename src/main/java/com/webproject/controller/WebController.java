@@ -48,8 +48,10 @@ public class WebController {
 	@GetMapping("")
 	public String homePage(ModelMap model, HttpSession session) {
 		User user = (User) session.getAttribute("user");
-		System.err.println(user);
+		List<Product> list = productService.findLastestProduct();
+		
 		model.addAttribute("page", "home");
+		model.addAttribute("productlist", list);
 		return "web/trangchu";
 	}
 	
@@ -58,6 +60,12 @@ public class WebController {
 		User user = (User) session.getAttribute("user");
 		model.addAttribute("page", "category");
 		return "web/CategoryList";
+	}
+	@GetMapping("cart")
+	public String cartPage(ModelMap model, HttpSession session) {
+		User user = (User) session.getAttribute("user");
+		model.addAttribute("page", "cart");
+		return "web/Cart";
 	}
 	
 	@GetMapping("store/{id}")
