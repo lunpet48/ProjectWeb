@@ -1,5 +1,6 @@
 package com.webproject.controller;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.tomcat.util.bcel.Const;
@@ -34,7 +35,7 @@ public class LoginController {
 		return "login/login";
 	}
 	@PostMapping("login")
-	public ModelAndView login(ModelMap model, @Valid @ModelAttribute("user") UserModel user, BindingResult result) throws JSONException
+	public ModelAndView login(ModelMap model, @Valid @ModelAttribute("user") UserModel user, BindingResult result, HttpSession session) throws JSONException
 	{	
 		String message = "";
 		if(result.hasErrors()) {	
@@ -54,7 +55,8 @@ public class LoginController {
 		}
 		else if(BCrypt.checkpw(user.getPassword(), entity.getHashedPassword())) {
 			System.err.println("đăng nhập thành công");
-			return new ModelAndView("login/login");
+			session.setAttribute("user", entity);
+			return new ModelAndView("redirect:/");
 		}
 		else {
 			message = "Mật khẩu không chính xác";
