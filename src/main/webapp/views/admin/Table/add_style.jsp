@@ -60,7 +60,7 @@
 
 							<div class="form-group">
 
-								<label for="name">Category Name:</label> <input type="text"
+								<label for="name">Style Name:</label> <input type="text"
 									class="form-control" name="name" value="${style.name }" />
 
 							</div>
