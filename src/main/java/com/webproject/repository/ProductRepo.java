@@ -14,4 +14,6 @@ public interface ProductRepo extends JpaRepository<Product, Long>{
 	@Query(value = "Select * from Product where storeId = ?", nativeQuery = true)
 	List<Product> findAllByStoreId(Long storeId);
 	
+	@Query(value = "SELECT TOP 25 * FROM Product ORDER BY _id DESC", nativeQuery = true)
+	List<Product> findLastestProduct();
 }

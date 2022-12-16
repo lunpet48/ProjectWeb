@@ -17,99 +17,26 @@
         <div class="col-sm">
             <div class="card">
                 <div class="card-header bg-primary text-white text-uppercase">
-                    <i class="fa fa-star"></i> Last products
+                    <i class="fa fa-star"></i> Sản phẩm mới nhất
                 </div>
                 <div class="card-body">
-
-                    <div class="product-card">
-                        <div class="product-tumb">
-                            <img src="https://source.unsplash.com/random" alt="">
-                        </div>
-                        <div class="product-details">
-                            <p>Sản phẩm 1</p>
-                            <div class="product-bottom-details">
-                                <div class="product-price"><small>$96.000.000</small>$23.990.000</div>
-                                <div class="product-links">
-                                    <a href=""><i class="fa fa-shopping-cart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product-card">
-                        <div class="product-tumb">
-                            <img src="https://source.unsplash.com/random" alt="">
-                        </div>
-                        <div class="product-details">
-                            <p>Sản phẩm 1</p>
-                            <div class="product-bottom-details">
-                                <div class="product-price"><small>$96.000.000</small>$23.990.000</div>
-                                <div class="product-links">
-                                    <a href=""><i class="fa fa-shopping-cart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product-card">
-                        <div class="product-tumb">
-                            <img src="https://source.unsplash.com/random" alt="">
-                        </div>
-                        <div class="product-details">
-                            <p>Sản phẩm 1</p>
-                            <div class="product-bottom-details">
-                                <div class="product-price"><small>$96.000.000</small>$23.990.000</div>
-                                <div class="product-links">
-                                    <a href=""><i class="fa fa-shopping-cart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product-card">
-                        <div class="product-tumb">
-                            <img src="https://source.unsplash.com/random" alt="">
-                        </div>
-                        <div class="product-details">
-                            <p>Sản phẩm 1</p>
-                            <div class="product-bottom-details">
-                                <div class="product-price"><small>$96.00</small>$230.99</div>
-                                <div class="product-links">
-                                    <a href=""><i class="fa fa-shopping-cart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product-card">
-                        <div class="product-tumb">
-                            <img src="https://source.unsplash.com/random" alt="">
-                        </div>
-                        <div class="product-details">
-                            <p>Sản phẩm 1</p>
-                            <div class="product-bottom-details">
-                                <div class="product-price"><small>$96.00</small>$230.99</div>
-                                <div class="product-links">
-                                    <a href=""><i class="fa fa-shopping-cart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product-card">
-                        <div class="product-tumb">
-                            <img src="https://source.unsplash.com/random" alt="">
-                        </div>
-                        <div class="product-details">
-                            <p>Sản phẩm 1</p>
-                            <div class="product-bottom-details">
-                                <div class="product-price"><small>$96.00</small>$230.99</div>
-                                <div class="product-links">
-                                    <a href=""><i class="fa fa-shopping-cart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                	
+                	<c:forEach items="${productlist}" var ="product">
+	                	<div class="product-card">
+	                        <div class="product-tumb">
+	                            <img src="/vendor/store/product/images/${product.listImages[0]}" alt="">
+	                        </div>
+	                        <div class="product-details">
+	                            <p>${product.name}</p>
+	                            <div class="product-bottom-details">
+	                                <div class="product-price"><!-- <small>$96.000.000</small> -->${product.price}</div>
+	                                <div class="product-links">
+	                                    <a href=""><i class="fa fa-shopping-cart"></i></a>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>	
+                	</c:forEach>
 
                 </div>
             </div>

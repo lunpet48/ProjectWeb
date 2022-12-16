@@ -30,4 +30,7 @@ public interface StyleService {
 
 	void delete(Style entity);
 
+	Page<Style> page(int index, int size);
+	
+	Page<Style> pageFiterbyCate(Long cateid, int index, int size);
 }

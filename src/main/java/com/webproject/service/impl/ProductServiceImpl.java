@@ -86,5 +86,10 @@ public class ProductServiceImpl implements ProductService {
 		return productRepo.findAll(PageRequest.of(index, size));
 	}
 	
+	@Override
+	public List<Product> findLastestProduct() {
+		return productRepo.findLastestProduct();
+	}
+	
 	
 }

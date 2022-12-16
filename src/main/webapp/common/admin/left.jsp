@@ -37,6 +37,12 @@
 				class="fa-solid fa-angle-right dropdown"></i>
 		</a></li>
 		<li class="list"><b></b> <b></b> <a
+			href="<c:url value='/admin/style/0/1'/>" class=" item active"> <span
+				class="icon"><i class="fa-solid fa-s"></i></span> <span
+				class="title">Style</span> <i
+				class="fa-solid fa-angle-right dropdown"></i>
+		</a></li>
+		<li class="list"><b></b> <b></b> <a
 			href="<c:url value='/admin/product/all/1'/>" class=" item active"> <span
 				class="icon"><i
 					class="fa-regular fa-book"></i></span> <span

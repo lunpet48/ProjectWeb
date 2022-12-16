@@ -29,4 +29,6 @@ public interface ProductService {
 	
 	Page<Product>page(int index, int size);
 
+	List<Product> findLastestProduct();
+
 }
