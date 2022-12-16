@@ -70,8 +70,7 @@
 
 
 
-									<td><c:url value="/admin/category/images/${item.image}"
-											var="imgUrl" /> <img width="50px" height="50px"
+									<td> <img width="130px" height="100px"
 										src="/admin/category/images/${item.image}"></td>
 
 									<td>${item.name }</td>
@@ -80,12 +79,12 @@
 
 									<td><c:if test="${item.isDeleted == true}">
 
-											<span class="label label-sm label-success"> Hoạt động
+											<span class="label label-sm label-success"> Khóa
 											</span>
 
 										</c:if> <c:if test="${item.isDeleted ==false}">
 
-											<span class="label label-sm label-warning"> Khóa </span>
+											<span class="label label-sm label-warning"> Hoạt động </span>
 
 										</c:if></td>
 									<td>${item.createdAt}</td>

@@ -7,27 +7,26 @@
 <meta charset="UTF-8" />
 <title>SUNNY | Trang quản trị</title>
 <link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/css/bootstrap.min.css" />
-
-<link rel="stylesheet"
-	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-	crossorigin="anonymous" />
-
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
-<link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
 	integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="<c:url value='/views/admin/css/base.css'/>" />
 <link rel="stylesheet" href="<c:url value='/views/admin/css/main.css'/>" />
+<link rel="stylesheet" href="<c:url value='/views/admin/css/style.css'/>" />
 <script src="//code.jquery.com/jquery-3.2.1.slim.min.js"
 	type="text/javascript"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-
+<!-- Body -->
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	rel="stylesheet" type="text/css">
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600"
+	rel="stylesheet" type="text/css">
 </head>
 <body class="no-skin">
 	<div class="app">
@@ -74,10 +73,11 @@
 
 							</div>
 
-							 <div class="form-group">
+							<div class="form-group">
 
 								<label for="imageFile">Images:</label> <input type="file"
-									class="form-control" name="imageFile" value="${category.imageFile}" />
+									class="form-control" name="imageFile"
+									value="${category.imageFile}" />
 
 							</div>
 							<div class="mb-3">

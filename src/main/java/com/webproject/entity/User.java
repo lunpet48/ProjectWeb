@@ -57,7 +57,7 @@ public class User implements Serializable {
 	private String phone;
 
 	//@Column(name = "isEmailActive",nullable = false, columnDefinition = "boolean default false")
-	private boolean isEmailActive;
+	private boolean isEmailActive;	
 
 	//@Column(name = "isPhoneActive",nullable = false,columnDefinition = "boolean default false")
 	private boolean isPhoneActive;

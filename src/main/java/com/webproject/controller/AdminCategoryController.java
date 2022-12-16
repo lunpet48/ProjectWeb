@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import javax.persistence.Entity;
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
@@ -80,6 +79,7 @@ public class AdminCategoryController {
 			String uuString = uuid.toString();
 			//Lưu file vào trường image
 			cate.setImage(storageService.getStorageFilename(cate.getImageFile(), uuString));
+			storageService.store(cate.getImageFile(),cate.getImage());
 		}
 		Category category =new Category();
 		//Copy tu Model sang Entity

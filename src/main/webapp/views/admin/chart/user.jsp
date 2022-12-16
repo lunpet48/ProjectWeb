@@ -25,12 +25,52 @@
 	type="text/javascript"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+<script type="text/javascript">
+	window.onload = function() {
 
+		var dps = [];
+		var chart = new CanvasJS.Chart("chartContainer", {
+			theme : "light2", // "light1", "dark1", "dark2"
+			animationEnabled : true,
+			title : {
+				title : "Datetime",
+				text : "Thống kê người dùng mới"
+			},
+			axisX : {
+				valueFormatString : "DD-MM-YYYY"
+			},
+			axisY : {
+				title : "Số lượng user mới",
+				includeZero : true,
+				suffix : ""
+			},
+			data : [ {
+				type : "line",
+				xValueType : "dateTime",
+				xValueFormatString : "DD-MM-YYYY",
+				yValueFormatString : "#",
+				dataPoints : dps
+			} ]
+		});
+
+		var xValue;
+		var yValue;
+
+		<c:forEach items="${listuser}" var="item">
+		xValue = Date.parse("${item.createdAt}");
+		yValue = parseInt("${item.point}");
+		dps.push({
+			x : xValue,
+			y : yValue
+		});
+		</c:forEach>
+		chart.render();
+
+	}
+</script>
 
 </head>
 <body class="no-skin">
@@ -46,164 +86,108 @@
 			<!-- sidebar -->
 
 			<div class="main_content">
+				<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+				<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
-				<h3 class="tlt">Line Chart</h3>
-				<div >
-					<canvas id="myChart"></canvas>
-				</div>
-				<script>
-    let myChart = document.getElementById('myChart').getContext('2d');
-    // Global Options
-    Chart.defaults.global.defaultFontFamily = 'Lato';
-    Chart.defaults.global.defaultFontSize = 18;
-    Chart.defaults.global.defaultFontColor = '#777';
-
-    let massPopChart = new Chart(myChart, {
-      type:'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
-      data:{
-        labels:[<c:forEach items="${listuser}" var="item">'${item.createdAt}',</c:forEach>],
-        datasets:[{
-          label:'Population',
-          data:[<c:forEach items="${listuser}" var="item">${item.point},</c:forEach>],
-          backgroundColor:'green',
-          
-          borderWidth:1,
-          borderColor:'#777',
-          hoverBorderWidth:3,
-          hoverBorderColor:'#000'
-        }]
-      },
-      options:{
-        title:{
-          display:true,
-          text:'Thống kê người dùng mới',
-          fontSize:25
-        },
-        legend:{
-          display:true,
-          position:'right',
-          labels:{
-            fontColor:'#000'
-          }
-        },
-        layout:{
-          padding:{
-            left:50,
-            right:0,
-            bottom:0,
-            top:0
-          }
-        },
-        tooltips:{
-          enabled:true
-        }
-      }
-    });
-  </script>
 			</div>
 		</div>
 	</div>
-
 	<!-- script for action in page -->
 	<script>
-      // display active item
-      let item = document.querySelectorAll(".item");
-      let subitem = document.querySelectorAll(".sub-item");
-      for (let i = 0; i < item.length; i++) {
-        item[i].onclick = function () {
-          
-          let j = 0;
-          let k =0;
-          let list = document.querySelectorAll(".list");
-          while (k < subitem.length) {
-            
-            subitem[k++].className = "sub-item";
-          }
-          while (j < list.length) {
-            
-            list[j++].className = "list";
-          }
-          item[i].closest(".list").className = "list active";
-        };
-      }
-      
-      for (let i = 0; i < subitem.length; i++) {
-        subitem[i].onclick = function () {
-          
-          let j = 0;
-          let k = 0;
-          let list = document.querySelectorAll(".list");
-          while (k < list.length) {
-            
-            list[k++].className = "list";
-          }
-          while (j < subitem.length) {
-            
-            subitem[j++].className = "sub-item";
-          }
-          subitem[i].className = "sub-item active";
-          subitem[i].closest(".list").className  = "list active";
-        };
-      }
+		// display active item
+		let item = document.querySelectorAll(".item");
+		let subitem = document.querySelectorAll(".sub-item");
+		for (let i = 0; i < item.length; i++) {
+			item[i].onclick = function() {
 
-      // toggle on menu button
-      
-      let menuToggle = document.querySelector(".toggle");
-      let navigation = document.querySelector(".navigation");
-      let content = document.querySelector(".main_content");
-      let menutoggleclick = function () {
-        let subbtn  = document.querySelectorAll(".sub-btn");
-        menuToggle.classList.toggle("active");
-        navigation.classList.toggle("active");
-        content.classList.toggle("active");
-        //disable dropdown
-        for(let i = 0; i < subbtn.length; i++ ){
-          subbtn[i].classList.toggle("hover-btn")
-        }
+				let j = 0;
+				let k = 0;
+				let list = document.querySelectorAll(".list");
+				while (k < subitem.length) {
 
+					subitem[k++].className = "sub-item";
+				}
+				while (j < list.length) {
 
-      };
-      menutoggleclick();
-      menuToggle.onclick = menutoggleclick;
+					list[j++].className = "list";
+				}
+				item[i].closest(".list").className = "list active";
+			};
+		}
 
-      
+		for (let i = 0; i < subitem.length; i++) {
+			subitem[i].onclick = function() {
 
-      
-    </script>
+				let j = 0;
+				let k = 0;
+				let list = document.querySelectorAll(".list");
+				while (k < list.length) {
+
+					list[k++].className = "list";
+				}
+				while (j < subitem.length) {
+
+					subitem[j++].className = "sub-item";
+				}
+				subitem[i].className = "sub-item active";
+				subitem[i].closest(".list").className = "list active";
+			};
+		}
+
+		// toggle on menu button
+
+		let menuToggle = document.querySelector(".toggle");
+		let navigation = document.querySelector(".navigation");
+		let content = document.querySelector(".main_content");
+		let menutoggleclick = function() {
+			let subbtn = document.querySelectorAll(".sub-btn");
+			menuToggle.classList.toggle("active");
+			navigation.classList.toggle("active");
+			content.classList.toggle("active");
+			//disable dropdown
+			for (let i = 0; i < subbtn.length; i++) {
+				subbtn[i].classList.toggle("hover-btn")
+			}
+
+		};
+		menutoggleclick();
+		menuToggle.onclick = menutoggleclick;
+	</script>
 	<script>
-      // show hide dropdown list
-      $(document).ready(function(){
-        $('.sub-btn').click(function(){
-          if(!this.classList.contains("hover-btn")){
-            $(this).next('.sub-menu').slideToggle();
-            $(this).find('.dropdown').toggleClass('rotate')
-          }
-        })
-      })
-      
-      test();
-      function test() {
-    	  $.get('/sunnyFE/account/getsession', function(ketqua) {
-    		  let u = ketqua.user
-    		  if(u == null || !(u.roleId.roleId == 3 || u.roleId.roleId == 1) ){
-    			  window.location.href = "/sunnyFE/account/login";
-    		  }
-    		  if(u.roleId.roleId == 3){
-    			  $('.authentication-admin').remove()
-    		  }
-    	  })
-	}
-      
-      function checkfilter(o) {
-		return false;
-	}
-      
-      function formatmoney(n, currency) {
-			
+		// show hide dropdown list
+		$(document).ready(function() {
+			$('.sub-btn').click(function() {
+				if (!this.classList.contains("hover-btn")) {
+					$(this).next('.sub-menu').slideToggle();
+					$(this).find('.dropdown').toggleClass('rotate')
+				}
+			})
+		})
+
+		test();
+		function test() {
+			$.get('/sunnyFE/account/getsession', function(ketqua) {
+				let u = ketqua.user
+				if (u == null
+						|| !(u.roleId.roleId == 3 || u.roleId.roleId == 1)) {
+					window.location.href = "/sunnyFE/account/login";
+				}
+				if (u.roleId.roleId == 3) {
+					$('.authentication-admin').remove()
+				}
+			})
+		}
+
+		function checkfilter(o) {
+			return false;
+		}
+
+		function formatmoney(n, currency) {
+
 			const money = n.toString();
 			return money.replace(/\B(?=(\d{3})+(?!\d))/g, ',') + currency;
-			}
-    </script>
+		}
+	</script>
 
 
 </body>

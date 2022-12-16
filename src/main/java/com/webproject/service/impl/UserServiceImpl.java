@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.webproject.entity.User;
@@ -46,6 +48,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public <S extends User> S save(S entity) {
 		return userRepo.save(entity);
+	}
+
+	@Override
+	public Page<User> uPage(int pagenumber, int page) {
+		// TODO Auto-generated method stub
+		return userRepo.findAll(PageRequest.of(pagenumber, page));
 	}
 
 	

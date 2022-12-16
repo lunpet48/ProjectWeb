@@ -26,5 +26,7 @@ public interface ProductService {
 	List<Product> findAllByStoreId(Long storeId);
 
 	long count();
+	
+	Page<Product>page(int index, int size);
 
 }

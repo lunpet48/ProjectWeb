@@ -44,17 +44,16 @@
 
 				<div class="main_content__body">
 					<div class="main_content__body-title">
-						<p>Danh sách tài khoản người dùng</p>
+						<p>Danh sách cửa hàng</p>
 
 					</div>
 					<table class="table maintable">
 						<thead>
 							<tr>
-								<th>First name</th>
-								<th>Last name</th>
-								<th>Địa chỉ</th>
-								<th>Email</th>
-								<th>SĐT</th>
+								<th>Avatar</th>
+								<th>Store name</th>
+								<th>Owner</th>
+								<th>Phone</th>
 								<th>Point</th>
 								<th>Active</th>
 								<th>CreatedAt</th>
@@ -64,15 +63,14 @@
 
 
 
-							<c:forEach var="item" items="${listuser}">
+							<c:forEach var="item" items="${listStore}">
 								<tr class="odd gradeX">
+									<td><img width="130px" height="100px"
+										src="/admin/category/images/${item.avatar}"></td>
+									<td>${item.name }</td>
 
-									<td>${item.firstName }</td>
-
-									<td>${item.lastName }</td>
-									<td>${item.address}</td>
-									<td>${item.email}</td>
-									<td>${item.phone}</td>
+									<td>${item.ownerId.name }</td>
+									<td>${item.ownerId.phone}</td>
 									<td>${item.point}</td>
 									<td></td>
 									<td>${item.createdAt}</td>
@@ -88,16 +86,16 @@
 					<div class="pagination">
 						<c:if test="${page.getNumber()+1>1}">
 							<a
-								href="${pageContext.request.contextPath }/admin/user/${page.getNumber()-2}"
+								href="${pageContext.request.contextPath }/admin/store/${page.getNumber()-2}"
 								id="first-page"><i class="fa-solid fa-angles-left"></i></a>
 						</c:if>
 						<c:forEach begin="1" end="${page.getTotalPages()}" var="i">
 							<a id="currentpage"
-								href="${pageContext.request.contextPath}/admin/user/${i}">${i}</a>
+								href="${pageContext.request.contextPath}/admin/store/${i}">${i}</a>
 						</c:forEach>
 						<c:if test="${page.getNumber()+1<page.getTotalPages()}">
 							<a
-								href="${pageContext.request.contextPath}/admin/user/${page.getNumber()+2}"
+								href="${pageContext.request.contextPath}/admin/store/${page.getNumber()+2}"
 								id="last-page"><i class="fa-solid fa-angles-right"></i></a>
 						</c:if>
 					</div>

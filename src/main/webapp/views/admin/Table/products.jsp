@@ -44,19 +44,19 @@
 
 				<div class="main_content__body">
 					<div class="main_content__body-title">
-						<p>Danh sách tài khoản người dùng</p>
+						<p>Quản lí Product</p>
 
 					</div>
 					<table class="table maintable">
 						<thead>
 							<tr>
-								<th>First name</th>
-								<th>Last name</th>
-								<th>Địa chỉ</th>
-								<th>Email</th>
-								<th>SĐT</th>
-								<th>Point</th>
-								<th>Active</th>
+								<th>Image</th>
+								<th>Product name</th>
+								<th>Category name</th>
+								<th>Store name</th>
+								<th>Quantity</th>
+								<th>Price</th>
+								<th>Status</th>
 								<th>CreatedAt</th>
 							</tr>
 						</thead>
@@ -64,17 +64,28 @@
 
 
 
-							<c:forEach var="item" items="${listuser}">
+							<c:forEach var="item" items="${listProducts}">
 								<tr class="odd gradeX">
 
-									<td>${item.firstName }</td>
+									<td><c:forEach items="${item.listImages }" var="temp">
+											<img width="130px" height="100px" src="/vendor/store/product/images/${temp}">
+										</c:forEach></td>
 
-									<td>${item.lastName }</td>
-									<td>${item.address}</td>
-									<td>${item.email}</td>
-									<td>${item.phone}</td>
-									<td>${item.point}</td>
-									<td></td>
+									<td>${item.name }</td>
+									<td>${item.categoryId.name}</td>
+									<td>${item.storeId.name}</td>
+									<td>${item.quantity}</td>
+									<td>${item.price}</td>
+									<td><c:if test="${item.isActive == false}">
+
+											<span class="label label-sm label-success"> Khóa </span>
+
+										</c:if> <c:if test="${item.isActive ==true}">
+
+											<span class="label label-sm label-warning"> Hoạt động
+											</span>
+
+										</c:if></td>
 									<td>${item.createdAt}</td>
 
 								</tr>
@@ -88,16 +99,16 @@
 					<div class="pagination">
 						<c:if test="${page.getNumber()+1>1}">
 							<a
-								href="${pageContext.request.contextPath }/admin/user/${page.getNumber()-2}"
+								href="${pageContext.request.contextPath }/admin/product/all/${page.getNumber()-2}"
 								id="first-page"><i class="fa-solid fa-angles-left"></i></a>
 						</c:if>
 						<c:forEach begin="1" end="${page.getTotalPages()}" var="i">
 							<a id="currentpage"
-								href="${pageContext.request.contextPath}/admin/user/${i}">${i}</a>
+								href="${pageContext.request.contextPath}/admin/product/all/${i}">${i}</a>
 						</c:forEach>
 						<c:if test="${page.getNumber()+1<page.getTotalPages()}">
 							<a
-								href="${pageContext.request.contextPath}/admin/user/${page.getNumber()+2}"
+								href="${pageContext.request.contextPath}/admin/product/all/${page.getNumber()+2}"
 								id="last-page"><i class="fa-solid fa-angles-right"></i></a>
 						</c:if>
 					</div>

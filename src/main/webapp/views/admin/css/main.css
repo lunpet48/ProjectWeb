@@ -78,7 +78,7 @@
     top: 60px;
     left: 0px;
     bottom: 0px;
-    width: 300px;
+    width: 200px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     box-sizing: initial;
@@ -239,7 +239,7 @@
 .toggle{
     position: fixed;
     top: 60px;
-    left: 300px;
+    left: 200px;
     width: 50px;
     height: 50px;
     background: #4d5bf9;
@@ -295,8 +295,8 @@
 /* main_content */
 .main_content {
     padding: 2%;
-	width: calc(100% - 320px);
-	margin-left: 320px;
+	width: calc(100% - 220px);
+	margin-left: 220px;
     margin-top: 70px;
 }
 

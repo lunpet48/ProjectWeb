@@ -21,12 +21,22 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="<c:url value='/views/admin/css/base.css'/>" />
 <link rel="stylesheet" href="<c:url value='/views/admin/css/main.css'/>" />
+<link rel="stylesheet" href="<c:url value='/views/admin/css/style.css'/>" />
 <script src="//code.jquery.com/jquery-3.2.1.slim.min.js"
 	type="text/javascript"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- BODY -->
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	rel="stylesheet" type="text/css">
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600"
+	rel="stylesheet" type="text/css">
 
-
+<!-- BODY -->
 </head>
 <body class="no-skin">
 	<div class="app">
@@ -41,112 +51,242 @@
 			<!-- sidebar -->
 
 			<div class="main_content">
-				<dec:body />
-			</div>
+				<div class="col">
+					<div class="row">
+						<div class="col-12 col-md-6 col-lg-4">
+							<div class="card">
+								<div class="card-body">
+									<h4 class="card-title">
+										<a href="product.html" title="View Product">Users</a>
+									</h4>
+									
+									<div class="row">
+										<div class="col">
+											<p class="btn btn-danger btn-block">99.00 $</p>
+										</div>
+										<div class="col">
+											<a href="/admin/user/chart" class="btn btn-success btn-block">Chart</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 col-md-6 col-lg-4">
+							<div class="card">
+								<img class="card-img-top"
+									src="https://dummyimage.com/600x400/55595c/fff"
+									alt="Card image cap">
+								<div class="card-body">
+									<h4 class="card-title">
+										<a href="product.html" title="View Product">Product title</a>
+									</h4>
+									<p class="card-text">Some quick example text to build on
+										the card title and make up the bulk of the card's content.</p>
+									<div class="row">
+										<div class="col">
+											<p class="btn btn-danger btn-block">99.00 $</p>
+										</div>
+										<div class="col">
+											<a href="#" class="btn btn-success btn-block">Add to cart</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 col-md-6 col-lg-4">
+							<div class="card">
+								<img class="card-img-top"
+									src="https://dummyimage.com/600x400/55595c/fff"
+									alt="Card image cap">
+								<div class="card-body">
+									<h4 class="card-title">
+										<a href="product.html" title="View Product">Product title</a>
+									</h4>
+									<p class="card-text">Some quick example text to build on
+										the card title and make up the bulk of the card's content.</p>
+									<div class="row">
+										<div class="col">
+											<p class="btn btn-danger btn-block">99.00 $</p>
+										</div>
+										<div class="col">
+											<a href="#" class="btn btn-success btn-block">Add to cart</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 col-md-6 col-lg-4">
+							<div class="card">
+								<img class="card-img-top"
+									src="https://dummyimage.com/600x400/55595c/fff"
+									alt="Card image cap">
+								<div class="card-body">
+									<h4 class="card-title">
+										<a href="product.html" title="View Product">Product title</a>
+									</h4>
+									<p class="card-text">Some quick example text to build on
+										the card title and make up the bulk of the card's content.</p>
+									<div class="row">
+										<div class="col">
+											<p class="btn btn-danger btn-block">99.00 $</p>
+										</div>
+										<div class="col">
+											<a href="#" class="btn btn-success btn-block">Add to cart</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 col-md-6 col-lg-4">
+							<div class="card">
+								<img class="card-img-top"
+									src="https://dummyimage.com/600x400/55595c/fff"
+									alt="Card image cap">
+								<div class="card-body">
+									<h4 class="card-title">
+										<a href="product.html" title="View Product">Product title</a>
+									</h4>
+									<p class="card-text">Some quick example text to build on
+										the card title and make up the bulk of the card's content.</p>
+									<div class="row">
+										<div class="col">
+											<p class="btn btn-danger btn-block">99.00 $</p>
+										</div>
+										<div class="col">
+											<a href="#" class="btn btn-success btn-block">Add to cart</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 col-md-6 col-lg-4">
+							<div class="card">
+								<img class="card-img-top"
+									src="https://dummyimage.com/600x400/55595c/fff"
+									alt="Card image cap">
+								<div class="card-body">
+									<h4 class="card-title">
+										<a href="product.html" title="View Product">Product title</a>
+									</h4>
+									<p class="card-text">Some quick example text to build on
+										the card title and make up the bulk of the card's content.</p>
+									<div class="row">
+										<div class="col">
+											<p class="btn btn-danger btn-block">99.00 $</p>
+										</div>
+										<div class="col">
+											<a href="#" class="btn btn-success btn-block">Add to cart</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 
+					</div>
+				</div>
+
+			</div>
 		</div>
 	</div>
 
+
+
 	<!-- script for action in page -->
 	<script>
-      // display active item
-      let item = document.querySelectorAll(".item");
-      let subitem = document.querySelectorAll(".sub-item");
-      for (let i = 0; i < item.length; i++) {
-        item[i].onclick = function () {
-          
-          let j = 0;
-          let k =0;
-          let list = document.querySelectorAll(".list");
-          while (k < subitem.length) {
-            
-            subitem[k++].className = "sub-item";
-          }
-          while (j < list.length) {
-            
-            list[j++].className = "list";
-          }
-          item[i].closest(".list").className = "list active";
-        };
-      }
-      
-      for (let i = 0; i < subitem.length; i++) {
-        subitem[i].onclick = function () {
-          
-          let j = 0;
-          let k = 0;
-          let list = document.querySelectorAll(".list");
-          while (k < list.length) {
-            
-            list[k++].className = "list";
-          }
-          while (j < subitem.length) {
-            
-            subitem[j++].className = "sub-item";
-          }
-          subitem[i].className = "sub-item active";
-          subitem[i].closest(".list").className  = "list active";
-        };
-      }
+		// display active item
+		let item = document.querySelectorAll(".item");
+		let subitem = document.querySelectorAll(".sub-item");
+		for (let i = 0; i < item.length; i++) {
+			item[i].onclick = function() {
 
-      // toggle on menu button
-      
-      let menuToggle = document.querySelector(".toggle");
-      let navigation = document.querySelector(".navigation");
-      let content = document.querySelector(".main_content");
-      let menutoggleclick = function () {
-        let subbtn  = document.querySelectorAll(".sub-btn");
-        menuToggle.classList.toggle("active");
-        navigation.classList.toggle("active");
-        content.classList.toggle("active");
-        //disable dropdown
-        for(let i = 0; i < subbtn.length; i++ ){
-          subbtn[i].classList.toggle("hover-btn")
-        }
+				let j = 0;
+				let k = 0;
+				let list = document.querySelectorAll(".list");
+				while (k < subitem.length) {
 
+					subitem[k++].className = "sub-item";
+				}
+				while (j < list.length) {
 
-      };
-      menutoggleclick();
-      menuToggle.onclick = menutoggleclick;
+					list[j++].className = "list";
+				}
+				item[i].closest(".list").className = "list active";
+			};
+		}
 
-      
+		for (let i = 0; i < subitem.length; i++) {
+			subitem[i].onclick = function() {
 
-      
-    </script>
+				let j = 0;
+				let k = 0;
+				let list = document.querySelectorAll(".list");
+				while (k < list.length) {
+
+					list[k++].className = "list";
+				}
+				while (j < subitem.length) {
+
+					subitem[j++].className = "sub-item";
+				}
+				subitem[i].className = "sub-item active";
+				subitem[i].closest(".list").className = "list active";
+			};
+		}
+
+		// toggle on menu button
+
+		let menuToggle = document.querySelector(".toggle");
+		let navigation = document.querySelector(".navigation");
+		let content = document.querySelector(".main_content");
+		let menutoggleclick = function() {
+			let subbtn = document.querySelectorAll(".sub-btn");
+			menuToggle.classList.toggle("active");
+			navigation.classList.toggle("active");
+			content.classList.toggle("active");
+			//disable dropdown
+			for (let i = 0; i < subbtn.length; i++) {
+				subbtn[i].classList.toggle("hover-btn")
+			}
+
+		};
+		menutoggleclick();
+		menuToggle.onclick = menutoggleclick;
+	</script>
 	<script>
-      // show hide dropdown list
-      $(document).ready(function(){
-        $('.sub-btn').click(function(){
-          if(!this.classList.contains("hover-btn")){
-            $(this).next('.sub-menu').slideToggle();
-            $(this).find('.dropdown').toggleClass('rotate')
-          }
-        })
-      })
-      
-      test();
-      function test() {
-    	  $.get('/sunnyFE/account/getsession', function(ketqua) {
-    		  let u = ketqua.user
-    		  if(u == null || !(u.roleId.roleId == 3 || u.roleId.roleId == 1) ){
-    			  window.location.href = "/sunnyFE/account/login";
-    		  }
-    		  if(u.roleId.roleId == 3){
-    			  $('.authentication-admin').remove()
-    		  }
-    	  })
-	}
-      
-      function checkfilter(o) {
-		return false;
-	}
-      
-      function formatmoney(n, currency) {
-			
+		// show hide dropdown list
+		$(document).ready(function() {
+			$('.sub-btn').click(function() {
+				if (!this.classList.contains("hover-btn")) {
+					$(this).next('.sub-menu').slideToggle();
+					$(this).find('.dropdown').toggleClass('rotate')
+				}
+			})
+		})
+
+		test();
+		function test() {
+			$.get('/sunnyFE/account/getsession', function(ketqua) {
+				let u = ketqua.user
+				if (u == null
+						|| !(u.roleId.roleId == 3 || u.roleId.roleId == 1)) {
+					window.location.href = "/sunnyFE/account/login";
+				}
+				if (u.roleId.roleId == 3) {
+					$('.authentication-admin').remove()
+				}
+			})
+		}
+
+		function checkfilter(o) {
+			return false;
+		}
+
+		function formatmoney(n, currency) {
+
 			const money = n.toString();
 			return money.replace(/\B(?=(\d{3})+(?!\d))/g, ',') + currency;
-			}
-    </script>
+		}
+	</script>
 
 
 </body>

@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -121,6 +122,12 @@ public class StoreServiceImpl implements StoreService {
 		 */
 		storeRepo.updateStore(entity.getBio(), entity.getAvatar(), entity.getCover(), entity.getFeaturedImages(),
 				entity.get_id());
+	}
+
+	@Override
+	public Page<Store> page(int index, int size) {
+		// TODO Auto-generated method stub
+		return storeRepo.findAll(PageRequest.of(index, size));
 	}
 
 }
