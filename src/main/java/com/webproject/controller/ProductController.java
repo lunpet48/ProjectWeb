@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.webproject.SpringBootWebApplication;
 import com.webproject.entity.Category;
 import com.webproject.entity.Product;
 import com.webproject.entity.Store;
@@ -70,9 +72,12 @@ public class ProductController {
 		Store store = storeService.findByOwnerId(user.get_id());
 		List<Product> result = productService.findAllByStoreId(store.get_id());
 		List<Category> listCates = categoryService.findAll();
-		// List<Style> listStyles = styleService.findByCategoryId();
+		Optional<Category> category= categoryService.findById(1L);
+		List<Style> listStyles = styleService.findByCategoryId(category.get());
+		
 		model.addAttribute("listProducts", result);
 		model.addAttribute("listCates", listCates);
+		model.addAttribute("listStyles", listStyles);
 		return "vendor/product/tables";
 	}
 
@@ -174,4 +179,5 @@ public class ProductController {
 		model.addAttribute("message", "Xóa thành công");
 		return "forward:/vendor/store/product";
 	}
+	
 }

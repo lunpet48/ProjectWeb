@@ -365,6 +365,10 @@
 									</select>
 								</div>
 								<div>
+									<a class="btn btn-primary m-2" href="#" data-toggle="modal"
+										data-target="#styleModal">Thêm thuộc tính</a>
+								</div>
+								<div>
 									<label for="listImagesFile" class="form-label">List
 										Images</label> <input type="file" class="form-control-file"
 										value="${listImagesFile}" name="listImagesFile"
@@ -445,7 +449,7 @@
 
 	<div class="modal fade" id="styleModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
+		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button class="close" type="button" data-dismiss="modal"
@@ -454,8 +458,26 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form action="">
-					
+					<%-- <form action="#">
+						<c:forEach items="${listStyles}" var="item">
+							<input type="text" name="styleValue"
+								class="form-control styleValueClass" value="${item.name}">
+							<input class="btn btn-primary" type="submit" value="Thêm">
+						</c:forEach>
+					</form> --%>
+					<h2>Thêm giá trị cho thuộc tính</h2>
+						<form action="#" method="post" enctype="multipart/form-data">
+						<c:forEach items="${listStyles }" var="style">
+							<div class="card">
+								<div class="card-body">
+									<div>
+										<label><span>${style.name}</span></label> <input type="text"
+											name="styleValue" class="styleValueClass"> <input
+											type="submit" class="btn btn-primary" value="Thêm">
+									</div>
+								</div>
+							</div>
+						</c:forEach>
 					</form>
 				</div>
 				<div class="modal-footer">
@@ -510,6 +532,11 @@
 			let test = document.getElementById("deleteYes")
 			test.setAttribute("href", "/vendor/store/product/delete?id=" + id);
 		})
+
+		let id = document.getElementByClassName("styleValueClass")
+		if (!id) {
+			$(".styleValueClass").closest("input").hidden
+		}
 	</script>
 </body>
 
