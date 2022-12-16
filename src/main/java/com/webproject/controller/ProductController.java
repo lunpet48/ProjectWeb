@@ -48,10 +48,10 @@ public class ProductController {
 
 	@Autowired
 	private CategoryService categoryService;
-	
+
 	@Autowired
 	private StyleService styleService;
-	
+
 	@Autowired
 	HttpSession session;
 
@@ -70,7 +70,7 @@ public class ProductController {
 		Store store = storeService.findByOwnerId(user.get_id());
 		List<Product> result = productService.findAllByStoreId(store.get_id());
 		List<Category> listCates = categoryService.findAll();
-		//List<Style> listStyles = styleService.findByCategoryId();
+		// List<Style> listStyles = styleService.findByCategoryId();
 		model.addAttribute("listProducts", result);
 		model.addAttribute("listCates", listCates);
 		return "vendor/product/tables";
@@ -129,17 +129,17 @@ public class ProductController {
 	 */
 
 	@PostMapping("edit/{id}")
-	public String update(Model model, @Valid @ModelAttribute("product") Product product,
-			@PathVariable("id") Long id,
-			@RequestParam("cateId") Long cateId,
+	public String update(Model model, @Valid @ModelAttribute("product") Product product, @PathVariable("id") Long id,
+			@RequestParam(required = false, name = "cateId") Long cateId,
 			@RequestParam("listImagesFile") MultipartFile[] listImagesFile, BindingResult result) throws Exception {
 
 		if (result.hasErrors()) {
 			return "vendor/store/editStore";
 		}
-		
+
 		product.set_id(id);
-		product.setCategoryId(categoryService.findById(cateId).get());
+		if (cateId != null)
+			product.setCategoryId(categoryService.findById(cateId).get());
 
 		if (!listImagesFile[0].isEmpty()) {
 			String[] temp = new String[listImagesFile.length];
@@ -154,20 +154,19 @@ public class ProductController {
 			storageService.store(listImagesFile, product.getListImages());
 		}
 		productService.save(product);
-		
+
 		model.addAttribute("message", "Chỉnh sửa thành công");
-		return "forward:/vendor/store/product";
+		return "redirect:/vendor/store/product";
 	}
-	
+
 	@GetMapping("delete")
 	public String delete(Model model, @RequestParam(name = "id") Long id) {
 		User user = (User) session.getAttribute("user");
 		if (user == null)
 			return "redirect:/account/login";
-		
+
 		Optional<Product> opt = productService.findById(id);
-		if(opt.isPresent())
-		{
+		if (opt.isPresent()) {
 			Product product = opt.get();
 			product.setStoreId(null);
 			productService.save(product);

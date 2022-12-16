@@ -19,6 +19,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Nationalized;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,12 +45,14 @@ public class Product implements Serializable {
 	
 	@Column(nullable = false)
 	@Size(max = 1000)
+	@Nationalized
 	private String name;
 	
 	private String slug;
 	
 	@Column(nullable = false)
 	@Size(max = 1000)
+	@Nationalized 
 	private String description;
 	
 	@Column(nullable = false)
