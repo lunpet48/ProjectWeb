@@ -1,5 +1,6 @@
 package com.webproject.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,4 +18,7 @@ public interface CartItemRepo extends JpaRepository<CartItem, Long> {
 	@Modifying(clearAutomatically = true)
 	@Query(value = "Update CartItem set count = ?1, cartId=?2, productId=?3", nativeQuery = true)
 	void updateCartItem(int count, Long cartId, Long productId) throws Exception;
+	
+	@Query(value = "SELECT * FROM CartItem where cartId = ?", nativeQuery = true)
+	List<CartItem> findCartItemByCartId(Long cartId);
 }

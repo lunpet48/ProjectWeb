@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import com.webproject.entity.Cart;
@@ -24,5 +25,11 @@ public class CartServiceImpl implements CartService {
 	public <S extends Cart> S save(S entity) {
 		return cartRepo.save(entity);
 	}
+
+	@Override
+	public List<Long> getAllCartIdOfUser(Long userId) {
+		return cartRepo.getAllCartIdOfUser(userId);
+	}
+	
 	
 }

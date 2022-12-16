@@ -1,5 +1,6 @@
 package com.webproject.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -76,6 +77,10 @@ public class WebController {
 	@GetMapping("cart")
 	public String cartPage(ModelMap model, HttpSession session) {
 		User user = (User) session.getAttribute("user");
+		List<Long> cartId = cartService.getAllCartIdOfUser(user.get_id());
+		List<List<CartItem>> cartItem = new ArrayList<>();
+		cartId.forEach((n) -> cartItem.add(cartitemService.findCartItemByCartId(n)));
+		model.addAttribute("cartItem", cartItem);
 		model.addAttribute("page", "cart");
 		return "web/Cart";
 	}

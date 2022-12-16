@@ -11,4 +11,6 @@ public interface CartService {
 	
 	Optional<Cart> findCartByUserIdAndStoreId(Long userId, Long storeId);
 
+	List<Long> getAllCartIdOfUser(Long userId);
+
 }

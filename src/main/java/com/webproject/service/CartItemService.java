@@ -1,5 +1,6 @@
 package com.webproject.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.webproject.entity.Cart;
@@ -12,5 +13,7 @@ public interface CartItemService {
 	Optional<CartItem> findCartItemByCartIdAndProductId(Long cartId, Long productId);
 
 	void updateCartItem(int count, Long cartId, Long productId) throws Exception;
+
+	List<CartItem> findCartItemByCartId(Long cartId);
 
 }

@@ -1,5 +1,6 @@
 package com.webproject.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ public class CartItemServiceImpl implements CartItemService {
 	@Override
 	public void updateCartItem(int count, Long cartId, Long productId) throws Exception {
 		cartItemRepo.updateCartItem(count, cartId, productId);
+	}
+
+	@Override
+	public List<CartItem> findCartItemByCartId(Long cartId) {
+		return cartItemRepo.findCartItemByCartId(cartId);
 	}
 	
 	
