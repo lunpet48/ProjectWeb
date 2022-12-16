@@ -30,8 +30,8 @@
 	                            <p>${product.name}</p>
 	                            <div class="product-bottom-details">
 	                                <div class="product-price"><!-- <small>$96.000.000</small> -->${product.price}</div>
-	                                <div class="product-links">
-	                                    <a href=""><i class="fa fa-shopping-cart"></i></a>
+	                                <div class="product-links add-to-cart">
+	                                    <a><i class="fa fa-shopping-cart"></i></a>
 	                                </div>
 	                            </div>
 	                        </div>
