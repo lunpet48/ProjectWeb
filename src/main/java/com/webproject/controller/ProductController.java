@@ -1,5 +1,6 @@
 package com.webproject.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -29,12 +30,14 @@ import com.webproject.entity.Category;
 import com.webproject.entity.Product;
 import com.webproject.entity.Store;
 import com.webproject.entity.Style;
+import com.webproject.entity.StyleValue;
 import com.webproject.entity.User;
 import com.webproject.service.CategoryService;
 import com.webproject.service.ProductService;
 import com.webproject.service.StorageService;
 import com.webproject.service.StoreService;
 import com.webproject.service.StyleService;
+import com.webproject.service.StyleValueService;
 
 @Controller
 @RequestMapping("vendor/store/product")
@@ -53,6 +56,9 @@ public class ProductController {
 
 	@Autowired
 	private StyleService styleService;
+	
+	@Autowired
+	private StyleValueService styleValueService;
 
 	@Autowired
 	HttpSession session;
@@ -72,12 +78,14 @@ public class ProductController {
 		Store store = storeService.findByOwnerId(user.get_id());
 		List<Product> result = productService.findAllByStoreId(store.get_id());
 		List<Category> listCates = categoryService.findAll();
-		Optional<Category> category= categoryService.findById(1L);
+		Optional<Category> category = categoryService.findById(1L);
 		List<Style> listStyles = styleService.findByCategoryId(category.get());
-		
+		List<StyleValue> listStyleValues = new ArrayList<>();
+
 		model.addAttribute("listProducts", result);
 		model.addAttribute("listCates", listCates);
 		model.addAttribute("listStyles", listStyles);
+		model.addAttribute("listStyleValues", listStyleValues);
 		return "vendor/product/tables";
 	}
 
@@ -179,5 +187,19 @@ public class ProductController {
 		model.addAttribute("message", "Xóa thành công");
 		return "forward:/vendor/store/product";
 	}
-	
+
+	@PostMapping("add-style-value")
+	public void addStyleValue(Model model, @ModelAttribute("listStyleValues") List<StyleValue> list,
+			@RequestParam("cateId") Long cateId) {
+		Optional<Category> category = categoryService.findById(1L);
+		List<Style> listStyles = styleService.findByCategoryId(category.get());
+
+		for (int i = 0; i < listStyles.size(); i++) {
+			StyleValue temp = list.get(i);
+			temp.setStyleId(listStyles.get(i));
+			styleValueService.save(temp);
+		}
+		
+		
+	}
 }

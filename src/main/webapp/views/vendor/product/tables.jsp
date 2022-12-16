@@ -466,18 +466,18 @@
 						</c:forEach>
 					</form> --%>
 					<h2>Thêm giá trị cho thuộc tính</h2>
-						<form action="#" method="post" enctype="multipart/form-data">
+					<form action="" method="post" enctype="multipart/form-data">
 						<c:forEach items="${listStyles }" var="style">
 							<div class="card">
 								<div class="card-body">
 									<div>
 										<label><span>${style.name}</span></label> <input type="text"
-											name="styleValue" class="styleValueClass"> <input
-											type="submit" class="btn btn-primary" value="Thêm">
+											name="styleValue" class="styleValueClass">
 									</div>
 								</div>
 							</div>
 						</c:forEach>
+						<input type="submit" class="btn btn-primary" value="Thêm">
 					</form>
 				</div>
 				<div class="modal-footer">
@@ -532,11 +532,6 @@
 			let test = document.getElementById("deleteYes")
 			test.setAttribute("href", "/vendor/store/product/delete?id=" + id);
 		})
-
-		let id = document.getElementByClassName("styleValueClass")
-		if (!id) {
-			$(".styleValueClass").closest("input").hidden
-		}
 	</script>
 </body>
 
