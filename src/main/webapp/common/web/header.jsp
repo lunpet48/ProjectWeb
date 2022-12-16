@@ -87,7 +87,7 @@
 	      <p>Bạn có muốn thêm sản phẩm này vào giỏ hàng không?</p>
 	    </div>
 	    <div class="modal-footer">
-	      <button>Xác nhận</button>
+	      <button id="xac-nhan-them-vao-gio" >Xác nhận</button>
 	      <button class="close-modal">Hủy</button>
 	    </div>
 	  </div>
@@ -95,13 +95,17 @@
 		
 	
 	<script type="text/javascript">
+	var pid;
+	var modal = document.getElementById("confirm-add-to-cart");
+	
 	let page = '${page}';
 	$('#navbars li').removeClass("active");
 	$('#' + page).addClass("active");
 	
 	//thông báo xác nhận muốn thêm vào giỏ hàng
-	var modal = document.getElementById("confirm-add-to-cart");
 	$(document).on("click",".add-to-cart",function() {
+		pid = $(this).closest('.product-card').find('input').eq(0).val()
+		
 		modal.style.display = "block";
 	});
 	$(document).on("click",".close-modal",function() {
@@ -112,6 +116,25 @@
 	    modal.style.display = "none";
 	  }
 	}
+
+	$(document).on("click","#xac-nhan-them-vao-gio",function() {
+	
+		$.ajax({
+	        type: "POST",
+	        contentType: "application/json",
+	        url: "http://localhost:8081/cart/add-to-cart",
+	        data: JSON.stringify(pid),
+	        /* dataType: 'json', */
+	        success: function (data) {
+				alert(data)
+	        },
+	        error: function (e) {
+				alert("An error occur!");
+	        }
+	    });
+		
+	});
+	
 	</script>
 </body>
 </html>

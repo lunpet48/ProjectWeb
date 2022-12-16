@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -14,13 +15,18 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.webproject.entity.Cart;
+import com.webproject.entity.CartItem;
 import com.webproject.entity.Product;
 import com.webproject.entity.Store;
 import com.webproject.entity.User;
+import com.webproject.service.CartItemService;
+import com.webproject.service.CartService;
 import com.webproject.service.ProductService;
 import com.webproject.service.StorageService;
 import com.webproject.service.StoreService;
@@ -30,6 +36,12 @@ import com.webproject.service.StoreService;
 public class WebController {
 	@Autowired
 	private StoreService storeService;
+	
+	@Autowired
+	private CartService cartService;
+	
+	@Autowired
+	private CartItemService cartitemService;
 
 	@Autowired
 	private StorageService storageService;
@@ -66,6 +78,47 @@ public class WebController {
 		User user = (User) session.getAttribute("user");
 		model.addAttribute("page", "cart");
 		return "web/Cart";
+	}
+	//dùng để gọi từ ajax
+	@PostMapping("cart/add-to-cart")
+	public ResponseEntity<?>  addToCart(@Valid @RequestBody Long pid, HttpSession session) throws Exception {
+		Cart cart;
+		CartItem cartItem;
+		User user = (User) session.getAttribute("user");
+		System.err.println(user);
+		Product product = productService.findById(pid).get();
+		
+		Optional<Cart> opt = cartService.findCartByUserIdAndStoreId(user.get_id(), product.getStoreId().get_id());
+		if(opt.isEmpty()) {
+			System.err.println("empty");
+			cart = new Cart();
+			cart.setUserId(user);
+			cart.setStoreId(product.getStoreId());
+			cartService.save(cart);
+		}
+		else {
+			System.err.println("present");
+			cart = opt.get();
+		}
+		
+		Optional<CartItem> cartItemOpt = cartitemService.findCartItemByCartIdAndProductId(cart.get_id(), product.get_id());
+		if(cartItemOpt.isEmpty()) {
+			System.err.println("empty");
+			cartItem= new CartItem();
+			cartItem.setCartId(cart);
+			cartItem.setCount(1);
+			cartItem.setProductId(product);
+			cartitemService.save(cartItem);
+		}
+		else {
+			System.err.println("present");
+			cartItem = cartItemOpt.get();
+			cartItem.setCount(cartItem.getCount() + 1);
+			cartitemService.save(cartItem);			
+		}
+		
+		return ResponseEntity.ok("thanhf coong");
+
 	}
 	
 	@GetMapping("store/{id}")

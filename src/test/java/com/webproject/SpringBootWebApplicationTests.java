@@ -21,6 +21,8 @@ class SpringBootWebApplicationTests {
 		category.setName("Danh mục 2");
 		category.setSlug("danhmuc2");
 		categoryService.save(category);
+		
+		//tạo 
 	}
 
 }

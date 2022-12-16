@@ -23,6 +23,7 @@
                 	
                 	<c:forEach items="${productlist}" var ="product">
 	                	<div class="product-card">
+	                		<input type="hidden" value="${product._id}">
 	                        <div class="product-tumb">
 	                            <img src="/vendor/store/product/images/${product.listImages[0]}" alt="">
 	                        </div>
@@ -30,7 +31,7 @@
 	                            <p>${product.name}</p>
 	                            <div class="product-bottom-details">
 	                                <div class="product-price"><!-- <small>$96.000.000</small> -->${product.price}</div>
-	                                <div class="product-links add-to-cart">
+	                                <div class="product-links add-to-cart" >
 	                                    <a><i class="fa fa-shopping-cart"></i></a>
 	                                </div>
 	                            </div>
