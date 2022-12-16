@@ -14,6 +14,8 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Nationalized;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -39,6 +41,7 @@ public class Style implements Serializable {
 	private Long _id;
 
 	@Column(unique = true, nullable = false)
+	@Nationalized
 	private String name;
 	
 	@ManyToOne
