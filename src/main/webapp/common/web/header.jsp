@@ -11,6 +11,7 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600" rel="stylesheet" type="text/css">
     <link rel='stylesheet' href="/css/web/web.css">
+    <link rel='stylesheet' href="/css/modal.css">
     <!-- script -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
@@ -64,7 +65,7 @@
 					    </c:otherwise>
 					</c:choose>
 	                 
-	                <a class="btn btn-success btn-sm ml-3" href="cart.html">
+	                <a class="btn btn-success btn-sm ml-3" href="/cart">
 	                    <i class="fa fa-shopping-cart"></i> Cart
 	                    <span class="badge badge-light">3</span>
 	                </a>
@@ -74,10 +75,43 @@
 	        </div>
 	    </div>
 	</nav>
+	
+	<!-- thông báo xác nhận muốn thêm vào giỏ hàng -->
+	<div id="confirm-add-to-cart" class="modal">
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <span class="close close-modal">&times;</span>
+	      <h2>Thông báo</h2>
+	    </div>
+	    <div class="modal-body">
+	      <p>Bạn có muốn thêm sản phẩm này vào giỏ hàng không?</p>
+	    </div>
+	    <div class="modal-footer">
+	      <button>Xác nhận</button>
+	      <button class="close-modal">Hủy</button>
+	    </div>
+	  </div>
+	</div>
+		
+	
 	<script type="text/javascript">
 	let page = '${page}';
 	$('#navbars li').removeClass("active");
 	$('#' + page).addClass("active");
+	
+	//thông báo xác nhận muốn thêm vào giỏ hàng
+	var modal = document.getElementById("confirm-add-to-cart");
+	$(document).on("click",".add-to-cart",function() {
+		modal.style.display = "block";
+	});
+	$(document).on("click",".close-modal",function() {
+		modal.style.display = "none";
+	});
+	window.onclick = function(event) {
+	  if (event.target == modal) {
+	    modal.style.display = "none";
+	  }
+	}
 	</script>
 </body>
 </html>

@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.webproject.entity.Category;
 import com.webproject.entity.Style;
+import com.webproject.entity.StyleValue;
 import com.webproject.service.CategoryService;
 import com.webproject.service.StyleService;
 import com.webproject.service.StyleValueService;
@@ -103,10 +104,42 @@ public class AdminStyleController {
 		return new ModelAndView("forward:/admin/style/0/1",model);
 	}
 	
-	@RequestMapping("value/{styleId}")
+	
+	
+	//STYLE VALUE
+	
+	@GetMapping("value/{styleId}")
 	public String listStyleValue(ModelMap modelMap, @PathVariable("styleId") Long id ) {
-		
-		
+		Optional<Style>optional=styleService.findById(id);
+		Style style=optional.get();
+		List<StyleValue>styleValueys=styleValueService.findByStyleId(style);
+		modelMap.addAttribute("style", style);
+		modelMap.addAttribute("ListstyleValue", styleValueys);
 		return "admin/Table/styleValue";
+	}
+	@PostMapping("value/{styleId}/save")
+	public ModelAndView save(ModelMap model, @PathVariable("styleId") String id, @ModelAttribute("styleValue") StyleValue styleValue,
+			BindingResult result) {
+		if(result.hasErrors()) {
+			return new ModelAndView("admin/Table/styleValue");
+		}
+		styleValueService.save(styleValue);
+//		System.out.println("AdminStyleController.save()");
+//		Long styleId=Long.parseLong(id);
+//		Optional<Style>optional=styleService.findById(styleId);
+//		Style style=optional.get();
+//		List<StyleValue>styleValueys=styleValueService.findByStyleId(style);
+//		model.addAttribute("style", style);
+//		model.addAttribute("ListstyleValue", styleValueys);
+//		model.addAttribute("message", "Thêm thành công");
+		return new ModelAndView("redirect:/admin/style/value/"+id,model);
+	}
+	@GetMapping("value/{styleId}/delete/{_id}")
+	public ModelAndView deleteStyleValue(ModelMap model,@PathVariable("styleId") String styleid,@PathVariable("_id") Long id ) {
+		Optional<StyleValue>optional=styleValueService.findById(id);
+		StyleValue styleValue=optional.get();
+		styleValueService.delete(styleValue);
+//		model.addAttribute("message", "Đã xóa thành công");
+		return new ModelAndView("redirect:/admin/style/value/"+styleid,model);
 	}
 }
