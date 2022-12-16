@@ -16,6 +16,8 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Nationalized;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,10 +37,12 @@ public class Store {
 
 	@Column(unique = true, nullable = false)
 	@Size(max = 100)
+	@Nationalized 
 	private String name;
 
 	@Column(nullable = false)
 	@Size(max = 1000)
+	@Nationalized 
 	private String bio;
 
 	private String slug;

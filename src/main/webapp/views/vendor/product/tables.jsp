@@ -359,9 +359,9 @@
 								<div>
 									<label for="cateId" class="form-label">Category:</label> <select
 										name="cateId" id="cateId" class="form-control">
-										<option value="1">Quần áo nam</option>
-										<option value="2">Quần áo nữ</option>
-										<option value="3">Quần áo trẻ em</option>
+										<c:forEach items="${listCates}" var="item">
+											<option value="${item._id}">${item.name}</option>
+										</c:forEach>
 									</select>
 								</div>
 								<div>
