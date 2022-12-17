@@ -80,6 +80,7 @@ public class WebController {
 		List<Long> cartId = cartService.getAllCartIdOfUser(user.get_id());
 		List<List<CartItem>> cartItem = new ArrayList<>();
 		cartId.forEach((n) -> cartItem.add(cartitemService.findCartItemByCartId(n)));
+		
 		model.addAttribute("cartItem", cartItem);
 		model.addAttribute("page", "cart");
 		return "web/Cart";

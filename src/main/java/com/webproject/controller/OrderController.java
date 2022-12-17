@@ -17,12 +17,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.webproject.entity.Cart;
 import com.webproject.entity.CartItem;
 import com.webproject.entity.Order;
 import com.webproject.entity.OrderItem;
 import com.webproject.entity.User;
 import com.webproject.model.OrderModel;
 import com.webproject.service.CartItemService;
+import com.webproject.service.CartService;
 import com.webproject.service.OrderItemService;
 import com.webproject.service.OrderService;
 
@@ -36,6 +38,9 @@ public class OrderController {
 	@Autowired
 	private OrderItemService orderItemService;
 	
+
+	@Autowired
+	private CartService cartService;
 
 	@Autowired
 	private CartItemService cartItemService;
@@ -75,8 +80,12 @@ public class OrderController {
 			for (CartItem cartItemRemove : removeList) {
 				cartItems.remove(cartItemRemove);
 				cartItemService.delete(cartItemRemove);
+				
+				Cart check = cartService.findById(cartItemRemove.getCartId().get_id()).get();
+				if(cartItemService.findCartItemByCartId(check.get_id()).isEmpty() ) {
+					cartService.delete(check);
+				}
 			}
-			
 			
 		}
 		

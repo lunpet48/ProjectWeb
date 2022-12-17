@@ -30,6 +30,17 @@ public class CartServiceImpl implements CartService {
 	public List<Long> getAllCartIdOfUser(Long userId) {
 		return cartRepo.getAllCartIdOfUser(userId);
 	}
+
+	@Override
+	public void delete(Cart entity) {
+		cartRepo.delete(entity);
+	}
+
+	@Override
+	public Optional<Cart> findById(Long id) {
+		return cartRepo.findById(id);
+	}
+	
 	
 	
 }
