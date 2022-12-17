@@ -9,6 +9,14 @@
 <title>LTWEB</title>
 
 <link rel='stylesheet' href="/css/web/cart.css">
+
+<script>
+$(document).ready(function(){
+  $('.store .check-one').change(function(){
+   alert(5)
+  });   
+});
+</script>
 </head>
 <body>
 	<%@ include file="/common/web/header.jsp"%>
@@ -108,7 +116,10 @@
 	                    <button class="btn btn-block btn-light">Continue Shopping</button>
 	                </div>
 	                <div class="col-sm-12  col-md-4">
-	                    <button class="btn btn-block btn-light">Xóa</button>
+	                	<form action="/order/delete" method="post">
+	                		<input type="hidden" name="cartitem" id="input-cartitem-delete" value="" multiple >
+	                    	<button class="btn btn-block btn-light">Xóa</button>
+	                    </form>
 	                </div>
 	                <div class="col-sm-12 col-md-4 text-right">
 	                    <button class="btn btn-lg btn-block btn-success text-uppercase" id="dat-hang">Checkout</button>
@@ -147,11 +158,13 @@
 		  </div>
 		</div>
 		
-		<input type="hidden" name="cartitem" id="input-cartitem" value="3,4,5" multiple >
+		<input type="hidden" name="cartitem" id="input-cartitem" value="" multiple >
+		
 	</form>
 	<%@ include file="/common/web/footer.jsp"%>
 	
 	<script type="text/javascript">
+	// checkbox all
 		$(document).on('change', '#check-all', function() {
 		    if (this.checked) {
 		    	$('.store input[type=checkbox]').each(function () {
@@ -165,12 +178,13 @@
 		    }
 		});
 		
+	// uncheck checkbox-all
 		$(document).on('change', '.store input[type=checkbox]', function(e) {
 		    if (!this.checked) {
 		    	$('#check-all').prop('checked', false);
 		    }
 		});
-		
+	// checkbox shop
 		$(document).on('change', '.check-shop', function() {
 		    if (this.checked) {
 		    	$(this).closest('table').find('tbody .check-one').prop('checked', true);
@@ -178,13 +192,16 @@
 		    	$(this).closest('table').find('tbody .check-one').prop('checked', false);
 		    }
 		});
-		
+	// uncheck checkbox-shop
 		$(document).on('change', '.store .check-one', function(e) {
+			alert(1)
 		    if (!this.checked) {
+		    	
 		    	$(this).closest('table').find('thead .check-shop').prop('checked', false);
 		    }
 		});
-		
+	
+	// chặn submit form khi ấn hủy 	
 		$(document).on('click', 'button.close-modal', function(e) {
 			e.preventDefault();
 		});
@@ -212,6 +229,10 @@
 		    modal.style.display = "none";
 		  }
 		}
+		// 
+		$(document).on('change', '#check-all', function() {
+			
+		})
 		
 	</script>
 </body>
