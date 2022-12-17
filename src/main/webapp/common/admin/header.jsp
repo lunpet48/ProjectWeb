@@ -9,33 +9,21 @@
 	</ul>
 	<ul>
 
+		<div class="dropdown">
+			<button onclick="AcountAdmin()" class="dropbtn">Account</button>
+			<div id="Dropdown" class="dropdown-content account-drop">
+				<a href="<c:url value='/admin/style/0/1'/>">Đổi Mật Khẩu</a> <a
+					href="<c:url value='/admin/style/0/1'/>">Đăng xuất</a>
+			</div>
+		</div>
+		<%-- <li style="border-radius: 10px" ><a href="">${sessionScope.accountName}</a></li> --%>
+		<img
+			src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.m.wikipedia.org%2Fwiki%2FFile%3AMicrosoft_Account.svg&psig=AOvVaw37vQ69_BALhxUBuZl85WlQ&ust=1671343981757000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCLDvj9X___sCFQAAAAAdAAAAABAD"
+			width="50" height="50" />
 
-		<c:choose>
-			<c:when test="${sessionScope.accountName == null}">
-
-			</c:when>
-			<c:otherwise>
-				<div class="clickavt">
-					<img style="height: 30px;"
-						src="<c:url value='/views/image/avatardefault_92824.jpg'/>"
-						alt="defautlavt"> <a>${sessionScope.accountName}</a>
-				</div>
-				<%-- <li style="border-radius: 10px" ><a href="">${sessionScope.accountName}</a></li> --%>
-				<div class="accountoption">
-					<div>Đổi mật khẩu</div>
-					<div>Đăng xuất</div>
-				</div>
-			</c:otherwise>
-		</c:choose>
 
 	</ul>
 
-	<script type="text/javascript">
-		$(".clickavt").click(function() {
-			$(".accountoption").toggleClass("active");
-		})
-	</script>
-	
-	
+
 </div>
 

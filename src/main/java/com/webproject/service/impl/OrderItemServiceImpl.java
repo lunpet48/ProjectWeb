@@ -1,5 +1,8 @@
 package com.webproject.service.impl;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +19,11 @@ public class OrderItemServiceImpl implements OrderItemService {
 	@Override
 	public <S extends OrderItem> S save(S entity) {
 		return orderItemRepo.save(entity);
+	}
+
+	@Override
+	public List<OrderItem> findByOrderId(Long id) {
+		return orderItemRepo.findByOrderId(id);
 	}
 
 	

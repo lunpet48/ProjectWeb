@@ -21,7 +21,6 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="<c:url value='/views/admin/css/base.css'/>" />
 <link rel="stylesheet" href="<c:url value='/views/admin/css/main.css'/>" />
-<link rel="stylesheet" href="<c:url value='/views/admin/css/drop.css'/>" />
 <script src="//code.jquery.com/jquery-3.2.1.slim.min.js"
 	type="text/javascript"></script>
 <script
