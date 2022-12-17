@@ -43,7 +43,7 @@
 			                    	<c:forEach items="${cartitembystore}" var ="cartitem">
 				                    	<tr data-cartitemid = "${cartitem._id}">
 				                        	<td><input type="checkbox" class="check-one" name="check-one" value="${cartitem._id}"></td>
-				                            <td> <div class="product-image"><img src="https://dummyimage.com/80x80/55595c/fff" /></div> </td>
+				                            <td> <div class="product-image"><img src="/vendor/store/product/images/${cartitem.productId.listImages[0]}" /></div> </td>
 				                            <td>${cartitem.productId.name}</td>
 				                            <td class="text-left">${cartitem.productId.price}</td>
 				                            
@@ -55,7 +55,7 @@
 				                            </td>
 				                            <td class="text-center">
 				                            <form action="/cart/delete" method="post">
-						                		<input type="hidden" name="cartitem" id="input-cartitem-delete" value="${cartitem._id}" multiple >
+						                		<input type="hidden" name="cartitem" value="${cartitem._id}" multiple >
 						                    	<button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> 
 						                    </form>
 				                            </td>
@@ -65,6 +65,9 @@
 			                </table>
 		                </div>
 	            	</c:forEach>
+	            	<div class="ThanhToan">
+	            		<a>Tổng Tiền (</a> <a class="TongSanPham">0 </a> <a> sản phẩm ): </a>  <a class="TongTien">0</a>
+	            	</div>
 	            	
 	            	<!-- <div class="store">
 	            		<div class="store-name">
@@ -121,11 +124,11 @@
 	                <div class="col-sm-12  col-md-4">
 	                	<form action="/cart/delete" method="post">
 	                		<input type="hidden" name="cartitem" id="input-cartitem-delete" value="" multiple >
-	                    	<button class="btn btn-block btn-light">Xóa</button>
+	                    	<button class="btn btn-block btn-light" id="delete-cartitem" disabled>Xóa</button>
 	                    </form>
 	                </div>
 	                <div class="col-sm-12 col-md-4 text-right">
-	                    <button class="btn btn-lg btn-block btn-success text-uppercase" id="dat-hang">Checkout</button>
+	                    <button class="btn btn-lg btn-block btn-success text-uppercase" id="dat-hang" disabled>Đặt Hàng</button>
 	                </div>
 	            </div>
 	        </div>
@@ -147,12 +150,18 @@
 		    	<label>Số Điện thoại: </label><br/>
 		    	<input type="text" name="phone" value=""><br/><br/>
 		    	
-		    	<label>Đơn vị giao hàng: </label><br/>
+		    	<label>Đơn vị giao hàng: </label>
 		    	<select name="delivery" id="delivery">
 		    		<c:forEach items="${deliveries}" var ="delivery">
 		    			<option value="${delivery._id}">${delivery.name}</option>
 		    		</c:forEach>
 				</select>
+		    	<br/><br/>
+		    	<div class="thongtinhoadon">
+		    		<a>Tổng Tiền (</a> <a class="TongSanPham">0 </a> <a> sản phẩm ): </a>  <a class="TongTien">0</a><br/>
+		    		<a>Phí Vận Chuyển (</a> <a class="tenvanchuyen">None ):</a><a class="phivanchuyen">0</a><br/>
+		    		<a>Tổng Thanh Toán: <a class="tongthanhtoan">0</a></a>
+		    	</div>
 		    	<br/><br/>
 		    </div>
 		    <div class="modal-footer">
@@ -235,8 +244,8 @@
 		    modal.style.display = "none";
 		  }
 		}
-		// 
-		$(document).on('change', '.container input[type=checkbox]', function() {
+		// dùng để thay đổi các liên quan đến chọn checkbox
+		$(document).on('change', '.container input[type=checkbox]',async function() {
 			let strcartitem = "";
 			let checked = $(".check-one:checked");
 			$.each(checked, function( index, value ) {
@@ -244,8 +253,61 @@
 			});
 			strcartitem = strcartitem.slice(0, -1);
 			
+			//kiểm tra nếu có ít nhất 1 checked thì mới được click đặt hàng hoặc xóa
+			if(strcartitem == "" || strcartitem == null){
+				$('#delete-cartitem').prop('disabled', true);
+				$('#dat-hang').prop('disabled', true);
+				$('.TongSanPham').text(0);;
+				$('.TongTien').text(0);
+			}
+			else{
+				$('#delete-cartitem').prop('disabled', false);
+				$('#dat-hang').prop('disabled', false);
+				let array = strcartitem.split(",");
+				let totalprice = await getToTalPrice(array);
+				let totalitem = array.length;
+				console.log(array);
+				console.log(array.length);
+				$('.TongSanPham').text(totalitem);;
+				$('.TongTien').text(totalprice);
+				
+			}
+			
 			$('#input-cartitem-delete').val(strcartitem);
+			console.log($('#input-cartitem-delete').val())
 		})
+		//hàm tính tiền
+		function getToTalPrice(array){
+			return new Promise(resolve => {
+				$.ajax({
+			        type: "POST",
+			        contentType: "application/json",
+			        url: location.protocol + '//' + location.host +  "/cart/get-total-price",
+			        data: JSON.stringify(array),
+			        /* dataType: 'json', */
+			        success: function (data) {
+						//console.log('data: ' + data)
+						resolve(data)
+			        },
+			        error: function (e) {
+						alert("An error occur!");
+			        }
+			    });  
+			});
+		}
+		//khi delivery change
+		$(document).on('change', '#delivery',function(){
+			computePrice();
+		});
+		function computePrice(){
+			var pvc = $('.phivanchuyen');
+			var ttt = $('.tongthanhtoan');
+			var tt = $('.TongTien');
+			
+			pvc.text($('#delivery').val())
+			ttt.text( parseInt(pvc.text()) + parseInt(tt.text()) )
+			
+		}
 		//khi ấn nút +
 		$(document).on('click', '.increaseQty',async function(){
 			let cartItemId = $(this).closest('tr').data("cartitemid");

@@ -103,6 +103,7 @@ public class CartController {
 	@PostMapping("delete")
 	public ModelAndView DeleteCartItem(ModelMap model,  @Valid @ModelAttribute("cartitem") List<Long> cartItem, BindingResult result) throws JSONException
 	{	
+		System.err.println(cartItem);
 		List<CartItem> cartItems = new ArrayList<>(); 
 		cartItem.forEach((n) -> cartItems.add(cartitemService.findById(n).get()));
 		
@@ -130,5 +131,16 @@ public class CartController {
 		entity.setCount(cartitem.getCount());
 		cartitemService.save(entity);
 		return ResponseEntity.ok(0);
+	}
+	
+	@PostMapping("get-total-price")
+	public ResponseEntity<?>  getToTalPrice(@Valid @RequestBody List<Long> cartItem) throws Exception {
+		double total = 0;
+		List<CartItem> cartItems = new ArrayList<>(); 
+		cartItem.forEach((n) -> cartItems.add(cartitemService.findById(n).get()));
+		for (CartItem cartItemEntity : cartItems) {
+			total = total + cartItemEntity.getCount()*cartItemEntity.getProductId().getPrice();
+		}
+		return ResponseEntity.ok(total);
 	}
 }
