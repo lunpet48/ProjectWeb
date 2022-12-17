@@ -19,6 +19,13 @@
 			 	${messageError}
 			</div>
 		</c:if>
+		
+		<c:if test="${messageSuccess !=null}">
+			<div class="alert success">
+			  <span class="closebtn">&times;</span>  
+			 	${messageSuccess}
+			</div>
+		</c:if>
 	</div>
 	
 	<div class="form-wrap">
