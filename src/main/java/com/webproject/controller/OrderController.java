@@ -25,6 +25,7 @@ import com.webproject.entity.User;
 import com.webproject.model.OrderModel;
 import com.webproject.service.CartItemService;
 import com.webproject.service.CartService;
+import com.webproject.service.DeliveryService;
 import com.webproject.service.OrderItemService;
 import com.webproject.service.OrderService;
 
@@ -38,12 +39,14 @@ public class OrderController {
 	@Autowired
 	private OrderItemService orderItemService;
 	
-
 	@Autowired
 	private CartService cartService;
 
 	@Autowired
 	private CartItemService cartItemService;
+	
+	@Autowired
+	private DeliveryService deliveryService;
 	
 	@PostMapping("add")
 	public ModelAndView login(ModelMap model,  @Valid @ModelAttribute("cartitem") List<Long> cartItem,@Valid @ModelAttribute("order") OrderModel order, BindingResult result, HttpSession session) throws JSONException
@@ -58,9 +61,12 @@ public class OrderController {
 			CartItem entity = cartItems.get(0);
 			
 			Order orderEntity =  new Order();
-			orderEntity.setUserId(user);
 			BeanUtils.copyProperties(order, orderEntity);
+			orderEntity.setUserId(user);
 			orderEntity.setStoreId(entity.getCartId().getStoreId());
+			orderEntity.setStatus("Chưa xác nhận");
+			orderEntity.setDeliveryId(deliveryService.findById(order.getDelivery()).get());
+			orderEntity.setAmountFromUser(orderEntity.getAmountFromUser() + orderEntity.getDeliveryId().getPrice());
 			orderService.save(orderEntity);
 			
 			List<CartItem> removeList = new ArrayList<>();
@@ -71,6 +77,7 @@ public class OrderController {
 					orderItemEntity.setProductId(cartItemEntity.getProductId());
 					orderItemEntity.setCount(cartItemEntity.getCount());
 					orderItemService.save(orderItemEntity);
+					orderEntity.setAmountFromUser(orderEntity.getAmountFromUser() + orderItemEntity.getCount()*orderItemEntity.getProductId().getPrice());
 					//cartItems.remove(cartItemEntity);
 					removeList.add(cartItemEntity);
 				}
