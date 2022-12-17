@@ -1,5 +1,6 @@
 package com.webproject.controller;
 
+import java.lang.StackWalker.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,9 +25,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.webproject.entity.Order;
+import com.webproject.entity.OrderItem;
 import com.webproject.entity.Product;
 import com.webproject.entity.Store;
 import com.webproject.entity.User;
+import com.webproject.service.OrderItemService;
+import com.webproject.service.OrderService;
 import com.webproject.service.ProductService;
 import com.webproject.service.StorageService;
 import com.webproject.service.StoreService;
@@ -42,6 +47,12 @@ public class StoreController {
 
 	@Autowired
 	private ProductService productService;
+
+	@Autowired
+	private OrderService orderService;
+
+	@Autowired
+	private OrderItemService orderItemService;
 
 	@Autowired
 	HttpSession session;
@@ -61,7 +72,7 @@ public class StoreController {
 		if (user == null)
 			return "redirect:/account/login";
 		Store store = storeService.findByOwnerId(user.get_id());
-		if(store == null) 
+		if (store == null)
 			return "redirect:/vendor/store/create";
 		model.addAttribute("store", store);
 		return "vendor/store/profile";
@@ -73,7 +84,7 @@ public class StoreController {
 		if (user == null)
 			return "redirect:/account/login";
 		Store temp = storeService.findByOwnerId(user.get_id());
-		if(temp != null)
+		if (temp != null)
 			return "redirect:/vendor/store/";
 		Store store = new Store();
 		store.setIsActive(false);
@@ -91,10 +102,10 @@ public class StoreController {
 		if (result.hasErrors()) {
 			return "vendor/store/createStore";
 		}
-		
+
 		User user = (User) session.getAttribute("user");
 		store.setOwnerId(user);
-		
+
 		if (!avatarFile.isEmpty()) { // if (true) {
 			UUID uuid = UUID.randomUUID();
 			String uuString = uuid.toString();
@@ -187,7 +198,7 @@ public class StoreController {
 		User user = (User) session.getAttribute("user");
 		if (user == null)
 			return "redirect:/account/login";
-		
+
 		Optional<Store> opt = storeService.findById(id);
 		if (opt.isPresent()) {
 			Store store = opt.get();
@@ -205,13 +216,45 @@ public class StoreController {
 			return "redirect:/account/login";
 		Store store = storeService.findByOwnerId(user.get_id());
 		List<Product> result = productService.findAllByStoreId(store.get_id());
-		int count = result.size();
-		model.addAttribute("count", count);
+		List<Order> order = orderService.findAllByStoreId(store.get_id());
+		int countProduct = result.size();
+		int countOrder = order.size();
+		model.addAttribute("countProduct", countProduct);
+		model.addAttribute("countOrder", countOrder);
 		return "vendor/index";
 	}
 
-	/*
-	 * @GetMapping("orders") public String getOrder(Model model, HttpSession
-	 * session) { }
-	 */
+	@GetMapping("orders")
+	public String getOrder(Model model) {
+		User user = (User) session.getAttribute("user");
+		if (user == null)
+			return "redirect:/account/login";
+		Store store = storeService.findByOwnerId(user.get_id());
+		List<Order> listOrders = orderService.findAllByStoreId(store.get_id());
+		model.addAttribute("listOrders", listOrders);
+		return "vendor/order/order";
+	}
+
+	@GetMapping("orders-item")
+	public String getOrderItem(Model model, @RequestParam("id") Long id) {
+		List<OrderItem> list = orderItemService.findByOrderId(id);
+		model.addAttribute("listOrderItems", list);
+		return "vendor/order/detail";
+	}
+
+	@PostMapping("orders/edit")
+	public String editStatus(Model model, @Valid @ModelAttribute("order") Order order, @RequestParam("id") Long id,
+			@RequestParam("status") String status, BindingResult result) {
+		if (result.hasErrors()) {
+			return "vendor/order/order";
+		}
+		Optional<Order> old = orderService.findById(id);
+		Order newOrder = old.get();
+		newOrder.setStatus(status);
+		orderService.save(order);
+
+		return "redirect:/vendor/store/orders";
+
+	}
+
 }

@@ -33,8 +33,8 @@
 	                                <div class="product-price"><!-- <small>$96.000.000</small> -->${product.price}</div>
 	                                 <c:choose>
 									    <c:when test="${sessionScope.user != null}">
-									       <div class="product-links add-to-cart" >
-			                                    <a><i class="fa fa-shopping-cart"></i></a>
+									       <div class="product-links " >
+			                                    <a class="add-to-cart"><i class="fa fa-shopping-cart"></i></a>
 			                                </div>
 									    </c:when>    
 									    <c:otherwise>
