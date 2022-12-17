@@ -100,13 +100,12 @@ public class CartController {
 		List<CartItem> cartItems = new ArrayList<>(); 
 		cartItem.forEach((n) -> cartItems.add(cartitemService.findById(n).get()));
 		
-		for (CartItem cartItemRemove : cartItems) {
-			Cart cart = cartItems.get(0).getCartId();
-			cartitemService.delete(cartItems.get(0));
+		for (CartItem cartItemEntity : cartItems) {
+			Cart cart = cartItemEntity.getCartId();
+			cartitemService.delete(cartItemEntity);
 			if(cartitemService.findCartItemByCartId(cart.get_id()).isEmpty() ) {
 				cartService.delete(cart);
 			}
-			
 		}
 		
 		return new ModelAndView("redirect:/cart");

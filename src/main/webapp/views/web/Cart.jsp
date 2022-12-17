@@ -55,7 +55,12 @@ $(document).ready(function(){
 				                            <td>${cartitem.productId.name}</td>
 				                            <td class="text-left">${cartitem.productId.price}</td>
 				                            <td class="text-center input-center"><input class="form-control text-center" type="text" value="${cartitem.count}" /></td>
-				                            <td class="text-center"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
+				                            <td class="text-center">
+				                            <form action="/cart/delete" method="post">
+						                		<input type="hidden" name="cartitem" id="input-cartitem-delete" value="${cartitem._id}" multiple >
+						                    	<button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> 
+						                    </form>
+				                            </td>
 				                        </tr>
 			                    	</c:forEach>
 			                    </tbody>
@@ -116,7 +121,7 @@ $(document).ready(function(){
 	                    <button class="btn btn-block btn-light">Continue Shopping</button>
 	                </div>
 	                <div class="col-sm-12  col-md-4">
-	                	<form action="/order/delete" method="post">
+	                	<form action="/cart/delete" method="post">
 	                		<input type="hidden" name="cartitem" id="input-cartitem-delete" value="" multiple >
 	                    	<button class="btn btn-block btn-light">Xóa</button>
 	                    </form>
@@ -194,7 +199,7 @@ $(document).ready(function(){
 		});
 	// uncheck checkbox-shop
 		$(document).on('change', '.store .check-one', function(e) {
-			alert(1)
+			
 		    if (!this.checked) {
 		    	
 		    	$(this).closest('table').find('thead .check-shop').prop('checked', false);
@@ -230,8 +235,15 @@ $(document).ready(function(){
 		  }
 		}
 		// 
-		$(document).on('change', '#check-all', function() {
+		$(document).on('change', '.container input[type=checkbox]', function() {
+			let strcartitem = "";
+			let checked = $(".check-one:checked");
+			$.each(checked, function( index, value ) {
+				strcartitem = strcartitem + $(value).val() + ",";
+			});
+			strcartitem = strcartitem.slice(0, -1);
 			
+			$('#input-cartitem-delete').val(strcartitem);
 		})
 		
 	</script>
