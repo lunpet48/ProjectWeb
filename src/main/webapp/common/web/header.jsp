@@ -64,8 +64,19 @@
 	                </li>
 	                <c:choose>
 					    <c:when test="${sessionScope.user != null}">
-					       <li class="nav-item">
+					       <li class="nav-item user-name">
 			                    <a class="nav-link" >${sessionScope.user.getFirstName()} ${sessionScope.user.getLastName()} </a>
+				                <div class="user-dropdown">
+				                	<div class="user-dropdown__item">
+				                		<a>Tài Khoản Của Tôi</a>
+				                	</div>
+				                	<div class="user-dropdown__item">
+				                		<a>Đơn Mua</a>
+				                	</div>
+				                	<div class="user-dropdown__item" onclick="location.href='/account/logout';">
+				                		<a>Đăng Xuất</a>
+				                	</div>
+				                </div>
 			                </li>
 					    </c:when>    
 					    <c:otherwise>
