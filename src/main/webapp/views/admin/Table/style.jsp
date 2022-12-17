@@ -21,12 +21,13 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="<c:url value='/views/admin/css/base.css'/>" />
 <link rel="stylesheet" href="<c:url value='/views/admin/css/main.css'/>" />
+<link rel="stylesheet" href="<c:url value='/views/admin/css/drop.css'/>" />
 <script src="//code.jquery.com/jquery-3.2.1.slim.min.js"
 	type="text/javascript"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-
+<!-- Dropdown -->
 
 </head>
 <body class="no-skin">
@@ -51,13 +52,18 @@
 					</div>
 					<%@ include file="/common/admin/info.jsp"%>
 
-					<a>Loại:</a><select class="type" name="type">
-						<option value="year"><a
-								href="<c:url value='/admin/style/1/1'/>"> Năm</a></option>
-						<!--  <option value="season">Quý</option> -->
-						<option value="month">Tháng</option>
-						<option value="day">Ngày</option>
-					</select>
+					<div class="dropdown">
+						<button onclick="myFunction()" class="dropbtn">
+							Danh mục: ${category.name}
+							<c:if test="${category.name==null}">Tất cả</c:if>
+						</button>
+						<div id="myDropdown" class="dropdown-content">
+							<a href="<c:url value='/admin/style/0/1'/>">Tất cả</a>
+							<c:forEach var="item" items="${categories}">
+								<a href="<c:url value='/admin/style/${item._id }/1'/>">${item.name }</a>
+							</c:forEach>
+						</div>
+					</div>
 					<table class="table maintable">
 						<thead>
 							<tr>
@@ -87,7 +93,7 @@
 										<a href="<c:url value='/admin/style/delete/${item._id }'/>"
 										class="center"><i
 											class="fa-solid fa-trash delete-multi-row grow-btn-when-hover"></i></a>
-											<a href="<c:url value='/admin/style/value/${item._id }'/>"
+										<a href="<c:url value='/admin/style/value/${item._id }'/>"
 										class="center"><i class="fa-light fa-pipe-valve"></i>value</a></td>
 
 								</tr>
@@ -103,10 +109,15 @@
 						class="fa-solid fa-arrows-rotate refreshbtn grow-btn-when-hover"></i>
 					</a>
 					<div class="pagination">
+						<a href="${pageContext.request.contextPath }/admin/style/0/1"
+							id="first-page"><i class="fa-solid fa-angles-left"></i></a>
 						<c:if test="${page.getNumber()+1>1}">
 							<a
-								href="${pageContext.request.contextPath }/admin/style/0/${page.getNumber()-2}"
-								id="first-page"><i class="fa-solid fa-angles-left"></i></a>
+								href="${pageContext.request.contextPath }/admin/style/0/${page.getNumber()}"
+								id="pre-page"><i class="fa-solid fa-angle-left"></i></a>
+						</c:if>
+						<c:if test="${page.getNumber()+1==1}">
+							<a id="pre-page"><i class="fa-solid fa-angle-left"></i></a>
 						</c:if>
 						<c:forEach begin="1" end="${page.getTotalPages()}" var="i">
 							<a id="currentpage"
@@ -115,110 +126,19 @@
 						<c:if test="${page.getNumber()+1<page.getTotalPages()}">
 							<a
 								href="${pageContext.request.contextPath}/admin/style/0/${page.getNumber()+2}"
-								id="last-page"><i class="fa-solid fa-angles-right"></i></a>
+								id="next-page"><i class="fa-solid fa-angle-right"></i></a>
 						</c:if>
+						<c:if test="${page.getNumber()+1==page.getTotalPages()}">
+							<a id="next-page"><i class="fa-solid fa-angle-right"></i></i></a>
+						</c:if>
+						<a
+							href="${pageContext.request.contextPath }/admin/style/0/${page.getTotalPages()}"
+							id="last-page"><i class="fa-solid fa-angles-right"></i></a>
 					</div>
 				</div>
 				<!-- script for action in page -->
-				<script>
-					// display active item
-					let item = document.querySelectorAll(".item");
-					let subitem = document.querySelectorAll(".sub-item");
-					for (let i = 0; i < item.length; i++) {
-						item[i].onclick = function() {
-
-							let j = 0;
-							let k = 0;
-							let list = document.querySelectorAll(".list");
-							while (k < subitem.length) {
-
-								subitem[k++].className = "sub-item";
-							}
-							while (j < list.length) {
-
-								list[j++].className = "list";
-							}
-							item[i].closest(".list").className = "list active";
-						};
-					}
-
-					for (let i = 0; i < subitem.length; i++) {
-						subitem[i].onclick = function() {
-
-							let j = 0;
-							let k = 0;
-							let list = document.querySelectorAll(".list");
-							while (k < list.length) {
-
-								list[k++].className = "list";
-							}
-							while (j < subitem.length) {
-
-								subitem[j++].className = "sub-item";
-							}
-							subitem[i].className = "sub-item active";
-							subitem[i].closest(".list").className = "list active";
-						};
-					}
-
-					// toggle on menu button
-
-					let menuToggle = document.querySelector(".toggle");
-					let navigation = document.querySelector(".navigation");
-					let content = document.querySelector(".main_content");
-					let menutoggleclick = function() {
-						let subbtn = document.querySelectorAll(".sub-btn");
-						menuToggle.classList.toggle("active");
-						navigation.classList.toggle("active");
-						content.classList.toggle("active");
-						//disable dropdown
-						for (let i = 0; i < subbtn.length; i++) {
-							subbtn[i].classList.toggle("hover-btn")
-						}
-
-					};
-					menutoggleclick();
-					menuToggle.onclick = menutoggleclick;
-				</script>
-				<script>
-					// show hide dropdown list
-					$(document).ready(function() {
-						$('.sub-btn').click(function() {
-							if (!this.classList.contains("hover-btn")) {
-								$(this).next('.sub-menu').slideToggle();
-								$(this).find('.dropdown').toggleClass('rotate')
-							}
-						})
-					})
-
-					test();
-					function test() {
-						$
-								.get(
-										'/sunnyFE/account/getsession',
-										function(ketqua) {
-											let u = ketqua.user
-											if (u == null
-													|| !(u.roleId.roleId == 3 || u.roleId.roleId == 1)) {
-												window.location.href = "/sunnyFE/account/login";
-											}
-											if (u.roleId.roleId == 3) {
-												$('.authentication-admin')
-														.remove()
-											}
-										})
-					}
-
-					function checkfilter(o) {
-						return false;
-					}
-
-					function formatmoney(n, currency) {
-
-						const money = n.toString();
-						return money.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-								+ currency;
-					}
+				<script src="/views/admin/js/page.js">
+					
 				</script>
 </body>
 </html>

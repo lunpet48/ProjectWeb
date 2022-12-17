@@ -42,6 +42,7 @@
 			<!-- sidebar -->
 
 			<div class="main_content">
+				<a href="<c:url value="/admin/style/0/1"/>" class="btn btn-success"><i class="fa-solid fa-arrow-left"></i>Back</a>
 				<div class="main_content__body-title">
 					<p>Style name: ${style.name} || Category
 						name:${style.categoryId.name}</p>
