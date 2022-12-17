@@ -10,6 +10,9 @@ import com.webproject.entity.OrderItem;
 
 @Repository
 public interface OrderItemRepo extends JpaRepository<OrderItem, Long> {
-	@Query(value = "select * from OrderItem where orderId = ?1", nativeQuery = true)
-	List<OrderItem> findByOrderId(Long id);
+	
+	@Query(value="Select * from OrderItem where orderId=?", nativeQuery = true)
+	List<OrderItem>findByOrderId(Long id);
+
+
 }

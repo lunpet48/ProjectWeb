@@ -67,9 +67,9 @@
 								<tr class="odd gradeX">
 									<td><img width="130px" height="100px"
 										src="/admin/category/images/${item.avatar}"></td>
-									<td>${item.name }</td>
+									<td>${item.name}</td>
 
-									<td>${item.ownerId.name }</td>
+									<td>${item.ownerId.firstName} ${item.ownerId.lastName}</td>
 									<td>${item.ownerId.phone}</td>
 									<td>${item.point}</td>
 									<td></td>

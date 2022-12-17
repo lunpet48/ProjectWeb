@@ -8,13 +8,17 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.webproject.entity.Cart;
 import com.webproject.entity.CartItem;
@@ -23,8 +27,6 @@ import com.webproject.entity.User;
 import com.webproject.service.CartItemService;
 import com.webproject.service.CartService;
 import com.webproject.service.ProductService;
-import com.webproject.service.StorageService;
-import com.webproject.service.StoreService;
 
 @Controller
 @RequestMapping("cart")
@@ -90,5 +92,23 @@ public class CartController {
 		
 		return ResponseEntity.ok("thanhf coong");
 
+	}
+	
+	@PostMapping("delete")
+	public ModelAndView DeleteCartItem(ModelMap model,  @Valid @ModelAttribute("cartitem") List<Long> cartItem, BindingResult result) throws JSONException
+	{	
+		List<CartItem> cartItems = new ArrayList<>(); 
+		cartItem.forEach((n) -> cartItems.add(cartitemService.findById(n).get()));
+		
+		for (CartItem cartItemRemove : cartItems) {
+			Cart cart = cartItems.get(0).getCartId();
+			cartitemService.delete(cartItems.get(0));
+			if(cartitemService.findCartItemByCartId(cart.get_id()).isEmpty() ) {
+				cartService.delete(cart);
+			}
+			
+		}
+		
+		return new ModelAndView("redirect:/cart");
 	}
 }
