@@ -49,7 +49,7 @@ public class OrderController {
 	private DeliveryService deliveryService;
 	
 	@PostMapping("add")
-	public ModelAndView login(ModelMap model,  @Valid @ModelAttribute("cartitem") List<Long> cartItem,@Valid @ModelAttribute("order") OrderModel order, BindingResult result, HttpSession session) throws JSONException
+	public ModelAndView MakeOrder(ModelMap model,  @Valid @ModelAttribute("cartitem") List<Long> cartItem,@Valid @ModelAttribute("order") OrderModel order, BindingResult result, HttpSession session) throws JSONException
 	{	
 		User user = (User) session.getAttribute("user");
 		
@@ -98,4 +98,5 @@ public class OrderController {
 		
 		return new ModelAndView("redirect:/cart");
 	}
+	
 }

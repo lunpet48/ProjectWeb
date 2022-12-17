@@ -74,58 +74,6 @@ public class WebController {
 		model.addAttribute("page", "category");
 		return "web/CategoryList";
 	}
-	@GetMapping("cart")
-	public String cartPage(ModelMap model, HttpSession session) {
-		User user = (User) session.getAttribute("user");
-		List<Long> cartId = cartService.getAllCartIdOfUser(user.get_id());
-		List<List<CartItem>> cartItem = new ArrayList<>();
-		cartId.forEach((n) -> cartItem.add(cartitemService.findCartItemByCartId(n)));
-		
-		model.addAttribute("cartItem", cartItem);
-		model.addAttribute("page", "cart");
-		return "web/Cart";
-	}
-	//dùng để gọi từ ajax
-	@PostMapping("cart/add-to-cart")
-	public ResponseEntity<?>  addToCart(@Valid @RequestBody Long pid, HttpSession session) throws Exception {
-		Cart cart;
-		CartItem cartItem;
-		User user = (User) session.getAttribute("user");
-		System.err.println(user);
-		Product product = productService.findById(pid).get();
-		
-		Optional<Cart> opt = cartService.findCartByUserIdAndStoreId(user.get_id(), product.getStoreId().get_id());
-		if(opt.isEmpty()) {
-			System.err.println("empty");
-			cart = new Cart();
-			cart.setUserId(user);
-			cart.setStoreId(product.getStoreId());
-			cartService.save(cart);
-		}
-		else {
-			System.err.println("present");
-			cart = opt.get();
-		}
-		
-		Optional<CartItem> cartItemOpt = cartitemService.findCartItemByCartIdAndProductId(cart.get_id(), product.get_id());
-		if(cartItemOpt.isEmpty()) {
-			System.err.println("empty");
-			cartItem= new CartItem();
-			cartItem.setCartId(cart);
-			cartItem.setCount(1);
-			cartItem.setProductId(product);
-			cartitemService.save(cartItem);
-		}
-		else {
-			System.err.println("present");
-			cartItem = cartItemOpt.get();
-			cartItem.setCount(cartItem.getCount() + 1);
-			cartitemService.save(cartItem);			
-		}
-		
-		return ResponseEntity.ok("thanhf coong");
-
-	}
 	
 	@GetMapping("store/{id}")
 	public String getMethodName(Model model, @PathVariable Long id) {
