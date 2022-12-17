@@ -64,11 +64,23 @@
 			                </li>
 					    </c:otherwise>
 					</c:choose>
-	                 
-	                <a class="btn btn-success btn-sm ml-3" href="/cart">
-	                    <i class="fa fa-shopping-cart"></i> Cart
-	                    <span class="badge badge-light">3</span>
-	                </a>
+	                
+	                 <c:choose>
+					    <c:when test="${sessionScope.user != null}">
+					       <a class="btn btn-success btn-sm ml-3" href="/cart">
+			                    <i class="fa fa-shopping-cart"></i> Cart
+			                    <span class="badge badge-light">3</span>
+			                </a>
+					    </c:when>    
+					    <c:otherwise>
+					        <a class="btn btn-success btn-sm ml-3" href="/account/login">
+			                    <i class="fa fa-shopping-cart"></i> Cart
+			                    <span class="badge badge-light">3</span>
+			                </a>
+					    </c:otherwise>
+					</c:choose>
+	                
+	                
 	            </ul>
 	
 	            

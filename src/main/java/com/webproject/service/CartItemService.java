@@ -17,6 +17,8 @@ public interface CartItemService {
 	List<CartItem> findCartItemByCartId(Long cartId);
 
 	Optional<CartItem> findById(Long id);
+
+	void delete(CartItem entity);
 	
 	
 }

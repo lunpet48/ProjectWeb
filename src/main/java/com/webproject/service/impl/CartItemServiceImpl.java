@@ -40,6 +40,12 @@ public class CartItemServiceImpl implements CartItemService {
 	public Optional<CartItem> findById(Long id) {
 		return cartItemRepo.findById(id);
 	}
+
+	@Override
+	public void delete(CartItem entity) {
+		cartItemRepo.delete(entity);
+	}
+	
 	
 	
 }

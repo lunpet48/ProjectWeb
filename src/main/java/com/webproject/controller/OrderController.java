@@ -74,6 +74,7 @@ public class OrderController {
 			//remove
 			for (CartItem cartItemRemove : removeList) {
 				cartItems.remove(cartItemRemove);
+				cartItemService.delete(cartItemRemove);
 			}
 			
 			
