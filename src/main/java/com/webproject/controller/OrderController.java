@@ -44,15 +44,17 @@ public class OrderController {
 	public ModelAndView login(ModelMap model,  @Valid @ModelAttribute("cartitem") List<Long> cartItem,@Valid @ModelAttribute("order") OrderModel order, BindingResult result, HttpSession session) throws JSONException
 	{	
 		User user = (User) session.getAttribute("user");
-		Order orderEntity =  new Order();
-		orderEntity.setUserId(user);
-		BeanUtils.copyProperties(order, orderEntity);
+		
 		
 		List<CartItem> cartItems = new ArrayList<>(); 
 		cartItem.forEach((n) -> cartItems.add(cartItemService.findById(n).get()));
 		
 		while(!cartItems.isEmpty()) {
 			CartItem entity = cartItems.get(0);
+			
+			Order orderEntity =  new Order();
+			orderEntity.setUserId(user);
+			BeanUtils.copyProperties(order, orderEntity);
 			orderEntity.setStoreId(entity.getCartId().getStoreId());
 			orderService.save(orderEntity);
 			

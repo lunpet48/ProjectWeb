@@ -116,6 +116,24 @@
 	    modal.style.display = "none";
 	  }
 	}
+
+	$(document).on("click","#xac-nhan-them-vao-gio",function() {
+	
+		$.ajax({
+	        type: "POST",
+	        contentType: "application/json",
+	        url: "http://localhost:8081/cart/add-to-cart",
+	        data: JSON.stringify(pid),
+	        /* dataType: 'json', */
+	        success: function (data) {
+				alert(data)
+	        },
+	        error: function (e) {
+				alert("An error occur!");
+	        }
+	    });
+		
+	});
 	
 	</script>
 </body>

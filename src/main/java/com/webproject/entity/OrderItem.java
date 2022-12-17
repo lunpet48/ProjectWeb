@@ -53,10 +53,6 @@ public class OrderItem implements Serializable {
 	@NotNull
 	private Product productId;
 	
-	@OneToMany(mappedBy = "_id")
-	@NotNull
-	private List<StyleValue> styleValueIds;
-	
 	@Column(nullable = false)
 	@Min(value = 1)
 	private int count;
