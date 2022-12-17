@@ -63,20 +63,20 @@
 			<hr class="sidebar-divider">
 
 			<li class="nav-item active"><a class="nav-link"
-				href="http://localhost:8080/vendor/store"> <i
+				href="/vendor/store"> <i
 					class="fas fa-fw fa-tachometer-alt"></i> <span>Store
 						Information</span></a></li>
 
 			<hr class="sidebar-divider">
 
 			<li class="nav-item active"><a class="nav-link"
-				href="http://localhost:8080/vendor/store/product"> <i
+				href="/vendor/store/product"> <i
 					class="fa-brands fa-product-hunt"></i> <span>Product</span></a></li>
 
 			<hr class="sidebar-divider">
 
 			<li class="nav-item active"><a class="nav-link"
-				href="http://localhost:8080/vendor/store/orders"> <i
+				href="/vendor/store/orders"> <i
 					class="fa-solid fa-cart-shopping"></i> <span>Orders</span></a></li>
 
 			<!-- Sidebar Toggler (Sidebar) -->

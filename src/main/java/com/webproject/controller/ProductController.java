@@ -193,13 +193,15 @@ public class ProductController {
 			@RequestParam("cateId") Long cateId) {
 		Optional<Category> category = categoryService.findById(1L);
 		List<Style> listStyles = styleService.findByCategoryId(category.get());
-
+		
 		for (int i = 0; i < listStyles.size(); i++) {
 			StyleValue temp = list.get(i);
 			temp.setStyleId(listStyles.get(i));
 			styleValueService.save(temp);
 		}
 		
-		
+		Product product = (Product) model.getAttribute("product");
+		product.setStyleValueIds(list);
+		model.addAttribute("product", product);
 	}
 }
