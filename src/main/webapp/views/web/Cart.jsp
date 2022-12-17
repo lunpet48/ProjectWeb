@@ -9,14 +9,6 @@
 <title>LTWEB</title>
 
 <link rel='stylesheet' href="/css/web/cart.css">
-
-<script>
-$(document).ready(function(){
-  $('.store .check-one').change(function(){
-   alert(5)
-  });   
-});
-</script>
 </head>
 <body>
 	<%@ include file="/common/web/header.jsp"%>
@@ -49,12 +41,18 @@ $(document).ready(function(){
 			                    </thead>
 			                    <tbody>
 			                    	<c:forEach items="${cartitembystore}" var ="cartitem">
-				                    	<tr>
+				                    	<tr data-cartitemid = "${cartitem._id}">
 				                        	<td><input type="checkbox" class="check-one" name="check-one" value="${cartitem._id}"></td>
 				                            <td> <div class="product-image"><img src="https://dummyimage.com/80x80/55595c/fff" /></div> </td>
 				                            <td>${cartitem.productId.name}</td>
 				                            <td class="text-left">${cartitem.productId.price}</td>
-				                            <td class="text-center input-center"><input class="form-control text-center" type="text" value="${cartitem.count}" /></td>
+				                            
+				                            <td class="text-center input-center">
+				                            <i class="fa fa-minus decreaseQty"></i>
+				                            <input class="form-control text-center product-quantity-cartitem" type="text" value="${cartitem.count}" />
+				                            <i class="fa fa-plus increaseQty"></i>
+				                            
+				                            </td>
 				                            <td class="text-center">
 				                            <form action="/cart/delete" method="post">
 						                		<input type="hidden" name="cartitem" id="input-cartitem-delete" value="${cartitem._id}" multiple >
@@ -118,7 +116,7 @@ $(document).ready(function(){
 	        <div class="col mb-2">
 	            <div class="row">
 	                <div class="col-sm-12  col-md-4">
-	                    <button class="btn btn-block btn-light">Continue Shopping</button>
+	                    <button class="btn btn-block btn-light" id="back-to-homepage">Continue Shopping</button>
 	                </div>
 	                <div class="col-sm-12  col-md-4">
 	                	<form action="/cart/delete" method="post">
@@ -169,6 +167,8 @@ $(document).ready(function(){
 	<%@ include file="/common/web/footer.jsp"%>
 	
 	<script type="text/javascript">
+	var regnumber = /^\d+$/;
+	
 	// checkbox all
 		$(document).on('change', '#check-all', function() {
 		    if (this.checked) {
@@ -245,7 +245,69 @@ $(document).ready(function(){
 			
 			$('#input-cartitem-delete').val(strcartitem);
 		})
+		//khi thay đổi số lượng sản phẩm đặt hàng
+		$(document).on('change', '.product-quantity-cartitem',async function(){
+			
+			//kiểm tra > 0 nếu đúng -> thay đổi nếu không load lại
+			let cartItemId = $(this).closest('tr').data("cartitemid")
+			let newvalue = $(this).val()
+			console.log(newvalue)
+			if(regnumber.test(newvalue) && newvalue > 0 ){
+				// gọi hàm đổi lại quantity
+				await changquantity(cartItemId,newvalue);
+				//loadquantity();
+			}
+			//load lại số lượng
+			newvalue = await loadquantity(cartItemId);
+			$(this).val(newvalue)
+			
+			
+		})
+		//hàm load lại số lượng
+		function loadquantity(cartItemId){
+			return new Promise(resolve => {
+				 $.ajax({
+			        type: "POST",
+			        contentType: "application/json",
+			        url: location.protocol + '//' + location.host +  "/cart/get-quantity-cartitem",
+			        data: JSON.stringify(cartItemId),
+			        /* dataType: 'json', */
+			        success: function (data) {
+						//console.log('data: ' + data)
+						resolve(data)
+			        },
+			        error: function (e) {
+						alert("An error occur!");
+			        }
+			    });
+			 });
+		}
+		//hàm thay đổi số lượng
+		function changquantity(cartItemId, quantity){
+			return new Promise(resolve => {
+				 $.ajax({
+			        type: "POST",
+			        contentType: "application/json",
+			        url: location.protocol + '//' + location.host +  "/cart/change-quantity-cartitem",
+			        data: JSON.stringify({"_id":cartItemId,"count":quantity}),
+			        /* dataType: 'json', */
+			        success: function (data) {
+						//console.log('data: ' + data)
+						resolve(data)
+			        },
+			        error: function (e) {
+						alert("An error occur!");
+			        }
+			    });
+			 });
+		}
 		
+		//kiểm tra nhập số
+		
+		//quay về trang chủ
+		$(document).on('click', '#back-to-homepage', function(){
+			$('.product-quantity-cartitem').val('10');
+		})
 	</script>
 </body>
 </html>

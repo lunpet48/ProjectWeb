@@ -110,4 +110,19 @@ public class CartController {
 		
 		return new ModelAndView("redirect:/cart");
 	}
+	
+	
+	@PostMapping("get-quantity-cartitem")
+	public ResponseEntity<?>  getQuantityCartItem(@Valid @RequestBody Long cartitemid) throws Exception {
+		int quantity = cartitemService.findById(cartitemid).get().getCount();
+		return ResponseEntity.ok(quantity);
+	}
+	
+	@PostMapping("change-quantity-cartitem")
+	public ResponseEntity<?>  changeQuantityCartItem(@Valid @RequestBody CartItem cartitem) throws Exception {
+		CartItem entity = cartitemService.findById(cartitem.get_id()).get();
+		entity.setCount(cartitem.getCount());
+		cartitemService.save(entity);
+		return ResponseEntity.ok(0);
+	}
 }
