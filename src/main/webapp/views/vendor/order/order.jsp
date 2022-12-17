@@ -56,20 +56,24 @@
 
 			<!-- Nav Item - Dashboard -->
 			<li class="nav-item active"><a class="nav-link"
-				href="/vendor/store/dashboard"> <i
+				href="http://localhost:8080/vendor/store/dashboard"> <i
 					class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
-			<hr class="sidebar-divider">
-			<li class="nav-item active"><a class="nav-link"
-				href="/vendor/store"> <i class="fa-solid fa-store"></i> <span>Store
-						Information</span></a></li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
 
 			<li class="nav-item active"><a class="nav-link"
+				href="/vendor/store"><i class="fa-solid fa-store"></i>
+					<span>Store Information</span></a></li>
+
+			<hr class="sidebar-divider">
+
+			<li class="nav-item active"><a class="nav-link"
 				href="/vendor/store/product"> <i
 					class="fa-brands fa-product-hunt"></i> <span>Product</span></a></li>
+
 			<hr class="sidebar-divider">
+
 			<li class="nav-item active"><a class="nav-link"
 				href="/vendor/store/orders"> <i
 					class="fa-solid fa-cart-shopping"></i> <span>Orders</span></a></li>
@@ -87,52 +91,68 @@
 
 			<!-- Main Content -->
 			<div id="content">
+
 				<!-- Begin Page Content -->
 				<div class="container-fluid mt-3">
 
+					<!-- Page Heading -->
+					<h1 class="h3 mb-2 text-gray-800">Quản lý đơn hàng</h1>
+
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
-						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">Thông tin cửa
+						<div
+							class="card-header py-3 d-flex align-items-center justify-content-between">
+							<h6 class="m-0 font-weight-bold text-primary ">Danh sách đơn
 								hàng</h6>
+							<div class="d-flex justify-content-between">
+								<a href="#" class="btn btn-primary btn-circle"
+									data-toggle="modal" data-target="#addModal"> <i
+									class="fa-solid fa-plus"></i>
+								</a>
+							</div>
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0">
-									<thead class="thead-inverse">
+									<thead>
 										<tr>
-											<th>Store ID</th>
-											<th>Store's name</th>
-											<th>Store's bio</th>
-											<th>Avatar</th>
-											<th>Cover</th>
-											<th>Features Images</th>
+											<th>Order ID</th>
+											<th>User name</th>
+											<th>Address</th>
+											<th>Phone</th>
+											<th>Status</th>
+											<th>Total Price</th>
 											<th>Edit</th>
-											<th>Delete</th>
 										</tr>
 									</thead>
-									<tbody>
+									<tfoot>
 										<tr>
-											<td scope="row">${store._id}</td>
-											<td>${store.name}</td>
-											<td>${store.bio}</td>
-											<td><img src="/vendor/store/images/${store.avatar}"></td>
-											<td><img src="/vendor/store/images/${store.cover}"></td>
-
-											<td><c:forEach items="${store.featuredImages }"
-													var="temp">
-													<img src="/vendor/store/images/${temp}">
-												</c:forEach></td>
-											<td><a href="#" data-toggle="modal"
-												data-target="#editModal"
-												class="btn btn-outline-warning editStore"><i
-													class="fa fa-edit"></i></a>
-											<td><a href="#" data-toggle="modal"
-												data-target="#deleteModal"
-												class="btn btn-outline-danger deleteStore"><i
-													class="fa fa-trash"></i></a>
+											<th>Order ID</th>
+											<th>User name</th>
+											<th>Address</th>
+											<th>Phone</th>
+											<th>Status</th>
+											<th>Total Price</th>
+											<th>Edit</th>
 										</tr>
+									</tfoot>
+									<tbody>
+										<c:forEach items="${listOrders }" var="item">
+											<tr>
+												<td scope="row">${item._id}</td>
+												<td>${item.userId.firstName} ${item.userId.lastName}</td>
+												<td>${item.address}</td>
+												<td>${item.phone}</td>
+												<td>${item.status}</td>
+												<td>Tổng tiền</td>
+												<td><a href="#"
+													class="btn btn-info btn-circle editOrder"
+													data-toggle="modal" data-target="#editModal"> <i
+														class="fas fa-info-circle"></i>
+												</a></td>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>
@@ -189,27 +209,6 @@
 		</div>
 	</div>
 
-	<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button class="close" type="button" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body">Bạn có muốn xóa cửa hàng này không?</div>
-				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button"
-						data-dismiss="modal">Hủy</button>
-					<a class="btn btn-primary" href="#" id="deleteYes">Có</a>
-				</div>
-
-			</div>
-		</div>
-	</div>
-
 	<div class="modal fade" id="editModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -221,49 +220,48 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form action="<c:url value="/vendor/store/update-info"/>"
-						id="editYes" method="post" enctype="multipart/form-data">
+
+					<form action="#" id="editYes" method="post"
+						enctype="multipart/form-data">
 						<div class="card">
 							<div class="card-header">
-								<h2>Chỉnh sửa cửa hàng</h2>
+								<h2>Cập nhật trạng thái</h2>
 							</div>
 							<div class="card-body">
 								<div>
-									<label for="_id" class="form-label">Store ID:</label> <input
-										type="text" readonly="readonly" class="form-control"
-										value="${store._id}" name="_id" id="_id">
+									<input readonly="readonly" type="text" class="form-control id"
+										value="${order._id}" name="id" id="id">
 								</div>
 								<div>
-									<label for="name" class="form-label">Store's name:</label> <input
-										type="text" class="form-control" value="${store.name}"
-										name="name" id="name">
+									<label for="name" class="form-label">User's name:</label> <input
+										type="text" class="form-control" value="${order.userId.name }"
+										id="name">
 								</div>
 								<div>
-									<label for="bio" class="form-label">Store's bio:</label> <input
-										type="text" class="form-control" name="bio"
-										value="${store.bio}" id="bio">
+									<label for="address" class="form-label">Address:</label> <input
+										type="text" class="form-control" value="${order.address}"
+										name="address" id="address">
 								</div>
 								<div>
-									<label for="avatarFile" class="form-label">Avatar:</label> <input
-										type="file" class="form-control-file" value="${avatarFile}"
-										accept=".jpg, .png" name="avatarFile" id="avatarFile">
+									<label for="phone" class="form-label">Phone:</label> <input
+										type="text" class="form-control" value="${order.phone}"
+										name="phone" id="phone">
 								</div>
 								<div>
-									<label for="coverFile" class="form-label">Cover:</label> <input
-										type="file" class="form-control-file" value="${coverFile}"
-										name="coverFile" id="coverFile">
+									<label for="status" class="form-label">Status:</label> <select
+										name="status" id="status" class="form-control">
+										<option value="Chưa xác nhận">Chưa xác nhận</option>
+										<option value="Đã xác nhận">Đã xác nhận</option>
+										<option value="Đang giao">Đang giao</option>
+										<option value="Đã nhận hàng">Đã nhận hàng</option>
+										<option value="Bị hủy">Bị hủy</option>
+									</select>
 								</div>
-								<div>
-									<label for="featuredImagesFile" class="form-label">Featured
-										Images</label> <input type="file" class="form-control-file"
-										value="${featuredImagesFile}" name="featuredImagesFile"
-										id="featuredImagesFile" multiple="multiple">
-								</div>
-
 							</div>
 						</div>
-						<input type="submit" value="Lưu">
+						<input type="submit" class="btn btn-primary mt-2" value="Save">
 					</form>
+
 				</div>
 			</div>
 		</div>
@@ -292,18 +290,19 @@
 	<!-- Page level custom scripts -->
 	<script src="/js/demo/datatables-demo.js"></script>
 	<script type="text/javascript">
-		$(".editStore").click(function() {
+		$(".editOrder").click(function() {
 			let id = $(this).closest("tr").find("td").eq(0).html()
 			let name = $(this).closest("tr").find("td").eq(1).html()
-			let bio = $(this).closest("tr").find("td").eq(2).html()
+			let address = $(this).closest("tr").find("td").eq(2).html()
+			let phone = $(this).closest("tr").find("td").eq(3).html()
+			let status = $(this).closest("tr").find("td").eq(4).html()
+			let test = document.getElementById("editYes")
+			test.setAttribute("action", "/vendor/store/orders/edit");
 			$("#editModal #id").val(id)
 			$("#editModal #name").val(name)
-			$("#editModal #bio").val(bio)
-		})
-		$(".deleteStore").click(function() {
-			let id = $(this).closest("tr").find("td").eq(0).html()
-			let test = document.getElementById("deleteYes")
-			test.setAttribute("href", "/vendor/store/delete?_id=" + id);
+			$("#editModal #address").val(address)
+			$("#editModal #phone").val(phone)
+			$("#editModal #status").val(status)
 		})
 	</script>
 </body>

@@ -75,6 +75,8 @@ public class ProductController {
 	@RequestMapping("")
 	public String getAll(Model model, HttpSession session) {
 		User user = (User) session.getAttribute("user");
+		if (user == null)
+			return "redirect:/account/login";
 		Store store = storeService.findByOwnerId(user.get_id());
 		List<Product> result = productService.findAllByStoreId(store.get_id());
 		List<Category> listCates = categoryService.findAll();

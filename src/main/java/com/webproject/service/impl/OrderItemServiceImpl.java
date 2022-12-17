@@ -18,5 +18,9 @@ public class OrderItemServiceImpl implements OrderItemService {
 		return orderItemRepo.save(entity);
 	}
 
+	public long count() {
+		return orderItemRepo.count();
+	}
+
 	
 }
