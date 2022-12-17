@@ -35,6 +35,11 @@ public class CartItemServiceImpl implements CartItemService {
 	public List<CartItem> findCartItemByCartId(Long cartId) {
 		return cartItemRepo.findCartItemByCartId(cartId);
 	}
+
+	@Override
+	public Optional<CartItem> findById(Long id) {
+		return cartItemRepo.findById(id);
+	}
 	
 	
 }
