@@ -26,9 +26,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.webproject.entity.Order;
+import com.webproject.entity.OrderItem;
 import com.webproject.entity.Product;
 import com.webproject.entity.Store;
 import com.webproject.entity.User;
+import com.webproject.service.OrderItemService;
 import com.webproject.service.OrderService;
 import com.webproject.service.ProductService;
 import com.webproject.service.StorageService;
@@ -48,6 +50,9 @@ public class StoreController {
 
 	@Autowired
 	private OrderService orderService;
+
+	@Autowired
+	private OrderItemService orderItemService;
 
 	@Autowired
 	HttpSession session;
@@ -228,6 +233,13 @@ public class StoreController {
 		List<Order> listOrders = orderService.findAllByStoreId(store.get_id());
 		model.addAttribute("listOrders", listOrders);
 		return "vendor/order/order";
+	}
+
+	@GetMapping("orders-item")
+	public String getOrderItem(Model model, @RequestParam("id") Long id) {
+		List<OrderItem> list = orderItemService.findByOrderId(id);
+		model.addAttribute("listOrderItems", list);
+		return "vendor/order/detail";
 	}
 
 	@PostMapping("orders/edit")

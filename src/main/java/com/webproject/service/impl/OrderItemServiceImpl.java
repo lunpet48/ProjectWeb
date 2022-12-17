@@ -1,5 +1,7 @@
 package com.webproject.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +20,14 @@ public class OrderItemServiceImpl implements OrderItemService {
 		return orderItemRepo.save(entity);
 	}
 
+	@Override
 	public long count() {
 		return orderItemRepo.count();
+	}
+
+	@Override
+	public List<OrderItem> findByOrderId(Long id) {
+		return orderItemRepo.findByOrderId(id);
 	}
 
 	
