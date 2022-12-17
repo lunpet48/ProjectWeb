@@ -56,7 +56,7 @@
 
 			<!-- Nav Item - Dashboard -->
 			<li class="nav-item active"><a class="nav-link"
-				href="http://localhost:8080/vendor/store/dashboard"> <i
+				href="/vendor/store/dashboard"> <i
 					class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
 
 			<!-- Divider -->
@@ -147,7 +147,7 @@
 												<td>${item.address}</td>
 												<td>${item.phone}</td>
 												<td>${item.status}</td>
-												<td>Tổng tiền</td>
+												<td>${item.amountFromUser }</td>
 												<td><a href="#"
 													class="btn btn-warning btn-circle editOrder"
 													data-toggle="modal" data-target="#editModal"> <i
