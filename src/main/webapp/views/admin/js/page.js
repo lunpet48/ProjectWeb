@@ -103,6 +103,11 @@ function myFunction() {
 		.toggle("show");
 }
 
+function AcountAdmin() {
+	document.getElementById("Dropdown").classList
+		.toggle("show");
+}
+
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(event) {
 	if (!event.target.matches('.dropbtn')) {
@@ -112,9 +117,9 @@ window.onclick = function(event) {
 		for (i = 0; i < dropdowns.length; i++) {
 			var openDropdown = dropdowns[i];
 			if (openDropdown.classList.contains('show')) {
-				op
-				enDropdown.classList.remove('show');
+				openDropdown.classList.remove('show');
 			}
 		}
 	}
 }
+

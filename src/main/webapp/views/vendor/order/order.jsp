@@ -63,8 +63,8 @@
 			<hr class="sidebar-divider">
 
 			<li class="nav-item active"><a class="nav-link"
-				href="/vendor/store"><i class="fa-solid fa-store"></i>
-					<span>Store Information</span></a></li>
+				href="/vendor/store"><i class="fa-solid fa-store"></i> <span>Store
+						Information</span></a></li>
 
 			<hr class="sidebar-divider">
 
@@ -124,6 +124,7 @@
 											<th>Status</th>
 											<th>Total Price</th>
 											<th>Edit</th>
+											<th>Detail</th>
 										</tr>
 									</thead>
 									<tfoot>
@@ -135,22 +136,28 @@
 											<th>Status</th>
 											<th>Total Price</th>
 											<th>Edit</th>
+											<th>Detail</th>
 										</tr>
 									</tfoot>
 									<tbody>
 										<c:forEach items="${listOrders }" var="item">
 											<tr>
 												<td scope="row">${item._id}</td>
-												<td>${item.userId.firstName} ${item.userId.lastName}</td>
+												<td>${item.userId.firstName}${item.userId.lastName}</td>
 												<td>${item.address}</td>
 												<td>${item.phone}</td>
 												<td>${item.status}</td>
 												<td>Tổng tiền</td>
 												<td><a href="#"
-													class="btn btn-info btn-circle editOrder"
+													class="btn btn-warning btn-circle editOrder"
 													data-toggle="modal" data-target="#editModal"> <i
-														class="fas fa-info-circle"></i>
+														class="fa-regular fa-pen-to-square"></i>
 												</a></td>
+												<td><a
+														href="/vendor/store/orders-item?id=${item._id}"
+														class="btn btn-info btn-circle" id="detailYes">
+														<i class="fa-solid fa-circle-info"></i>
+													</a></td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -303,6 +310,12 @@
 			$("#editModal #address").val(address)
 			$("#editModal #phone").val(phone)
 			$("#editModal #status").val(status)
+		})
+		$(".detailOrder").click(function() {
+			let id = $(this).closest("tr").find("td").eq(0).html()
+			let test = document.getElementById("detailYes")
+			test.setAttribute("href", "/vendor/store/orders-item?id" + id);
+			$("#detailModal #id").val(id)
 		})
 	</script>
 </body>
