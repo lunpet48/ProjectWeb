@@ -28,6 +28,20 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+<!-- BODY -->
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	rel="stylesheet" type="text/css">
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600"
+	rel="stylesheet" type="text/css">
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
+<!-- BODY -->
+
 <script type="text/javascript">
 	window.onload = function() {
 
@@ -86,7 +100,87 @@
 			<!-- sidebar -->
 
 			<div class="main_content">
-				<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+
+				<!-- Content Row -->
+
+				<div class="row">
+
+					<!-- Area Chart -->
+					<div class="col-xl-8 col-lg-7">
+						<div class="card shadow mb-4">
+							<!-- Card Header - Dropdown -->
+							<div
+								class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+								<h6 class="m-0 font-weight-bold text-primary">Revenue Chart</h6>
+								<div class="dropdown no-arrow">
+									<a class="dropdown-toggle" href="#" role="button"
+										id="dropdownMenuLink" data-toggle="dropdown"
+										aria-haspopup="true" aria-expanded="false"> <i
+										class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+									</a>
+									<div
+										class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+										aria-labelledby="dropdownMenuLink">
+										<div class="dropdown-header">Dropdown Header:</div>
+										<a class="dropdown-item" href="#">Action</a> <a
+											class="dropdown-item" href="#">Another action</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="#">Something else here</a>
+									</div>
+								</div>
+							</div>
+							<!-- Card Body -->
+							<div class="card-body">
+								<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Pie Chart -->
+					<div class="col-xl-4 col-lg-5">
+						<div class="card shadow mb-4">
+							<!-- Card Header - Dropdown -->
+							<div
+								class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+								<h6 class="m-0 font-weight-bold text-primary">Top User</h6>
+								<div class="dropdown no-arrow">
+									<a class="dropdown-toggle" href="#" role="button"
+										id="dropdownMenuLink" data-toggle="dropdown"
+										aria-haspopup="true" aria-expanded="false"> <i
+										class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+									</a>
+									<div
+										class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+										aria-labelledby="dropdownMenuLink">
+										<div class="dropdown-header">Dropdown Header:</div>
+										<a class="dropdown-item" href="#">Action</a> <a
+											class="dropdown-item" href="#">Another action</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="#">Something else here</a>
+									</div>
+								</div>
+							</div>
+							<!-- Card Body -->
+							<div class="card-body">
+								<div class="chart-pie pt-4 pb-2">
+									<canvas id="myPieChart"></canvas>
+								</div>
+								<div class="mt-4 text-center small">
+									<span class="mr-2"> <i
+										class="fas fa-circle text-primary"></i> Direct
+									</span> <span class="mr-2"> <i
+										class="fas fa-circle text-success"></i> Social
+									</span> <span class="mr-2"> <i class="fas fa-circle text-info"></i>
+										Referral
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Content Row -->
+
 				<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 			</div>

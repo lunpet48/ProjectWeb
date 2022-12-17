@@ -47,7 +47,7 @@
 				</div>
 				<section class="row">
 					<div class="col-6 offset-3 mt-4">
-						<form action="<c:url value="/admin/style/saveOrUpdate"/>"
+						<form action="#"
 							method="POST" enctype="multipart/form-data">
 
 							<div class="form-group">
@@ -92,12 +92,15 @@
 
 							<hr>
 							<div class="cart-footer text-muted">
-								<a href="<c:url value="/admin/category/add"/>"
+								<a href="<c:url value="/admin/style/add"/>"
 									class="btn btn-secondary"><i class="fas fa-new"> New</i></a> <a
 									href="<c:url value="/admin/style/0/1"/>" class="btn btn-success"><i
-									class="fas fa-bars">List Categories</i></a>
-								<button class="btn btn-primary">
+									class="fas fa-bars">List Style</i></a>
+								<button class="btn btn-primary" formaction="<c:url value="/admin/style/save"/>">
 									<i class="fas fa-save"></i>Save
+								</button>
+								<button class="btn btn-warning" formaction="<c:url value="/admin/style/edit"/>">
+									<i class="fa-regular fa-pen-to-square"></i>Edit
 								</button>
 							</div>
 						</form>

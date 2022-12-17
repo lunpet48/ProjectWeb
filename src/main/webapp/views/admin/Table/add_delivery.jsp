@@ -43,52 +43,50 @@
 
 			<div class="main_content">
 				<div class="main_content__body-title">
-					<p>${category.isEdit ? 'Edit Category' : 'Create Category' }</p>
+					<p>${delivery.isEdit ? 'Edit Delivery' : 'Create Delivery' }</p>
 				</div>
 				<section class="row">
 					<div class="col-6 offset-3 mt-4">
-						<form action="<c:url value="/admin/category/saveOrUpdate"/>"
+						<form action="<c:url value="/admin/delivery/saveOrUpdate"/>"
 							method="POST" enctype="multipart/form-data">
-							<input type="hidden" name="isEdit" value="${category.isEdit}"
-								class="form-control" readonly='readonly' /> <br /> <input
-								type="hidden" name="image" value="${category.image}"
-								class="form-control" readonly='readonly' /> <br />
+							<input type="hidden" name="isEdit" value="${delivery.isEdit}"
+								class="form-control" readonly='readonly' /> <br /> 
 							<div class="form-group">
 
-								<label for="_id">Category ID:</label> <input type="text"
-									name="_id" value="${category._id}" class="form-control"
+								<label for="_id">Delivery ID:</label> <input type="text"
+									name="_id" value="${delivery._id}" class="form-control"
 									readonly='readonly' placeholder="id" />
 
 							</div>
 
 							<div class="form-group">
 
-								<label for="name">Category Name:</label> <input type="text"
-									class="form-control" name="name" value="${category.name }" />
+								<label for="name">Delivery Name:</label> <input type="text"
+									class="form-control" name="name" value="${delivery.name }" />
 
 							</div>
 
 							<div class="form-group">
 
-								<label for="slug">Category Slug:</label> <input type="text"
-									class="form-control" name="slug" value="${category.slug }" />
+								<label for="slug">Description:</label> <input type="text"
+									class="form-control" name="description" value="${delivery.description }" />
 
 							</div>
-
 							<div class="form-group">
 
-								<label for="imageFile">Images:</label> <input type="file"
-									class="form-control" name="imageFile"
-									value="${category.imageFile}" />
+								<label for="slug">Price:</label> <input type="number"
+									class="form-control" name="price" value="${delivery.price }" />
 
 							</div>
+
+							
 							<div class="mb-3">
 
 								<label for="isDeleted">isDeleted:</label> <select
 									class="form-select" name="isDeleted">
-									<option ${category.isDeleted==false?'selected':''}
+									<option ${delivery.isDeleted==false?'selected':''}
 										value="false">false</option>
-									<option ${category.isDeleted==true?'selected':''} value="true">true</option>
+									<option ${delivery.isDeleted==true?'selected':''} value="true">true</option>
 								</select>
 
 							</div>
@@ -98,16 +96,16 @@
 
 							<hr>
 							<div class="cart-footer text-muted">
-								<a href="<c:url value="/admin/category/add"/>"
+								<a href="<c:url value="/admin/delivery/add"/>"
 									class="btn btn-secondary"><i class="fas fa-new"> New</i></a> <a
-									href="<c:url value="/admin/category"/>" class="btn btn-success"><i
-									class="fas fa-bars">List Categories</i></a>
+									href="<c:url value="/admin/delivery/1"/>" class="btn btn-success"><i
+									class="fas fa-bars">Back</i></a>
 								<button class="btn btn-primary">
 									<i class="fas fa-save"></i>
-									<c:if test="${category.isEdit}">
+									<c:if test="${delivery.isEdit}">
 										<span>Update</span>
 									</c:if>
-									<c:if test="${!category.isEdit}">
+									<c:if test="${!delivery.isEdit}">
 										<span>Save</span>
 									</c:if>
 								</button>

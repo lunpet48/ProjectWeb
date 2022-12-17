@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
@@ -69,7 +70,7 @@ public class AdminCategoryController {
 	} 
 	@PostMapping("saveOrUpdate")
 	public ModelAndView saveOrUpdate(ModelMap model, @Valid @ModelAttribute("category") CategoryModel cate,
-			BindingResult result) {
+			HttpServletRequest request,BindingResult result) {
 		if(result.hasErrors()) {
 			return new ModelAndView("admin/Table/add_category");
 		}
@@ -82,8 +83,15 @@ public class AdminCategoryController {
 			storageService.store(cate.getImageFile(),cate.getImage());
 		}
 		Category category =new Category();
+		
 		//Copy tu Model sang Entity
 		BeanUtils.copyProperties(cate, category);
+		if(cate.getIsEdit()==true) {
+			category.set_id(Long.parseLong(request.getParameter("_id")));
+			if(cate.getImageFile().isEmpty()) {
+				category.setImage(cate.getImage());
+			}
+		}
 		categoryService.save(category);
 		String message="";
 		if(cate.getIsEdit()==true) {
@@ -116,6 +124,7 @@ public class AdminCategoryController {
 		categoryService.deleteById(Cate_id);
 		
 		model.addAttribute("message", "Category đã được xóa thành công");
+		
 		return new ModelAndView("forward:/admin/category",model);
 	}
 	
