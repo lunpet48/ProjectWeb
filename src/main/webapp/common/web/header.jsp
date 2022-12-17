@@ -67,7 +67,7 @@
 					       <li class="nav-item user-name">
 			                    <a class="nav-link" >${sessionScope.user.getFirstName()} ${sessionScope.user.getLastName()} </a>
 				                <div class="user-dropdown">
-				                	<div class="user-dropdown__item">
+				                	<div class="user-dropdown__item" onclick="location.href='/account/profile';">
 				                		<a>Tài Khoản Của Tôi</a>
 				                	</div>
 				                	<div class="user-dropdown__item">
@@ -120,8 +120,8 @@
 	      <p>Bạn có muốn thêm sản phẩm này vào giỏ hàng không?</p>
 	    </div>
 	    <div class="modal-footer">
-	      <button id="xac-nhan-them-vao-gio" >Xác nhận</button>
 	      <button class="close-modal">Hủy</button>
+	      <button id="xac-nhan-them-vao-gio" >Xác nhận</button>
 	    </div>
 	  </div>
 	</div>

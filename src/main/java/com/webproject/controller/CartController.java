@@ -22,10 +22,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.webproject.entity.Cart;
 import com.webproject.entity.CartItem;
+import com.webproject.entity.Delivery;
 import com.webproject.entity.Product;
 import com.webproject.entity.User;
 import com.webproject.service.CartItemService;
 import com.webproject.service.CartService;
+import com.webproject.service.DeliveryService;
 import com.webproject.service.ProductService;
 
 @Controller
@@ -41,13 +43,17 @@ public class CartController {
 	@Autowired
 	private ProductService productService;
 	
+	@Autowired
+	private DeliveryService deliveryService;
+	
 	@GetMapping("")
 	public String cartPage(ModelMap model, HttpSession session) {
 		User user = (User) session.getAttribute("user");
 		List<Long> cartId = cartService.getAllCartIdOfUser(user.get_id());
 		List<List<CartItem>> cartItem = new ArrayList<>();
 		cartId.forEach((n) -> cartItem.add(cartitemService.findCartItemByCartId(n)));
-		
+		List<Delivery> deliveries = deliveryService.findAll();
+		model.addAttribute("deliveries", deliveries);
 		model.addAttribute("cartItem", cartItem);
 		model.addAttribute("page", "cart");
 		return "web/Cart";

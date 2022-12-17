@@ -149,8 +149,9 @@
 		    	
 		    	<label>Đơn vị giao hàng: </label><br/>
 		    	<select name="delivery" id="delivery">
-				  <option value="1">nhanh</option>
-				  <option value="2">từ từ</option>
+		    		<c:forEach items="${deliveries}" var ="delivery">
+		    			<option value="${delivery._id}">${delivery.name}</option>
+		    		</c:forEach>
 				</select>
 		    	<br/><br/>
 		    </div>
