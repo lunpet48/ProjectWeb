@@ -21,13 +21,10 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="<c:url value='/views/admin/css/base.css'/>" />
 <link rel="stylesheet" href="<c:url value='/views/admin/css/main.css'/>" />
-<link rel="stylesheet" href="<c:url value='/views/admin/css/drop.css'/>" />
 <script src="//code.jquery.com/jquery-3.2.1.slim.min.js"
 	type="text/javascript"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-<!-- Dropdown -->
 
 </head>
 <body class="no-skin">
@@ -47,54 +44,55 @@
 				<div class="main_content__body">
 
 					<div class="main_content__body-title">
-						<p>Quản lí thuộc tính sản phẩm</p>
+						<p>Đơn vị vận chuyển</p>
 
 					</div>
 					<%@ include file="/common/admin/info.jsp"%>
-
-					<div class="dropdown">
-						<button onclick="myFunction()" class="dropbtn">
-							Danh mục: ${category.name}
-							<c:if test="${category.name==null}">Tất cả</c:if>
-						</button>
-						<div id="myDropdown" class="dropdown-content">
-							<a href="<c:url value='/admin/style/0/1'/>">Tất cả</a>
-							<c:forEach var="item" items="${categories}">
-								<a href="<c:url value='/admin/style/${item._id }/1'/>">${item.name }</a>
-							</c:forEach>
-						</div>
-					</div>
-					<table class="table maintable">
+					<table class="table maintable table ">
 						<thead>
 							<tr>
-								<th>Id</th>
-								<th>Style name</th>
-								<th>Category name</th>
+								<th>Delivery Name</th>
+								<th>Description</th>
+								<th>Price</th>
+								<th>Status</th>
 								<th>CreatedAT</th>
+								<th>updatedAt</th>
 								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="item" items="${listStyles}">
+							<c:forEach var="item" items="${listDelivery}">
 
 
 
 								<tr class="odd gradeX">
 
-									<td>${item._id}</td>
 
-									<td>${item.name}</td>
 
-									<td>${item.categoryId.name}</td>
+									<td>${item.name }</td>
+
+									<td>${item.description }</td>
+
+									<td>${item.price}</td>
+
+									<td><c:if test="${item.isDeleted == true}">
+
+											<span class="label label-sm label-success"> Khóa </span>
+
+										</c:if> <c:if test="${item.isDeleted ==false}">
+
+											<span class="label label-sm label-warning"> Hoạt động
+											</span>
+
+										</c:if></td>
 									<td>${item.createdAt}</td>
+									<td>${item.updatedAt}</td>
 									<td><a
-										href="<c:url value='/admin/style/edit/${item._id}'/>"
+										href="<c:url value='/admin/delivery/edit/${item._id}'/>"
 										class="center"><i class="fa-solid fa-pen-to-square"></i></a> |
-										<a href="<c:url value='/admin/style/delete/${item._id }'/>"
+										<a href="<c:url value='/admin/delivery/delete/${item._id }'/>"
 										class="center"><i
-											class="fa-solid fa-trash delete-multi-row grow-btn-when-hover"></i></a>
-										<a href="<c:url value='/admin/style/value/${item._id }'/>"
-										class="center"><i class="fa-light fa-pipe-valve"></i>value</a></td>
+											class="fa-solid fa-trash delete-multi-row grow-btn-when-hover"></i></a></td>
 
 								</tr>
 
@@ -103,17 +101,17 @@
 					</table>
 				</div>
 				<div class="main_content__footer">
-					<a href="<c:url value='/admin/style/add'/>"><i
+					<a href="<c:url value='/admin/delivery/add'/>"><i
 						class="fa-solid fa-circle-plus addbtn grow-btn-when-hover"></i> </a> <a
-						href="<c:url value='/admin/style/0/1'/>"><i
+						href="<c:url value='/admin/delivery/1'/>"><i
 						class="fa-solid fa-arrows-rotate refreshbtn grow-btn-when-hover"></i>
 					</a>
 					<div class="pagination">
-						<a href="${pageContext.request.contextPath }/admin/style/0/1"
+						<a href="${pageContext.request.contextPath }/admin/delivery/1"
 							id="first-page"><i class="fa-solid fa-angles-left"></i></a>
 						<c:if test="${page.getNumber()+1>1}">
 							<a
-								href="${pageContext.request.contextPath }/admin/style/0/${page.getNumber()}"
+								href="${pageContext.request.contextPath }/admin/delivery/${page.getNumber()}"
 								id="pre-page"><i class="fa-solid fa-angle-left"></i></a>
 						</c:if>
 						<c:if test="${page.getNumber()+1==1}">
@@ -121,24 +119,30 @@
 						</c:if>
 						<c:forEach begin="1" end="${page.getTotalPages()}" var="i">
 							<a id="currentpage"
-								href="${pageContext.request.contextPath}/admin/style/0/${i}">${i}</a>
+								href="${pageContext.request.contextPath}/admin/delivery/${i}">${i}</a>
 						</c:forEach>
 						<c:if test="${page.getNumber()+1<page.getTotalPages()}">
 							<a
-								href="${pageContext.request.contextPath}/admin/style/0/${page.getNumber()+2}"
+								href="${pageContext.request.contextPath}/admin/delivery/${page.getNumber()+2}"
 								id="next-page"><i class="fa-solid fa-angle-right"></i></a>
 						</c:if>
-						<c:if test="${page.getNumber()+1==page.getTotalPages()}">
+						<c:if test="${page.getNumber()+1>=page.getTotalPages()}">
 							<a id="next-page"><i class="fa-solid fa-angle-right"></i></i></a>
 						</c:if>
-						<a
-							href="${pageContext.request.contextPath }/admin/style/0/${page.getTotalPages()}"
-							id="last-page"><i class="fa-solid fa-angles-right"></i></a>
+						<c:if test="${page.getTotalPages()!=0}">
+							<a
+								href="${pageContext.request.contextPath }/admin/style/0/${page.getTotalPages()}"
+								id="last-page"><i class="fa-solid fa-angles-right"></i></a>
+						</c:if>
+						<c:if test="${page.getTotalPages()==0}">
+							<a id="last-page"><i class="fa-solid fa-angles-right"></i></a>
+						</c:if>
+
 					</div>
 				</div>
 				<!-- script for action in page -->
 				<script src="/views/admin/js/page.js">
-					
+					>
 				</script>
 </body>
 </html>

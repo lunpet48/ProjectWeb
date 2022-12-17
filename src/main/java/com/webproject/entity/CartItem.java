@@ -51,8 +51,6 @@ public class CartItem implements Serializable{
 	@JoinColumn(name = "productId", referencedColumnName = "_id")
 	private Product productId;
 	
-	@OneToMany(mappedBy = "_id")
-	private List<StyleValue> styleValueIds;
 	
 	@Column(nullable = false)
 	@Min(value = 1)

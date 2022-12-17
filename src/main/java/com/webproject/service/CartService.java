@@ -13,4 +13,8 @@ public interface CartService {
 
 	List<Long> getAllCartIdOfUser(Long userId);
 
+	void delete(Cart entity);
+
+	Optional<Cart> findById(Long id);
+
 }

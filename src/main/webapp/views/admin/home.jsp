@@ -21,7 +21,8 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="<c:url value='/views/admin/css/base.css'/>" />
 <link rel="stylesheet" href="<c:url value='/views/admin/css/main.css'/>" />
-<link rel="stylesheet" href="<c:url value='/views/admin/css/style.css'/>" />
+<link rel="stylesheet"
+	href="<c:url value='/views/admin/css/style.css'/>" />
 <script src="//code.jquery.com/jquery-3.2.1.slim.min.js"
 	type="text/javascript"></script>
 <script
@@ -35,8 +36,54 @@
 	rel="stylesheet" type="text/css">
 <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600"
 	rel="stylesheet" type="text/css">
-
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
 <!-- BODY -->
+
+<script type="text/javascript">
+	window.onload = function() {
+
+		var dps = [];
+		var chart = new CanvasJS.Chart("chartContainer", {
+			theme : "light2", // "light1", "dark1", "dark2"
+			animationEnabled : true,
+			title : {
+				title : "Datetime",
+				text : "Thống kê người dùng mới"
+			},
+			axisX : {
+				valueFormatString : "DD-MM-YYYY"
+			},
+			axisY : {
+				title : "Số lượng user mới",
+				includeZero : true,
+				suffix : ""
+			},
+			data : [ {
+				type : "column",
+				xValueType : "dateTime",
+				xValueFormatString : "DD-MM-YYYY",
+				yValueFormatString : "#",
+				dataPoints : dps
+			} ]
+		});
+
+		var xValue;
+		var yValue;
+
+		<c:forEach items="${listuser}" var="item">
+		xValue = Date.parse("${item.createdAt}");
+		yValue = parseInt("${item.point}");
+		dps.push({
+			x : xValue,
+			y : yValue
+		});
+		</c:forEach>
+		chart.render();
+
+	}
+</script>
 </head>
 <body class="no-skin">
 	<div class="app">
@@ -51,243 +98,197 @@
 			<!-- sidebar -->
 
 			<div class="main_content">
-				<div class="col">
-					<div class="row">
-						<div class="col-12 col-md-6 col-lg-4">
-							<div class="card">
-								<div class="card-body">
-									<h4 class="card-title">
-										<a href="product.html" title="View Product">Users</a>
-									</h4>
-									
-									<div class="row">
-										<div class="col">
-											<p class="btn btn-danger btn-block">99.00 $</p>
-										</div>
-										<div class="col">
-											<a href="/admin/user/chart" class="btn btn-success btn-block">Chart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-12 col-md-6 col-lg-4">
-							<div class="card">
-								<img class="card-img-top"
-									src="https://dummyimage.com/600x400/55595c/fff"
-									alt="Card image cap">
-								<div class="card-body">
-									<h4 class="card-title">
-										<a href="product.html" title="View Product">Product title</a>
-									</h4>
-									<p class="card-text">Some quick example text to build on
-										the card title and make up the bulk of the card's content.</p>
-									<div class="row">
-										<div class="col">
-											<p class="btn btn-danger btn-block">99.00 $</p>
-										</div>
-										<div class="col">
-											<a href="#" class="btn btn-success btn-block">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-12 col-md-6 col-lg-4">
-							<div class="card">
-								<img class="card-img-top"
-									src="https://dummyimage.com/600x400/55595c/fff"
-									alt="Card image cap">
-								<div class="card-body">
-									<h4 class="card-title">
-										<a href="product.html" title="View Product">Product title</a>
-									</h4>
-									<p class="card-text">Some quick example text to build on
-										the card title and make up the bulk of the card's content.</p>
-									<div class="row">
-										<div class="col">
-											<p class="btn btn-danger btn-block">99.00 $</p>
-										</div>
-										<div class="col">
-											<a href="#" class="btn btn-success btn-block">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-12 col-md-6 col-lg-4">
-							<div class="card">
-								<img class="card-img-top"
-									src="https://dummyimage.com/600x400/55595c/fff"
-									alt="Card image cap">
-								<div class="card-body">
-									<h4 class="card-title">
-										<a href="product.html" title="View Product">Product title</a>
-									</h4>
-									<p class="card-text">Some quick example text to build on
-										the card title and make up the bulk of the card's content.</p>
-									<div class="row">
-										<div class="col">
-											<p class="btn btn-danger btn-block">99.00 $</p>
-										</div>
-										<div class="col">
-											<a href="#" class="btn btn-success btn-block">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-12 col-md-6 col-lg-4">
-							<div class="card">
-								<img class="card-img-top"
-									src="https://dummyimage.com/600x400/55595c/fff"
-									alt="Card image cap">
-								<div class="card-body">
-									<h4 class="card-title">
-										<a href="product.html" title="View Product">Product title</a>
-									</h4>
-									<p class="card-text">Some quick example text to build on
-										the card title and make up the bulk of the card's content.</p>
-									<div class="row">
-										<div class="col">
-											<p class="btn btn-danger btn-block">99.00 $</p>
-										</div>
-										<div class="col">
-											<a href="#" class="btn btn-success btn-block">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-12 col-md-6 col-lg-4">
-							<div class="card">
-								<img class="card-img-top"
-									src="https://dummyimage.com/600x400/55595c/fff"
-									alt="Card image cap">
-								<div class="card-body">
-									<h4 class="card-title">
-										<a href="product.html" title="View Product">Product title</a>
-									</h4>
-									<p class="card-text">Some quick example text to build on
-										the card title and make up the bulk of the card's content.</p>
-									<div class="row">
-										<div class="col">
-											<p class="btn btn-danger btn-block">99.00 $</p>
-										</div>
-										<div class="col">
-											<a href="#" class="btn btn-success btn-block">Add to cart</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+				<!-- Begin Page Content -->
+				<div class="container-fluid">
 
+					<!-- Page Heading -->
+					<div
+						class="d-sm-flex align-items-center justify-content-between mb-4">
+						<h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
 					</div>
-				</div>
 
+					<!-- Content Row -->
+					<div class="row">
+
+						<!-- Earnings (Monthly) Card Example -->
+						<div class="col-xl-3 col-md-6 mb-4">
+							<div class="card border-left-primary shadow h-100 py-2">
+								<div class="card-body">
+									<div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+											<div
+												class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+												USERS</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+										</div>
+										<div class="col-auto">
+											<i class="fas fa-calendar fa-2x text-gray-300"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Earnings (Monthly) Card Example -->
+						<div class="col-xl-3 col-md-6 mb-4">
+							<div class="card border-left-success shadow h-100 py-2">
+								<div class="card-body">
+									<div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+											<div
+												class="text-xs font-weight-bold text-success text-uppercase mb-1">
+												STORES</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+										</div>
+										<div class="col-auto">
+											<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Earnings (Monthly) Card Example -->
+						<div class="col-xl-3 col-md-6 mb-4">
+							<div class="card border-left-info shadow h-100 py-2">
+								<div class="card-body">
+									<div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+											<div
+												class="text-xs font-weight-bold text-info text-uppercase mb-1">ODER
+											</div>
+											<div class="row no-gutters align-items-center">
+												<div class="col-auto">
+													<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+												</div>
+												<div class="col">
+													<div class="progress progress-sm mr-2">
+														<div class="progress-bar bg-info" role="progressbar"
+															style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+															aria-valuemax="100"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-auto">
+											<i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Pending Requests Card Example -->
+						<div class="col-xl-3 col-md-6 mb-4">
+							<div class="card border-left-warning shadow h-100 py-2">
+								<div class="card-body">
+									<div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+											<div
+												class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+												PRODUCT</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+										</div>
+										<div class="col-auto">
+											<i class="fas fa-comments fa-2x text-gray-300"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Content Row -->
+					<!-- Content Row -->
+
+					<div class="row">
+
+						<!-- Area Chart -->
+						<div class="col-xl-8 col-lg-7">
+							<div class="card shadow mb-4">
+								<!-- Card Header - Dropdown -->
+								<div
+									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+									<h6 class="m-0 font-weight-bold text-primary">REVENUE
+										CHART</h6>
+									<div class="dropdown no-arrow">
+										<a class="dropdown-toggle" href="#" role="button"
+											id="dropdownMenuLink" data-toggle="dropdown"
+											aria-haspopup="true" aria-expanded="false"> <i
+											class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+										</a>
+										<div
+											class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+											aria-labelledby="dropdownMenuLink">
+											<div class="dropdown-header">Dropdown Header:</div>
+											<a class="dropdown-item" href="#">Action</a> <a
+												class="dropdown-item" href="#">Another action</a>
+											<div class="dropdown-divider"></div>
+											<a class="dropdown-item" href="#">Something else here</a>
+										</div>
+									</div>
+								</div>
+								<!-- Card Body -->
+								<div class="card-body">
+									<div class="chart-area">
+										<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Pie Chart -->
+						<div class="col-xl-4 col-lg-5">
+							<div class="card shadow mb-4">
+								<!-- Card Header - Dropdown -->
+								<div
+									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+									<h6 class="m-0 font-weight-bold text-primary">TOP PRODUCT</h6>
+									<div class="dropdown no-arrow">
+										<a class="dropdown-toggle" href="#" role="button"
+											id="dropdownMenuLink" data-toggle="dropdown"
+											aria-haspopup="true" aria-expanded="false"> <i
+											class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+										</a>
+										<div
+											class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+											aria-labelledby="dropdownMenuLink">
+											<div class="dropdown-header">Dropdown Header:</div>
+											<a class="dropdown-item" href="#">Action</a> <a
+												class="dropdown-item" href="#">Another action</a>
+											<div class="dropdown-divider"></div>
+											<a class="dropdown-item" href="#">Something else here</a>
+										</div>
+									</div>
+								</div>
+								<!-- Card Body -->
+								<div class="card-body">
+									<div class="chart-pie pt-4 pb-2">
+										<canvas id="myPieChart"></canvas>
+									</div>
+									<div class="mt-4 text-center small">
+										<span class="mr-2"> <i
+											class="fas fa-circle text-primary"></i> Direct
+										</span> <span class="mr-2"> <i
+											class="fas fa-circle text-success"></i> Social
+										</span> <span class="mr-2"> <i class="fas fa-circle text-info"></i>
+											Referral
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Content Row -->
+				</div>
 			</div>
 		</div>
-	</div>
 
+		<!-- chart -->
+		<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
-
-	<!-- script for action in page -->
-	<script>
-		// display active item
-		let item = document.querySelectorAll(".item");
-		let subitem = document.querySelectorAll(".sub-item");
-		for (let i = 0; i < item.length; i++) {
-			item[i].onclick = function() {
-
-				let j = 0;
-				let k = 0;
-				let list = document.querySelectorAll(".list");
-				while (k < subitem.length) {
-
-					subitem[k++].className = "sub-item";
-				}
-				while (j < list.length) {
-
-					list[j++].className = "list";
-				}
-				item[i].closest(".list").className = "list active";
-			};
-		}
-
-		for (let i = 0; i < subitem.length; i++) {
-			subitem[i].onclick = function() {
-
-				let j = 0;
-				let k = 0;
-				let list = document.querySelectorAll(".list");
-				while (k < list.length) {
-
-					list[k++].className = "list";
-				}
-				while (j < subitem.length) {
-
-					subitem[j++].className = "sub-item";
-				}
-				subitem[i].className = "sub-item active";
-				subitem[i].closest(".list").className = "list active";
-			};
-		}
-
-		// toggle on menu button
-
-		let menuToggle = document.querySelector(".toggle");
-		let navigation = document.querySelector(".navigation");
-		let content = document.querySelector(".main_content");
-		let menutoggleclick = function() {
-			let subbtn = document.querySelectorAll(".sub-btn");
-			menuToggle.classList.toggle("active");
-			navigation.classList.toggle("active");
-			content.classList.toggle("active");
-			//disable dropdown
-			for (let i = 0; i < subbtn.length; i++) {
-				subbtn[i].classList.toggle("hover-btn")
-			}
-
-		};
-		menutoggleclick();
-		menuToggle.onclick = menutoggleclick;
-	</script>
-	<script>
-		// show hide dropdown list
-		$(document).ready(function() {
-			$('.sub-btn').click(function() {
-				if (!this.classList.contains("hover-btn")) {
-					$(this).next('.sub-menu').slideToggle();
-					$(this).find('.dropdown').toggleClass('rotate')
-				}
-			})
-		})
-
-		test();
-		function test() {
-			$.get('/sunnyFE/account/getsession', function(ketqua) {
-				let u = ketqua.user
-				if (u == null
-						|| !(u.roleId.roleId == 3 || u.roleId.roleId == 1)) {
-					window.location.href = "/sunnyFE/account/login";
-				}
-				if (u.roleId.roleId == 3) {
-					$('.authentication-admin').remove()
-				}
-			})
-		}
-
-		function checkfilter(o) {
-			return false;
-		}
-
-		function formatmoney(n, currency) {
-
-			const money = n.toString();
-			return money.replace(/\B(?=(\d{3})+(?!\d))/g, ',') + currency;
-		}
-	</script>
-
-
+		<!-- script for action in page -->
+		<script src="/views/admin/js/page.js">></script>
 </body>
 </html>

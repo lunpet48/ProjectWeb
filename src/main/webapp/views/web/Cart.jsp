@@ -42,7 +42,7 @@
 			                    <tbody>
 			                    	<c:forEach items="${cartitembystore}" var ="cartitem">
 				                    	<tr>
-				                        	<td><input type="checkbox" class="check-one" name="check-one"></td>
+				                        	<td><input type="checkbox" class="check-one" name="check-one" value="${cartitem._id}"></td>
 				                            <td> <div class="product-image"><img src="https://dummyimage.com/80x80/55595c/fff" /></div> </td>
 				                            <td>${cartitem.productId.name}</td>
 				                            <td class="text-left">${cartitem.productId.price}</td>
@@ -119,22 +119,36 @@
 	</div>
 	
 	<!-- Form điền thông tin đặt hàng -->
-	<div id="form-order-info" class="modal">
-	  <div class="modal-content">
-	    <div class="modal-header">
-	      <span class="close close-modal">&times;</span>
-	      <h2>Đặt hàng</h2>
-	    </div>
-	    <div class="modal-body">
-	      
-	    </div>
-	    <div class="modal-footer">
-	      <button id="xac-nhan-dat-hang" >Xác nhận</button>
-	      <button class="close-modal">Hủy</button>
-	    </div>
-	  </div>
-	</div>
-
+	<form action="/order/add" method="post">
+		<div id="form-order-info" class="modal">
+		  <div class="modal-content">
+		    <div class="modal-header">
+		      <span class="close close-modal">&times;</span>
+		      <h2>Đặt hàng</h2>
+		    </div>
+		    <div class="modal-body">
+		    	<label>Địa chỉ: </label><br/>
+		    	<input type="text" name="address" value=""><br/><br/>
+		    	
+		    	<label>Số Điện thoại: </label><br/>
+		    	<input type="text" name="phone" value=""><br/><br/>
+		    	
+		    	<label>Đơn vị giao hàng: </label><br/>
+		    	<select name="delivery" id="delivery">
+				  <option value="1">nhanh</option>
+				  <option value="2">từ từ</option>
+				</select>
+		    	<br/><br/>
+		    </div>
+		    <div class="modal-footer">
+		      <button class="close-modal" >Hủy</button>
+		      <button id="xac-nhan-dat-hang" >Xác nhận</button>
+		    </div>
+		  </div>
+		</div>
+		
+		<input type="hidden" name="cartitem" id="input-cartitem" value="3,4,5" multiple >
+	</form>
 	<%@ include file="/common/web/footer.jsp"%>
 	
 	<script type="text/javascript">
@@ -171,10 +185,23 @@
 		    }
 		});
 		
+		$(document).on('click', 'button.close-modal', function(e) {
+			e.preventDefault();
+		});
+		
+		
 		//form đặt hàng
 		var modal = document.getElementById("form-order-info");
 		$(document).on("click","#dat-hang",function() {
-			
+			let strcartitem = "";
+			let checked = $(".check-one:checked");
+			//console.log($(checked).val());
+			$.each(checked, function( index, value ) {
+				strcartitem = strcartitem + $(value).val() + ",";
+			});
+			strcartitem = strcartitem.slice(0, -1);
+			console.log(strcartitem);
+			$("#input-cartitem").val(strcartitem);
 			modal.style.display = "block";
 		});
 		$(document).on("click",".close-modal",function() {
@@ -185,6 +212,7 @@
 		    modal.style.display = "none";
 		  }
 		}
+		
 	</script>
 </body>
 </html>
