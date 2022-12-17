@@ -12,10 +12,20 @@
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600" rel="stylesheet" type="text/css">
     <link rel='stylesheet' href="/css/web/web.css">
     <link rel='stylesheet' href="/css/modal.css">
+    <link rel='stylesheet' href="/css/alertMessage.css">
     <!-- script -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
 <body>
+	<div id="alertMessage">
+			<c:if test="${messageError !=null}">
+				<div class="alert">
+				  <span class="closebtn">&times;</span>  
+				 	${messageError}
+				</div>
+			</c:if>
+	</div>
+	
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
 	    <div class="container">
 	        <a class="navbar-brand" href="/">SUNNY</a>
@@ -138,7 +148,12 @@
 	        data: JSON.stringify(pid),
 	        /* dataType: 'json', */
 	        success: function (data) {
-				alert(data)
+				$('#alertMessage').append(`<div class="alert success">
+						  <span class="closebtn">&times;</span>  
+					 	\${data}
+					</div>`)
+				//alert(data)
+					modal.style.display = "none";
 	        },
 	        error: function (e) {
 				alert("An error occur!");
@@ -147,6 +162,16 @@
 		
 	});
 	
+	//close message
+
+	/* $(document).on('click', '.closebtn', function(){
+		var div = this.parentElement;
+		div.style.opacity = "0";
+		setTimeout(function(){ div.style.display = "none"; }, 600);
+	}) */
+	
+       
 	</script>
+	<script src="/js/alertMessage.js"></script>
 </body>
 </html>

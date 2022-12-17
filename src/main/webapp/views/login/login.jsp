@@ -18,7 +18,6 @@
 			  <span class="closebtn">&times;</span>  
 			 	${messageError}
 			</div>
-			
 		</c:if>
 	</div>
 	
