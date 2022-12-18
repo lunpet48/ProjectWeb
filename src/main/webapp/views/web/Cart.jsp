@@ -25,7 +25,7 @@
 	            	<c:forEach items="${cartItem}" var ="cartitembystore">
 		            	<div class="store">
 		            		<div class="store-name">
-				            	<a href="">${cartitembystore[0].cartId.storeId.name}</a>
+				            	<a href="/store/${cartitembystore[0].cartId.storeId._id}">${cartitembystore[0].cartId.storeId.name}</a>
 		            		</div>
 		            		
 			                <table class="table table-striped">

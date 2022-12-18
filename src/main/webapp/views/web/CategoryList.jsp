@@ -14,7 +14,7 @@
 	<%@ include file="/common/web/header.jsp"%>
 	<br/>
 	
-	
+
 <div class="container mt-3">
     <p>Tất cả danh mục</p>
     <div class="card-body">        
@@ -28,10 +28,6 @@
 	            </div>
 	        </div>
         </c:forEach>
-        
-
-        
-
     </div>
 </div>
 	

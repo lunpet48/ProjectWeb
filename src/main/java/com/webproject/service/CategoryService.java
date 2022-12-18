@@ -25,4 +25,6 @@ public interface CategoryService {
 
 	Category findBySlug(String slug);
 
+	List<Category> searchCategoryByName(String keyword);
+
 }

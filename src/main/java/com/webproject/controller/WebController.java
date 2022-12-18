@@ -81,8 +81,6 @@ public class WebController {
 	@GetMapping("category-list/{categoryslug}")
 	public String productByCate(ModelMap model,@PathVariable String categoryslug, HttpSession session) {
 		Category cate = cateService.findBySlug(categoryslug);
-		System.err.println(categoryslug);
-		System.err.println(cate);
 		List<Product> list = productService.findAllByCategoryId(cate.get_id());
 		model.addAttribute("cate",cate);
 		model.addAttribute("list",list);
@@ -106,19 +104,20 @@ public class WebController {
 		
 		if(option.equals("product")) {
 			List<Product> products = productService.searchProductByName("%"+searchKey+"%");
-			//System.err.println(searchKey);
-			System.err.println(products.size());
-			products.forEach((n) -> System.err.println(n.getName()));
-			model.addAttribute(products);
-			//System.err.println(products.get(0).getName());
+			if(products.size() > 0)
+				model.addAttribute("list",products);
 		}
 		else if(option.equals("category")) {
-			System.err.println("c");
+			List<Category> categories = cateService.searchCategoryByName("%"+searchKey+"%");
+			if(categories.size() > 0)
+				model.addAttribute("categories",categories);
 		}
 		else if(option.equals("store")) {
 			System.err.println("s");
 		}
-		return "redirect:/";
+		model.addAttribute("option",option);
+		model.addAttribute("search-key",searchKey);
+		return "web/ketquatimkiem";
 	}
 
 }

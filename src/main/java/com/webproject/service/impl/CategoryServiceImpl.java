@@ -55,6 +55,11 @@ public class CategoryServiceImpl implements CategoryService {
 	public Category findBySlug(String slug) {
 		return categoryRepo.findBySlug(slug);
 	}
+
+	@Override
+	public List<Category> searchCategoryByName(String keyword) {
+		return categoryRepo.searchCategoryByName(keyword);
+	}
 	
 	
 }

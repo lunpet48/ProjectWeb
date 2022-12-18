@@ -8,27 +8,64 @@
 <title>Insert title here</title>
 
 <link rel='stylesheet' href="/css/web/product.css">
+<link rel='stylesheet' href="/css/web/category.css">
 </head>
 <body>
 <%@ include file="/common/web/header.jsp"%>
 	<br/>
+	
+
+
+<c:choose>
+    <c:when test="${categories != null}">
+       <div class="container mt-3">
+		    <div class="row">
+		        <div class="col-sm">
+		            <div class="card">
+		                <div class="card-header bg-primary text-white text-uppercase">
+							Tìm kiếm danh mục
+		                </div>
+		                <div class="card-body">
+		                	
+		                	<c:forEach items="${categories}" var ="cate">
+					        	<div  class="product-card" onclick="location.href='/category-list/${cate.slug}';">
+						            <div class="product-tumb">
+						                <img src="/vendor/store/product/images/${cate.image}" alt="">
+						            </div>
+						            <div class="product-details">
+						                <p>${cate.name}</p>
+						            </div>
+						        </div>
+					        </c:forEach>
+		
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+    </c:when>    
+    <c:otherwise>
+    </c:otherwise>
+</c:choose>
+
+<c:if test="${list != null}">
+	
 <div class="container mt-3">
     <div class="row">
         <div class="col-sm">
             <div class="card">
                 <div class="card-header bg-primary text-white text-uppercase">
-                   Kết quả tìm kiếm 
                    <c:choose>
 					    <c:when test="${cate != null}">
-					        Cho danh mục: ${cate.name}
+					        danh mục: ${cate.name}
 					    </c:when>    
 					    <c:otherwise>
+					    	Sản phẩm
 					    </c:otherwise>
 					</c:choose>
                    
                 </div>
                 <div class="card-body">
-                	
                 	<c:forEach items="${list}" var ="product">
 	                	<div class="product-card">
 	                		<input type="hidden" value="${product._id}">
@@ -62,6 +99,12 @@
         </div>
     </div>
 </div>
+</c:if>
+
+
+
+
+
 	<%@ include file="/common/web/footer.jsp"%>
 </body>
 </html>
