@@ -236,7 +236,7 @@
 			$("#input-cartitem").val(strcartitem);
 			modal.style.display = "block";
 			
-			//computePrice();
+			computePrice();
 		});
 		$(document).on("click",".close-modal",function() {
 			modal.style.display = "none";

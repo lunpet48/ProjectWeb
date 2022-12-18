@@ -61,6 +61,12 @@ public class OrderServiceImpl implements OrderService {
 		// TODO Auto-generated method stub
 		return orderRepo.findAllSortDate();
 	}
+
+	@Override
+	public List<Order> findAllByUserId(Long userId) {
+		return orderRepo.findAllByUserId(userId);
+	}
+	
 	
 	
 }

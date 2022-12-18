@@ -26,4 +26,6 @@ public interface OrderService {
 	List<Order>findAllByDate(String date);
 	
 	List<Order> findAllSortDate();
+
+	List<Order> findAllByUserId(Long userId);
 }

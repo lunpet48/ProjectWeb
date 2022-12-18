@@ -1,5 +1,8 @@
 package com.webproject.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -14,8 +17,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.webproject.entity.Order;
+import com.webproject.entity.OrderItem;
 import com.webproject.entity.User;
 import com.webproject.model.UserModel;
+import com.webproject.service.OrderItemService;
+import com.webproject.service.OrderService;
 import com.webproject.service.UserService;
 
 @Controller
@@ -24,6 +31,12 @@ public class ProfileController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	private OrderService orderService;
+	
+	@Autowired
+	private OrderItemService orderItemService;
 	
 	@GetMapping("")
 	public String profilePage(ModelMap model, HttpSession session) {
@@ -90,9 +103,27 @@ public class ProfileController {
 			model.addAttribute("messageError",message);
 		}
 		
-		
-		
 		model.addAttribute("user",user);
 		return "web/changePassword";
+	}
+	
+	@GetMapping("/orders")
+	public String listorder(ModelMap model, HttpSession session) {
+		User user = (User) session.getAttribute("user");
+		if(user == null)
+			return "redirect:/account/login";
+		List<Order> orders = orderService.findAllByUserId(user.get_id());
+		List<OrderItem> orderItems = new ArrayList<>();
+		
+		for (Order order : orders) {
+			List<OrderItem> list = orderItemService.findByOrderId(order.get_id());
+			for(OrderItem item : list) {
+				orderItems.add(item);
+			}
+		}
+		model.addAttribute("orderitems",orderItems);
+		model.addAttribute("orders",orders);
+		model.addAttribute("user",user);
+		return "web/historyPurchase";
 	}
 }
