@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Nationalized;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -39,10 +41,12 @@ public class Delivery implements Serializable{
 	
 	@Column(nullable = false, unique = true)
 	@Size(max = 100)
+	@Nationalized
 	private String name;
 	
 	@Column(nullable = false)
 	@Size(max = 1000)
+	@Nationalized
 	private String description;
 	
 	@Column(nullable = false)

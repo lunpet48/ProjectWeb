@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Nationalized;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -43,8 +45,9 @@ public class Category implements Serializable {
 	
 	@Size(max = 32)
 	@Column(unique = true, nullable = false)
+	@Nationalized
 	private String name;
-	
+	@Nationalized
 	private String slug;
 	
 //	@NotNull

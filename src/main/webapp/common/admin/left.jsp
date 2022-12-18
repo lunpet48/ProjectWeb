@@ -41,7 +41,7 @@
 				class="title">Delivery</span> 
 		</a></li>
 		<li class="list"><b></b> <b></b> <a
-			href="<c:url value='/admin/product/all/1'/>" class=" item active">
+			href="<c:url value='/admin/order/0/1'/>" class=" item active">
 				<span class="icon"><i class="fa-solid fa-clipboard"></i></span> <span
 				class="title">Order</span> 
 		</a></li>
