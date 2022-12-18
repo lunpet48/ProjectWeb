@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,28 +29,41 @@ public class AdminOrderController {
 	@Autowired
 	OrderItemService orderItemService;
 	
-	@RequestMapping("{status}/{index}")
-	public String listOrder(ModelMap modelMap,@RequestParam("status") String status, @RequestParam("index") Integer index) {
+	@GetMapping("{varstatus}/{index}")
+	public String listOrder(ModelMap modelMap,@PathVariable("varstatus") Integer var, @PathVariable("index") Integer index) {
 		if(index==null) {
 			index=1;
 		}
-		if(status==null) {
-			status="all";
+		String status=null;
+		if(var==0) {
+			status="Tất cả";
 			Page<Order>page=orderService.findAll(index-1, 6);
 			List<Order>orders=page.getContent();
 			modelMap.addAttribute("listOrder", orders);
 			modelMap.addAttribute("page",page);
 		}else {
+			if(var==1) {
+				status="Chưa xác nhận";
+			}if(var==2) {
+				status="Đã xác nhận";
+			}if(var==3) {
+				status="Đang giao";
+			}if(var==4) {
+				status="Đã nhận hàng";
+			}if(var==5) {
+				status="Bị hủy";
+			}
 			Page<Order>page=orderService.findByStatus(status, index-1, 6);
 			List<Order>orders=page.getContent();
 			modelMap.addAttribute("listOrder", orders);
 			modelMap.addAttribute("page",page);
 		}
+		modelMap.addAttribute("status", status);
 		
 		return "admin/Table/order";
 	}
 	
-	@GetMapping("details/{orderId}")
+	@GetMapping("{varstatus}/{index}/details/{orderId}")
 	public String Details(ModelMap Model,@RequestParam("orderId") Long Id) {
 		List<OrderItem>orderItems=orderItemService.findByOrderId(Id);
 		Model.addAttribute("listOrderItem", orderItems);

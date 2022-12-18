@@ -25,7 +25,19 @@
 	type="text/javascript"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+<!-- BODY -->
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	rel="stylesheet" type="text/css">
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600"
+	rel="stylesheet" type="text/css">
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
+<!-- BODY -->
 <!-- Dropdown -->
 
 </head>
@@ -46,35 +58,39 @@
 				<div class="main_content__body">
 
 					<div class="main_content__body-title">
-						<p>Quản lí thuộc tính sản phẩm</p>
+						<p>Danh sách đơn hàng</p>
 
 					</div>
 					<%@ include file="/common/admin/info.jsp"%>
 
 					<div class="dropdown">
-						<button onclick="myFunction()" class="dropbtn">
-							Danh mục: ${category.name}
-							<c:if test="${category.name==null}">Tất cả</c:if>
-						</button>
+						<button onclick="myFunction()" class="dropbtn">Status:
+							${status}</button>
 						<div id="myDropdown" class="dropdown-content">
-							<a href="<c:url value='/admin/style/0/1'/>">Tất cả</a>
-							<c:forEach var="item" items="${categories}">
-								<a href="<c:url value='/admin/style/${item._id }/1'/>">${item.name }</a>
-							</c:forEach>
+							<a href="<c:url value='/admin/order/0/1'/>">Tất cả</a> <a
+								href="<c:url value='/admin/order/1/1'/>">Chưa xác nhận</a><a
+								href="<c:url value='/admin/order/2/1'/>">Đã xác nhận</a><a
+								href="<c:url value='/admin/order/3/1'/>">Đang giao</a><a
+								href="<c:url value='/admin/order/4/1'/>">Đã nhận hàng</a><a
+								href="<c:url value='/admin/order/5/1'/>">Bị hủy</a>
 						</div>
 					</div>
 					<table class="table maintable">
 						<thead>
 							<tr>
 								<th>Id</th>
-								<th>Style name</th>
-								<th>Category name</th>
-								<th>CreatedAT</th>
+								<th>User</th>
+								<th>Địa chỉ</th>
+								<th>Ngày đặt</th>
+								<th>Store</th>
+								<th>Delivery</th>
+								<th>Tổng tiền</th>
+								<th>Trạng thái</th>
 								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="item" items="${listStyles}">
+							<c:forEach var="item" items="${listOrder}">
 
 
 
@@ -82,19 +98,19 @@
 
 									<td>${item._id}</td>
 
-									<td>${item.name}</td>
+									<td>${item.userId.lastName}</td>
 
-									<td>${item.categoryId.name}</td>
+									<td>${item.address}</td>
 									<td>${item.createdAt}</td>
-									<td><a
-										href="<c:url value='/admin/style/edit/${item._id}'/>"
-										class="center"><i class="fa-solid fa-pen-to-square"></i></a> |
-										<a href="<c:url value='/admin/style/delete/${item._id }'/>"
-										class="center"><i
-											class="fa-solid fa-trash delete-multi-row grow-btn-when-hover"></i></a>
-										<a href="<c:url value='/admin/style/value/${item._id }'/>"
-										class="center"><i class="fa-light fa-pipe-valve"></i>value</a></td>
-
+									<td>${item.storeId.name}</td>
+									<td>${item.deliveryId.name}</td>
+									<td>${item.status}</td>
+									<td>${item.amountFromUser}</td>
+									<td><a href="<c:url value='/admin/style/add'/>"><i
+											class="fa-solid fa-circle-plus addbtn grow-btn-when-hover"></i>
+									</a><a href="<c:url value='/admin/style/add'/>"><i
+											class="fa-solid fa-circle-plus addbtn grow-btn-when-hover"></i>
+									</a></td>
 								</tr>
 
 							</c:forEach>
@@ -102,17 +118,16 @@
 					</table>
 				</div>
 				<div class="main_content__footer">
-					<a href="<c:url value='/admin/style/add'/>"><i
-						class="fa-solid fa-circle-plus addbtn grow-btn-when-hover"></i> </a> <a
-						href="<c:url value='/admin/style/${cateId}/1'/>"><i
+					<a href="<c:url value='/admin/order/${varstatus}/1'/>"><i
 						class="fa-solid fa-arrows-rotate refreshbtn grow-btn-when-hover"></i>
 					</a>
 					<div class="pagination">
-						<a href="${pageContext.request.contextPath }/admin/style/${cateId}/1"
+						<a
+							href="${pageContext.request.contextPath }/admin/order/${varstatus}/1"
 							id="first-page"><i class="fa-solid fa-angles-left"></i></a>
 						<c:if test="${page.getNumber()+1>1}">
 							<a
-								href="${pageContext.request.contextPath }/admin/style/${cateId}/${page.getNumber()}"
+								href="${pageContext.request.contextPath }/admin/order/${varstatus}/${page.getNumber()}"
 								id="pre-page"><i class="fa-solid fa-angle-left"></i></a>
 						</c:if>
 						<c:if test="${page.getNumber()+1==1}">
@@ -120,19 +135,24 @@
 						</c:if>
 						<c:forEach begin="1" end="${page.getTotalPages()}" var="i">
 							<a id="currentpage"
-								href="${pageContext.request.contextPath}/admin/style/${cateId}/${i}">${i}</a>
+								href="${pageContext.request.contextPath}/admin/order/${varstatus}/${i}">${i}</a>
 						</c:forEach>
 						<c:if test="${page.getNumber()+1<page.getTotalPages()}">
 							<a
-								href="${pageContext.request.contextPath}/admin/style/${cateId}/${page.getNumber()+2}"
+								href="${pageContext.request.contextPath}/admin/order/${varstatus}/${page.getNumber()+2}"
 								id="next-page"><i class="fa-solid fa-angle-right"></i></a>
 						</c:if>
-						<c:if test="${page.getNumber()+1==page.getTotalPages()}">
+						<c:if test="${page.getNumber()+1>=page.getTotalPages()}">
 							<a id="next-page"><i class="fa-solid fa-angle-right"></i></i></a>
 						</c:if>
-						<a
-							href="${pageContext.request.contextPath }/admin/style/${cateId}/${page.getTotalPages()}"
-							id="last-page"><i class="fa-solid fa-angles-right"></i></a>
+						<c:if test="${page.getTotalPages()!=0}">
+							<a
+								href="${pageContext.request.contextPath }/admin/order/${varstatus}/${page.getTotalPages()}"
+								id="last-page"><i class="fa-solid fa-angles-right"></i></a>
+						</c:if>
+						<c:if test="${page.getTotalPages()==0}">
+							<a id="last-page"><i class="fa-solid fa-angles-right"></i></a>
+						</c:if>
 					</div>
 				</div>
 				<!-- script for action in page -->

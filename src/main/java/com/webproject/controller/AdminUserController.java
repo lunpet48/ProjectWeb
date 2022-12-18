@@ -25,7 +25,7 @@ public class AdminUserController {
 			index="1";
 		}
 		int indexp = Integer.parseInt(index);
-		Page<User>usPage=userService.uPage(indexp-1, 1);
+		Page<User>usPage=userService.uPage(indexp-1, 6);
 		List<User>users=usPage.getContent();
 		modelMap.addAttribute("listuser", users);
 		modelMap.addAttribute("page", usPage);

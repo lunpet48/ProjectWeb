@@ -16,6 +16,8 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 
+import org.hibernate.annotations.Nationalized;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -64,6 +66,7 @@ public class Order implements Serializable{
 	private String phone;
 	
 	//@Column(nullable = false, columnDefinition = "nvarchar(200) default 'not precessed'")
+	@Nationalized
 	private String status;
 	
 	//@Column(columnDefinition = "boolean default false")
