@@ -153,13 +153,13 @@
 		    	<label>Đơn vị giao hàng: </label>
 		    	<select name="delivery" id="delivery">
 		    		<c:forEach items="${deliveries}" var ="delivery">
-		    			<option value="${delivery._id}">${delivery.name}</option>
+		    			<option value="${delivery._id}" data-monney="${delivery.price}">${delivery.name}</option>
 		    		</c:forEach>
 				</select>
 		    	<br/><br/>
 		    	<div class="thongtinhoadon">
 		    		<a>Tổng Tiền (</a> <a class="TongSanPham">0 </a> <a> sản phẩm ): </a>  <a class="TongTien">0</a><br/>
-		    		<a>Phí Vận Chuyển (</a> <a class="tenvanchuyen">None ):</a><a class="phivanchuyen">0</a><br/>
+		    		<a>Phí Vận Chuyển (</a> <a class="tenvanchuyen">None </a> <a> ): </a> <a class="phivanchuyen">0</a><br/>
 		    		<a>Tổng Thanh Toán: <a class="tongthanhtoan">0</a></a>
 		    	</div>
 		    	<br/><br/>
@@ -235,6 +235,8 @@
 			console.log(strcartitem);
 			$("#input-cartitem").val(strcartitem);
 			modal.style.display = "block";
+			
+			//computePrice();
 		});
 		$(document).on("click",".close-modal",function() {
 			modal.style.display = "none";
@@ -277,36 +279,54 @@
 			console.log($('#input-cartitem-delete').val())
 		})
 		//hàm tính tiền
-		function getToTalPrice(array){
+		function getToTalPrice(array, deliveryId = 0){
 			return new Promise(resolve => {
+				var data = new FormData();
+				data.append('cartItem[]', array)
+				if(deliveryId > 0){
+					data.append('deliveryId', deliveryId)
+				}
 				$.ajax({
 			        type: "POST",
-			        contentType: "application/json",
+			        //contentType: "application/json",
 			        url: location.protocol + '//' + location.host +  "/cart/get-total-price",
-			        data: JSON.stringify(array),
+			        data: data,
+			        cache: false,
+			        contentType: false,
+			        processData: false,
 			        /* dataType: 'json', */
 			        success: function (data) {
 						//console.log('data: ' + data)
 						resolve(data)
 			        },
 			        error: function (e) {
-						alert("An error occur!");
+						alert("An error occur!.");
 			        }
 			    });  
 			});
 		}
 		//khi delivery change
-		$(document).on('change', '#delivery',function(){
+		$(document).on('change', '#delivery',async function(){
 			computePrice();
 		});
-		function computePrice(){
+		async function computePrice(){
 			var pvc = $('.phivanchuyen');
+			var tvc = $('.tenvanchuyen');
 			var ttt = $('.tongthanhtoan');
 			var tt = $('.TongTien');
 			
-			pvc.text($('#delivery').val())
-			ttt.text( parseInt(pvc.text()) + parseInt(tt.text()) )
+			let strcartitem = "";
+			let checked = $(".check-one:checked");
+			$.each(checked, function( index, value ) {
+				strcartitem = strcartitem + $(value).val() + ",";
+			});
+			strcartitem = strcartitem.slice(0, -1);
+			let array = strcartitem.split(",");
 			
+			tvc.text($('#delivery').find(":selected").text())
+			pvc.text($('#delivery').find(":selected").data('monney'))
+			let tong = await getToTalPrice(array,$('#delivery').find(":selected").val());
+			ttt.text(tong)
 		}
 		//khi ấn nút +
 		$(document).on('click', '.increaseQty',async function(){
