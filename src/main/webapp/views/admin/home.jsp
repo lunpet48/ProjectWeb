@@ -31,14 +31,7 @@
 <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	rel="stylesheet" type="text/css">
-<link
-	href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-	rel="stylesheet" type="text/css">
-<link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600"
-	rel="stylesheet" type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
+
 <!-- BODY -->
 
 <script type="text/javascript">
@@ -50,7 +43,7 @@
 			animationEnabled : true,
 			title : {
 				title : "Datetime",
-				text : "Thống kê người dùng mới"
+				text : "Thống kê doanh thu"
 			},
 			axisX : {
 				valueFormatString : "DD-MM-YYYY"
@@ -118,11 +111,11 @@
 										<div class="col mr-2">
 											<div
 												class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-												USERS</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+												USER</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${countUser} users</div>
 										</div>
 										<div class="col-auto">
-											<i class="fas fa-calendar fa-2x text-gray-300"></i>
+											<i class="fa-solid fa-user fa-2x text-gray-300"></i>
 										</div>
 									</div>
 								</div>
@@ -137,11 +130,11 @@
 										<div class="col mr-2">
 											<div
 												class="text-xs font-weight-bold text-success text-uppercase mb-1">
-												STORES</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+												STORE</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${countStore} stores</div>
 										</div>
 										<div class="col-auto">
-											<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+											<i class="fa-solid fa-store fa-2x text-gray-300""></i>
 										</div>
 									</div>
 								</div>
@@ -155,20 +148,9 @@
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
 											<div
-												class="text-xs font-weight-bold text-info text-uppercase mb-1">ODER
+												class="text-xs font-weight-bold text-info text-uppercase mb-1">ORDER
 											</div>
-											<div class="row no-gutters align-items-center">
-												<div class="col-auto">
-													<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-												</div>
-												<div class="col">
-													<div class="progress progress-sm mr-2">
-														<div class="progress-bar bg-info" role="progressbar"
-															style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-															aria-valuemax="100"></div>
-													</div>
-												</div>
-											</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${countOrder} orders</div>
 										</div>
 										<div class="col-auto">
 											<i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -187,10 +169,10 @@
 											<div
 												class="text-xs font-weight-bold text-warning text-uppercase mb-1">
 												PRODUCT</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${countProduct} products</div>
 										</div>
 										<div class="col-auto">
-											<i class="fas fa-comments fa-2x text-gray-300"></i>
+											<i class="fa-brands fa-product-hunt fa-2x text-gray-300""></i>
 										</div>
 									</div>
 								</div>

@@ -10,10 +10,10 @@
 	<ul>
 
 		<div class="dropdown">
-			<button onclick="AcountAdmin()" class="dropbtn">Account</button>
+			<button onclick="AcountAdmin()" class="dropbtn">${sessionScope.user.getFirstName()} ${sessionScope.user.getLastName()}</button>
 			<div id="Dropdown" class="dropdown-content account-drop">
 				<a href="<c:url value='/admin/style/0/1'/>">Đổi Mật Khẩu</a> <a
-					href="<c:url value='/admin/style/0/1'/>">Đăng xuất</a>
+					href="<c:url value='/account/logout'/>">Đăng xuất</a>
 			</div>
 		</div>
 		<%-- <li style="border-radius: 10px" ><a href="">${sessionScope.accountName}</a></li> --%>

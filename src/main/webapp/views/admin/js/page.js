@@ -66,7 +66,7 @@ $(document).ready(function() {
 		}
 	})
 })
-
+/*
 test();
 function test() {
 	$
@@ -82,7 +82,7 @@ function test() {
 					$('.authentication-admin').remove()
 				}
 			})
-}
+}*/
 
 function checkfilter(o) {
 	return false;
