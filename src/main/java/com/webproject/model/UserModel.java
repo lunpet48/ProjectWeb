@@ -26,7 +26,7 @@ public class UserModel {
 	private String salt;
 	private String hashedPassword;
 	private String roles;
-	private String[] addresses;
+	private String address;
 	private String avatar;
 	private String cover;
 	private Integer point;
@@ -37,5 +37,6 @@ public class UserModel {
 	//Thêm 
 	private String password;
 	private String password2;
+	private String currentpassword;
 	
 }

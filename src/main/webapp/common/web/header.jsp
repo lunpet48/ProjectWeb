@@ -24,6 +24,12 @@
 				 	${messageError}
 				</div>
 			</c:if>
+			<c:if test="${messageSuccess !=null}">
+				<div class="alert success">
+				  <span class="closebtn">&times;</span>  
+				 	${messageSuccess}
+				</div>
+			</c:if>
 	</div>
 	
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark">

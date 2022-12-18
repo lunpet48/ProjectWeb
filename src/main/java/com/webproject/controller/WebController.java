@@ -119,5 +119,5 @@ public class WebController {
 		model.addAttribute("search-key",searchKey);
 		return "web/ketquatimkiem";
 	}
-
+	
 }
