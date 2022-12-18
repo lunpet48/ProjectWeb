@@ -22,4 +22,6 @@ public interface OrderService {
 	long count();
 
 	List<Order> findAllByStoreId(Long id);
+	
+	List<Order>findAll();
 }

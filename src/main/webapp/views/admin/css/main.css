@@ -511,6 +511,7 @@ tbody tr:nth-child(odd) {
 }
 
 /* Add Animation */
+/* 
 @
 -webkit-keyframes animatetop {
 	from {top: -300px;
@@ -535,7 +536,7 @@ to {
 }
 
 }
-
+*/
 /* The Close Button */
 .closex {
 	color: #e8b8b0;
@@ -775,3 +776,13 @@ label {
 	display: inline-block;
 	margin-bottom: 0.5rem;
 }
+
+.container-fluid {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 150%;
+}
+
