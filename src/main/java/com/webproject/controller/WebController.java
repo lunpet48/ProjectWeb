@@ -105,10 +105,10 @@ public class WebController {
 		String option = req.getParameter("option");
 		
 		if(option.equals("product")) {
-			List<Product> products = productService.searchProductByName("'%d%'");
+			List<Product> products = productService.searchProductByName("%"+searchKey+"%");
 			//System.err.println(searchKey);
 			System.err.println(products.size());
-			products.forEach((n) -> System.err.println(n));
+			products.forEach((n) -> System.err.println(n.getName()));
 			model.addAttribute(products);
 			//System.err.println(products.get(0).getName());
 		}
