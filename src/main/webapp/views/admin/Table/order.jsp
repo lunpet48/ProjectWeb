@@ -25,20 +25,7 @@
 	type="text/javascript"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<!-- BODY -->
-<link
-	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	rel="stylesheet" type="text/css">
-<link
-	href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-	rel="stylesheet" type="text/css">
-<link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600"
-	rel="stylesheet" type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
-<!-- BODY -->
-<!-- Dropdown -->
+
 
 </head>
 <body class="no-skin">
@@ -104,13 +91,15 @@
 									<td>${item.createdAt}</td>
 									<td>${item.storeId.name}</td>
 									<td>${item.deliveryId.name}</td>
-									<td>${item.status}</td>
 									<td>${item.amountFromUser}</td>
-									<td><a href="<c:url value='/admin/style/add'/>"><i
-											class="fa-solid fa-circle-plus addbtn grow-btn-when-hover"></i>
-									</a><a href="<c:url value='/admin/style/add'/>"><i
-											class="fa-solid fa-circle-plus addbtn grow-btn-when-hover"></i>
-									</a></td>
+									<td>${item.status}</td>
+									<td><a
+										href="<c:url value='/admin/order/${varstatus}/${index }/details/${item._id }'/>"><i
+											class="fa-solid fa-circle-info"></i> info</a> <c:if
+											test='${item.status=="Đã xác nhận" }'>//<a
+												href="<c:url value='/admin/style/add'/>"><i
+												class="fa-thin fa-truck"></i> </a>
+										</c:if></td>
 								</tr>
 
 							</c:forEach>
