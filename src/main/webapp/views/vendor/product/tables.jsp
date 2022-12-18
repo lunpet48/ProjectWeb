@@ -13,7 +13,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SB Admin 2 - Tables</title>
+<title>SB Vendor 2 - Product</title>
 
 <!-- Custom fonts for this template -->
 <link href="/css/all.min.css" rel="stylesheet" type="text/css">

@@ -22,10 +22,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.webproject.entity.Cart;
 import com.webproject.entity.CartItem;
+import com.webproject.entity.Delivery;
 import com.webproject.entity.Product;
 import com.webproject.entity.User;
 import com.webproject.service.CartItemService;
 import com.webproject.service.CartService;
+import com.webproject.service.DeliveryService;
 import com.webproject.service.ProductService;
 
 @Controller
@@ -41,13 +43,17 @@ public class CartController {
 	@Autowired
 	private ProductService productService;
 	
+	@Autowired
+	private DeliveryService deliveryService;
+	
 	@GetMapping("")
 	public String cartPage(ModelMap model, HttpSession session) {
 		User user = (User) session.getAttribute("user");
 		List<Long> cartId = cartService.getAllCartIdOfUser(user.get_id());
 		List<List<CartItem>> cartItem = new ArrayList<>();
 		cartId.forEach((n) -> cartItem.add(cartitemService.findCartItemByCartId(n)));
-		
+		List<Delivery> deliveries = deliveryService.findAll();
+		model.addAttribute("deliveries", deliveries);
 		model.addAttribute("cartItem", cartItem);
 		model.addAttribute("page", "cart");
 		return "web/Cart";
@@ -97,18 +103,44 @@ public class CartController {
 	@PostMapping("delete")
 	public ModelAndView DeleteCartItem(ModelMap model,  @Valid @ModelAttribute("cartitem") List<Long> cartItem, BindingResult result) throws JSONException
 	{	
+		System.err.println(cartItem);
 		List<CartItem> cartItems = new ArrayList<>(); 
 		cartItem.forEach((n) -> cartItems.add(cartitemService.findById(n).get()));
 		
-		for (CartItem cartItemRemove : cartItems) {
-			Cart cart = cartItems.get(0).getCartId();
-			cartitemService.delete(cartItems.get(0));
+		for (CartItem cartItemEntity : cartItems) {
+			Cart cart = cartItemEntity.getCartId();
+			cartitemService.delete(cartItemEntity);
 			if(cartitemService.findCartItemByCartId(cart.get_id()).isEmpty() ) {
 				cartService.delete(cart);
 			}
-			
 		}
 		
 		return new ModelAndView("redirect:/cart");
+	}
+	
+	
+	@PostMapping("get-quantity-cartitem")
+	public ResponseEntity<?>  getQuantityCartItem(@Valid @RequestBody Long cartitemid) throws Exception {
+		int quantity = cartitemService.findById(cartitemid).get().getCount();
+		return ResponseEntity.ok(quantity);
+	}
+	
+	@PostMapping("change-quantity-cartitem")
+	public ResponseEntity<?>  changeQuantityCartItem(@Valid @RequestBody CartItem cartitem) throws Exception {
+		CartItem entity = cartitemService.findById(cartitem.get_id()).get();
+		entity.setCount(cartitem.getCount());
+		cartitemService.save(entity);
+		return ResponseEntity.ok(0);
+	}
+	
+	@PostMapping("get-total-price")
+	public ResponseEntity<?>  getToTalPrice(@Valid @RequestBody List<Long> cartItem) throws Exception {
+		double total = 0;
+		List<CartItem> cartItems = new ArrayList<>(); 
+		cartItem.forEach((n) -> cartItems.add(cartitemService.findById(n).get()));
+		for (CartItem cartItemEntity : cartItems) {
+			total = total + cartItemEntity.getCount()*cartItemEntity.getProductId().getPrice();
+		}
+		return ResponseEntity.ok(total);
 	}
 }

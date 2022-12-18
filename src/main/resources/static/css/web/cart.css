@@ -19,6 +19,7 @@ tr{
 .input-center{
 	display:flex;
 	justify-content: center;
+    align-items: center;
 }
 .choose-all{
 	background: #FFFFFF;
@@ -45,4 +46,29 @@ tr th:nth-child(2){
 img{
 	max-width: 100%;
     max-height: 100%;
+}
+
+.increaseQty,
+.decreaseQty{
+	padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+}
+
+.ThanhToan{
+	background: #FFFFFF;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: right;
+    font-size: 20px;
+}
+
+.TongTien,
+.phivanchuyen,
+.tongthanhtoan{
+	color: #F05D40 !important;	
+}
+
+.thongtinhoadon{
+	text-align: right;
 }

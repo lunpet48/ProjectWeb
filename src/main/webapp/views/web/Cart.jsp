@@ -9,14 +9,6 @@
 <title>LTWEB</title>
 
 <link rel='stylesheet' href="/css/web/cart.css">
-
-<script>
-$(document).ready(function(){
-  $('.store .check-one').change(function(){
-   alert(5)
-  });   
-});
-</script>
 </head>
 <body>
 	<%@ include file="/common/web/header.jsp"%>
@@ -49,19 +41,33 @@ $(document).ready(function(){
 			                    </thead>
 			                    <tbody>
 			                    	<c:forEach items="${cartitembystore}" var ="cartitem">
-				                    	<tr>
+				                    	<tr data-cartitemid = "${cartitem._id}">
 				                        	<td><input type="checkbox" class="check-one" name="check-one" value="${cartitem._id}"></td>
-				                            <td> <div class="product-image"><img src="https://dummyimage.com/80x80/55595c/fff" /></div> </td>
+				                            <td> <div class="product-image"><img src="/vendor/store/product/images/${cartitem.productId.listImages[0]}" /></div> </td>
 				                            <td>${cartitem.productId.name}</td>
 				                            <td class="text-left">${cartitem.productId.price}</td>
-				                            <td class="text-center input-center"><input class="form-control text-center" type="text" value="${cartitem.count}" /></td>
-				                            <td class="text-center"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
+				                            
+				                            <td class="text-center input-center">
+				                            <i class="fa fa-minus decreaseQty"></i>
+				                            <input class="form-control text-center product-quantity-cartitem" type="text" value="${cartitem.count}" />
+				                            <i class="fa fa-plus increaseQty"></i>
+				                            
+				                            </td>
+				                            <td class="text-center">
+				                            <form action="/cart/delete" method="post">
+						                		<input type="hidden" name="cartitem" value="${cartitem._id}" multiple >
+						                    	<button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> 
+						                    </form>
+				                            </td>
 				                        </tr>
 			                    	</c:forEach>
 			                    </tbody>
 			                </table>
 		                </div>
 	            	</c:forEach>
+	            	<div class="ThanhToan">
+	            		<a>Tổng Tiền (</a> <a class="TongSanPham">0 </a> <a> sản phẩm ): </a>  <a class="TongTien">0</a>
+	            	</div>
 	            	
 	            	<!-- <div class="store">
 	            		<div class="store-name">
@@ -113,16 +119,16 @@ $(document).ready(function(){
 	        <div class="col mb-2">
 	            <div class="row">
 	                <div class="col-sm-12  col-md-4">
-	                    <button class="btn btn-block btn-light">Continue Shopping</button>
+	                    <button class="btn btn-block btn-light" id="back-to-homepage">Continue Shopping</button>
 	                </div>
 	                <div class="col-sm-12  col-md-4">
-	                	<form action="/order/delete" method="post">
+	                	<form action="/cart/delete" method="post">
 	                		<input type="hidden" name="cartitem" id="input-cartitem-delete" value="" multiple >
-	                    	<button class="btn btn-block btn-light">Xóa</button>
+	                    	<button class="btn btn-block btn-light" id="delete-cartitem" disabled>Xóa</button>
 	                    </form>
 	                </div>
 	                <div class="col-sm-12 col-md-4 text-right">
-	                    <button class="btn btn-lg btn-block btn-success text-uppercase" id="dat-hang">Checkout</button>
+	                    <button class="btn btn-lg btn-block btn-success text-uppercase" id="dat-hang" disabled>Đặt Hàng</button>
 	                </div>
 	            </div>
 	        </div>
@@ -144,11 +150,18 @@ $(document).ready(function(){
 		    	<label>Số Điện thoại: </label><br/>
 		    	<input type="text" name="phone" value=""><br/><br/>
 		    	
-		    	<label>Đơn vị giao hàng: </label><br/>
+		    	<label>Đơn vị giao hàng: </label>
 		    	<select name="delivery" id="delivery">
-				  <option value="1">nhanh</option>
-				  <option value="2">từ từ</option>
+		    		<c:forEach items="${deliveries}" var ="delivery">
+		    			<option value="${delivery._id}">${delivery.name}</option>
+		    		</c:forEach>
 				</select>
+		    	<br/><br/>
+		    	<div class="thongtinhoadon">
+		    		<a>Tổng Tiền (</a> <a class="TongSanPham">0 </a> <a> sản phẩm ): </a>  <a class="TongTien">0</a><br/>
+		    		<a>Phí Vận Chuyển (</a> <a class="tenvanchuyen">None ):</a><a class="phivanchuyen">0</a><br/>
+		    		<a>Tổng Thanh Toán: <a class="tongthanhtoan">0</a></a>
+		    	</div>
 		    	<br/><br/>
 		    </div>
 		    <div class="modal-footer">
@@ -164,6 +177,8 @@ $(document).ready(function(){
 	<%@ include file="/common/web/footer.jsp"%>
 	
 	<script type="text/javascript">
+	var regnumber = /^\d+$/;
+	
 	// checkbox all
 		$(document).on('change', '#check-all', function() {
 		    if (this.checked) {
@@ -194,7 +209,7 @@ $(document).ready(function(){
 		});
 	// uncheck checkbox-shop
 		$(document).on('change', '.store .check-one', function(e) {
-			alert(1)
+			
 		    if (!this.checked) {
 		    	
 		    	$(this).closest('table').find('thead .check-shop').prop('checked', false);
@@ -229,11 +244,149 @@ $(document).ready(function(){
 		    modal.style.display = "none";
 		  }
 		}
-		// 
-		$(document).on('change', '#check-all', function() {
+		// dùng để thay đổi các liên quan đến chọn checkbox
+		$(document).on('change', '.container input[type=checkbox]',async function() {
+			let strcartitem = "";
+			let checked = $(".check-one:checked");
+			$.each(checked, function( index, value ) {
+				strcartitem = strcartitem + $(value).val() + ",";
+			});
+			strcartitem = strcartitem.slice(0, -1);
+			
+			//kiểm tra nếu có ít nhất 1 checked thì mới được click đặt hàng hoặc xóa
+			if(strcartitem == "" || strcartitem == null){
+				$('#delete-cartitem').prop('disabled', true);
+				$('#dat-hang').prop('disabled', true);
+				$('.TongSanPham').text(0);;
+				$('.TongTien').text(0);
+			}
+			else{
+				$('#delete-cartitem').prop('disabled', false);
+				$('#dat-hang').prop('disabled', false);
+				let array = strcartitem.split(",");
+				let totalprice = await getToTalPrice(array);
+				let totalitem = array.length;
+				console.log(array);
+				console.log(array.length);
+				$('.TongSanPham').text(totalitem);;
+				$('.TongTien').text(totalprice);
+				
+			}
+			
+			$('#input-cartitem-delete').val(strcartitem);
+			console.log($('#input-cartitem-delete').val())
+		})
+		//hàm tính tiền
+		function getToTalPrice(array){
+			return new Promise(resolve => {
+				$.ajax({
+			        type: "POST",
+			        contentType: "application/json",
+			        url: location.protocol + '//' + location.host +  "/cart/get-total-price",
+			        data: JSON.stringify(array),
+			        /* dataType: 'json', */
+			        success: function (data) {
+						//console.log('data: ' + data)
+						resolve(data)
+			        },
+			        error: function (e) {
+						alert("An error occur!");
+			        }
+			    });  
+			});
+		}
+		//khi delivery change
+		$(document).on('change', '#delivery',function(){
+			computePrice();
+		});
+		function computePrice(){
+			var pvc = $('.phivanchuyen');
+			var ttt = $('.tongthanhtoan');
+			var tt = $('.TongTien');
+			
+			pvc.text($('#delivery').val())
+			ttt.text( parseInt(pvc.text()) + parseInt(tt.text()) )
+			
+		}
+		//khi ấn nút +
+		$(document).on('click', '.increaseQty',async function(){
+			let cartItemId = $(this).closest('tr').data("cartitemid");
+			let newvalue = $(this).closest('tr').find('.product-quantity-cartitem').val();
+			await changquantity(cartItemId,parseInt(newvalue) + 1);
+			newvalue = await loadquantity(cartItemId);
+			$(this).closest('tr').find('.product-quantity-cartitem').val(newvalue);
 			
 		})
+		//khi ấn nút -
+		$(document).on('click', '.decreaseQty',async function(){
+			let cartItemId = $(this).closest('tr').data("cartitemid");
+			let newvalue = $(this).closest('tr').find('.product-quantity-cartitem').val();
+			if(newvalue > 1){
+				await changquantity(cartItemId,parseInt(newvalue) - 1);
+				newvalue = await loadquantity(cartItemId);
+				$(this).closest('tr').find('.product-quantity-cartitem').val(newvalue);				
+			}
+		})
+		//khi thay đổi số lượng sản phẩm đặt hàng
+		$(document).on('change', '.product-quantity-cartitem',async function(){
+			
+			//kiểm tra > 0 nếu đúng -> thay đổi nếu không load lại
+			let cartItemId = $(this).closest('tr').data("cartitemid");
+			let newvalue = $(this).val();
+			if(regnumber.test(newvalue) && newvalue > 0 ){
+				// gọi hàm đổi lại quantity
+				await changquantity(cartItemId,newvalue);
+				//loadquantity();
+			}
+			//load lại số lượng
+			newvalue = await loadquantity(cartItemId);
+			$(this).val(newvalue);
+		})
+		//hàm load lại số lượng
+		function loadquantity(cartItemId){
+			return new Promise(resolve => {
+				 $.ajax({
+			        type: "POST",
+			        contentType: "application/json",
+			        url: location.protocol + '//' + location.host +  "/cart/get-quantity-cartitem",
+			        data: JSON.stringify(cartItemId),
+			        /* dataType: 'json', */
+			        success: function (data) {
+						//console.log('data: ' + data)
+						resolve(data)
+			        },
+			        error: function (e) {
+						alert("An error occur!");
+			        }
+			    });
+			 });
+		}
+		//hàm thay đổi số lượng vào database
+		function changquantity(cartItemId, quantity){
+			return new Promise(resolve => {
+				 $.ajax({
+			        type: "POST",
+			        contentType: "application/json",
+			        url: location.protocol + '//' + location.host +  "/cart/change-quantity-cartitem",
+			        data: JSON.stringify({"_id":cartItemId,"count":quantity}),
+			        /* dataType: 'json', */
+			        success: function (data) {
+						//console.log('data: ' + data)
+						resolve(data)
+			        },
+			        error: function (e) {
+						alert("An error occur!");
+			        }
+			    });
+			 });
+		}
 		
+		//kiểm tra nhập số
+		
+		//quay về trang chủ
+		$(document).on('click', '#back-to-homepage', function(){
+			$('.product-quantity-cartitem').val('10');
+		})
 	</script>
 </body>
 </html>

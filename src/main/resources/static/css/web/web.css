@@ -86,3 +86,38 @@ footer a {
 .btn-search{
 	width: 45px;
 }
+
+/* dropdown when click user */
+.user-name{
+	position: relative;
+}
+
+.user-dropdown{
+	position: absolute;
+	z-index: 10;
+	background-color: #FFFFFF;
+	border: 1px solid #DFDFDF;
+    border-radius: 3px;	
+	left: -60px;
+	display: none;
+}
+
+.user-name:hover .user-dropdown{
+	display: block;
+}
+.user-dropdown::before{
+	content: "";
+    border-width: 10px 15px;
+    border-style: solid;
+    border-color: transparent transparent #FFFFFF transparent;
+    position: absolute;
+    right: 8px;
+    top: -20px;
+}
+.user-dropdown__item{
+	padding: 10px;
+}
+.user-dropdown__item:hover {
+	background-color: #F5F5F5;
+}
+

@@ -101,6 +101,7 @@ public class LoginController {
 				userService.save(userResp);
 				model.addAttribute("messageSuccess", "Đăng ký thành công vui lòng trở lại đăng nhập");
 				model.addAttribute("action", "signup");
+				model.remove("user");
 				return new ModelAndView("login/login");
 			}
 			catch (Exception e) {
@@ -115,5 +116,10 @@ public class LoginController {
 		
 	}
 	
+	@GetMapping("logout")
+	public String logout(ModelMap model, HttpSession session) {
+		session.invalidate();
+		return "redirect:/account/login";
+	}
 	
 }
