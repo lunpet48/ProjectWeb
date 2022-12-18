@@ -1,11 +1,9 @@
 package com.webproject.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -16,18 +14,16 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.webproject.entity.Cart;
-import com.webproject.entity.CartItem;
+import com.webproject.entity.Category;
 import com.webproject.entity.Product;
 import com.webproject.entity.Store;
 import com.webproject.entity.User;
 import com.webproject.service.CartItemService;
 import com.webproject.service.CartService;
+import com.webproject.service.CategoryService;
 import com.webproject.service.ProductService;
 import com.webproject.service.StorageService;
 import com.webproject.service.StoreService;
@@ -39,10 +35,7 @@ public class WebController {
 	private StoreService storeService;
 	
 	@Autowired
-	private CartService cartService;
-	
-	@Autowired
-	private CartItemService cartitemService;
+	private CategoryService cateService;
 
 	@Autowired
 	private StorageService storageService;
@@ -70,7 +63,9 @@ public class WebController {
 	
 	@GetMapping("category-list")
 	public String categoryPage(ModelMap model, HttpSession session) {
-		User user = (User) session.getAttribute("user");
+		//User user = (User) session.getAttribute("user");
+		List<Category> categories = cateService.findAll();
+		model.addAttribute("categories", categories);
 		model.addAttribute("page", "category");
 		return "web/CategoryList";
 	}

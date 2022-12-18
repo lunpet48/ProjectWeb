@@ -18,79 +18,19 @@
 <div class="container mt-3">
     <p>Tất cả danh mục</p>
     <div class="card-body">        
+        <c:forEach items="${categories}" var ="cate">
+        	<div class="product-card">
+	            <div class="product-tumb">
+	                <img src="/vendor/store/product/images/${cate.image}" alt="">
+	            </div>
+	            <div class="product-details">
+	                <p>${cate.name}</p>
+	            </div>
+	        </div>
+        </c:forEach>
         
-        <div class="product-card">
-            <div class="product-tumb">
-                <img src="https://source.unsplash.com/random" alt="">
-            </div>
-            <div class="product-details">
-                <p>Sản phẩm 1</p>
-            </div>
-        </div>
 
-        <div class="product-card">
-            <div class="product-tumb">
-                <img src="https://source.unsplash.com/random" alt="">
-            </div>
-            <div class="product-details">
-                <p>Sản phẩm 1</p>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="product-tumb">
-                <img src="https://source.unsplash.com/random" alt="">
-            </div>
-            <div class="product-details">
-                <p>Sản phẩm 1</p>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="product-tumb">
-                <img src="https://source.unsplash.com/random" alt="">
-            </div>
-            <div class="product-details">
-                <p>Sản phẩm 1</p>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="product-tumb">
-                <img src="https://source.unsplash.com/random" alt="">
-            </div>
-            <div class="product-details">
-                <p>Sản phẩm 1</p>
-            </div>
-        </div>
         
-        <div class="product-card">
-            <div class="product-tumb">
-                <img src="https://source.unsplash.com/random" alt="">
-            </div>
-            <div class="product-details">
-                <p>Sản phẩm 1</p>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="product-tumb">
-                <img src="https://source.unsplash.com/random" alt="">
-            </div>
-            <div class="product-details">
-                <p>Sản phẩm 1</p>
-            </div>
-        </div>
-
-
-        <div class="product-card">
-            <div class="product-tumb">
-                <img src="https://cf.shopee.vn/file/18fd9d878ad946db2f1bf4e33760c86f_tn" alt="">
-            </div>
-            <div class="product-details">
-                <p>Sản phẩm 1</p>
-            </div>
-        </div>
 
     </div>
 </div>
