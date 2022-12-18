@@ -1,5 +1,6 @@
 package com.webproject.service.impl;
 
+import java.sql.Date;
 import java.util.List;
 
 import java.util.Optional;
@@ -48,6 +49,17 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<Order> findAll() {
 		return orderRepo.findAll();
+	}
+
+	@Override
+	public List<Order> findAllByDate(String date) {
+		return orderRepo.findAllByDate(date);
+	}
+
+	@Override
+	public List<Order> findAllSortDate() {
+		// TODO Auto-generated method stub
+		return orderRepo.findAllSortDate();
 	}
 	
 	
