@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.webproject.entity.Category;
 import com.webproject.entity.Product;
 import com.webproject.entity.Store;
 import com.webproject.repository.ProductRepo;
@@ -89,6 +90,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> findLastestProduct() {
 		return productRepo.findLastestProduct();
+	}
+
+	@Override
+	public List<Product> findAllByCategoryId(Long categoryId) {
+		return productRepo.findAllByCategoryId(categoryId);
 	}
 	
 	

@@ -15,6 +15,8 @@ import com.webproject.service.CategoryService;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
+	
+
 	@Autowired
 	private CategoryRepo categoryRepo;
 
@@ -48,6 +50,11 @@ public class CategoryServiceImpl implements CategoryService {
 		// TODO Auto-generated method stub
 		categoryRepo.deleteById(id);
 	}
-
+	
+	@Override
+	public Category findBySlug(String slug) {
+		return categoryRepo.findBySlug(slug);
+	}
+	
 	
 }

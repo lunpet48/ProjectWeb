@@ -118,8 +118,8 @@
 	        </div>
 	        <div class="col mb-2">
 	            <div class="row">
-	                <div class="col-sm-12  col-md-4">
-	                    <button class="btn btn-block btn-light" id="back-to-homepage">Continue Shopping</button>
+	                <div class="col-sm-12  col-md-4" onclick="location.href='/'">
+	                    <button class="btn btn-block btn-light" id="back-to-homepage">Tiếp tục mua sắm</button>
 	                </div>
 	                <div class="col-sm-12  col-md-4">
 	                	<form action="/cart/delete" method="post">
@@ -403,10 +403,6 @@
 		
 		//kiểm tra nhập số
 		
-		//quay về trang chủ
-		$(document).on('click', '#back-to-homepage', function(){
-			$('.product-quantity-cartitem').val('10');
-		})
 	</script>
 </body>
 </html>

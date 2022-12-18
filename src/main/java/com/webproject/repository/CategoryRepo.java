@@ -8,4 +8,5 @@ import com.webproject.entity.Category;
 @Repository
 public interface CategoryRepo extends JpaRepository<Category, Long> {
 	
+	Category findBySlug(String slug);
 }

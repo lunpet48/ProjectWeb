@@ -70,6 +70,18 @@ public class WebController {
 		return "web/CategoryList";
 	}
 	
+	@GetMapping("category-list/{categoryslug}")
+	public String productByCate(ModelMap model,@PathVariable String categoryslug, HttpSession session) {
+		Category cate = cateService.findBySlug(categoryslug);
+		System.err.println(categoryslug);
+		System.err.println(cate);
+		List<Product> list = productService.findAllByCategoryId(cate.get_id());
+		model.addAttribute("cate",cate);
+		model.addAttribute("list",list);
+		
+		return "web/ketquatimkiem";
+	}
+	
 	@GetMapping("store/{id}")
 	public String getMethodName(Model model, @PathVariable Long id) {
 		Optional<Store> opt = storeService.findById(id);

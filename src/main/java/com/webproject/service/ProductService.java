@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import com.webproject.entity.Category;
 import com.webproject.entity.Product;
 
 public interface ProductService {
@@ -30,5 +31,8 @@ public interface ProductService {
 	Page<Product>page(int index, int size);
 
 	List<Product> findLastestProduct();
+
+	List<Product> findAllByCategoryId(Long categoryId);
+
 
 }

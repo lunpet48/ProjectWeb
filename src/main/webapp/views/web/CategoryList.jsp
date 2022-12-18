@@ -19,7 +19,7 @@
     <p>Tất cả danh mục</p>
     <div class="card-body">        
         <c:forEach items="${categories}" var ="cate">
-        	<div class="product-card">
+        	<div  class="product-card" onclick="location.href='/category-list/${cate.slug}';">
 	            <div class="product-tumb">
 	                <img src="/vendor/store/product/images/${cate.image}" alt="">
 	            </div>
