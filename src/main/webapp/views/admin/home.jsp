@@ -42,21 +42,20 @@
 			theme : "light2", // "light1", "dark1", "dark2"
 			animationEnabled : true,
 			title : {
-				title : "Datetime",
 				text : "Thống kê doanh thu"
 			},
 			axisX : {
-				valueFormatString : "DD-MM-YYYY"
+				valueFormatString : "YYYY-MM-DD"
 			},
 			axisY : {
-				title : "Số lượng user mới",
+				title : "",
 				includeZero : true,
-				suffix : ""
+				suffix : "VNĐ"
 			},
 			data : [ {
-				type : "column",
+				type : "line",
 				xValueType : "dateTime",
-				xValueFormatString : "DD-MM-YYYY",
+				xValueFormatString : "YYYY-MM-DD",
 				yValueFormatString : "#",
 				dataPoints : dps
 			} ]
@@ -64,15 +63,19 @@
 
 		var xValue;
 		var yValue;
-
-		<c:forEach items="${listuser}" var="item">
+		var index;
+		var array=${dateRevenueTotal};
+		<c:forEach items="${orders}" var="item" varStatus="loop">
+		index=parseInt("${loop.index}");
 		xValue = Date.parse("${item.createdAt}");
-		yValue = parseInt("${item.point}");
+		yValue = parseFloat(array[index]);
+		console.log(xValue);
 		dps.push({
 			x : xValue,
 			y : yValue
 		});
 		</c:forEach>
+		
 		chart.render();
 
 	}
@@ -150,7 +153,7 @@
 											<div
 												class="text-xs font-weight-bold text-info text-uppercase mb-1">ORDER
 											</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">${countOrder} orders</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">${orderCount} orders</div>
 										</div>
 										<div class="col-auto">
 											<i class="fas fa-clipboard-list fa-2x text-gray-300"></i>

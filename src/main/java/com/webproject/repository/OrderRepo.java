@@ -19,4 +19,10 @@ public interface OrderRepo extends JpaRepository<Order, Long> {
 
 	@Query(value = "Select * from Orders where storeId=?1", nativeQuery = true)
 	List<Order> findAllByStoreId(Long id);
+	
+	@Query(value = "SELECT * FROM Orders where CONVERT(date, createdAt, 103)=?", nativeQuery = true)
+	List<Order> findAllByDate(String date);
+	
+	@Query(value = "SELECT * FROM Orders order by createdAt desc", nativeQuery = true)
+	List<Order> findAllSortDate();
 }
