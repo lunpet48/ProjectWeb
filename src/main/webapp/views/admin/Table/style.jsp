@@ -120,6 +120,7 @@
 						</c:if>
 						<c:forEach begin="1" end="${page.getTotalPages()}" var="i">
 							<a id="currentpage"
+							<c:if test="${i==page.getNumber()+1 }"> style='background: rgb(0 0 0/ 20%); color: blue'</c:if>
 								href="${pageContext.request.contextPath}/admin/style/${cateId}/${i}">${i}</a>
 						</c:forEach>
 						<c:if test="${page.getNumber()+1<page.getTotalPages()}">
