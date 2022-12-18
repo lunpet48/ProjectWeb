@@ -35,14 +35,14 @@
 				
 				<div class="form-container">
 		            <form action="/account/profile/edit" class="form" method="post">
-		            	<div class="form__row">
+		            	<!-- <div class="form__row">
 		                    <label class="form__label" for="avatar">Ảnh Đại Diện: </label>
 		                    <input class="form__input" type="text" name="avatar" id="avatar">
 		                </div>
 		                <div class="form__row">
 		                    <label class="form__label" for="cover">Ảnh Bìa:</label>
 		                    <input class="form__input" type="text" name="cover" id="cover">
-		                </div>
+		                </div> -->
 		                
 		                <div class="form__row">
 		                    <label class="form__label" for="firstName">Họ:</label>

@@ -120,4 +120,13 @@ public class WebController {
 		return "web/ketquatimkiem";
 	}
 	
+	@GetMapping("/product/{id}")
+	public String productDetail(ModelMap model,@PathVariable Long id, HttpSession session) {
+		User user = (User) session.getAttribute("user");
+		Product product = productService.findById(id).get();
+		
+		model.addAttribute("product",product);
+		return "web/productDetail";
+	}
+	
 }

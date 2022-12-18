@@ -147,8 +147,14 @@
 	$('#navbars li').removeClass("active");
 	$('#' + page).addClass("active");
 	
+	//chi tiet sp
+	$(document).on("click",".product-card",function(e) {
+		window.location.href = location.protocol + '//' + location.host +  "/product/" + $(this).find('input').val()
+	})
 	//thông báo xác nhận muốn thêm vào giỏ hàng
-	$(document).on("click",".add-to-cart",function() {
+	$(document).on("click",".add-to-cart",function(e) {
+		e.preventDefault();
+		e.stopPropagation();
 		pid = $(this).closest('.product-card').find('input').eq(0).val()
 		
 		modal.style.display = "block";
