@@ -95,10 +95,9 @@
 									<td>${item.status}</td>
 									<td><a
 										href="<c:url value='/admin/order/${varstatus}/${index }/details/${item._id }'/>"><i
-											class="fa-solid fa-circle-info"></i> info</a> <c:if
-											test='${item.status=="Đã xác nhận" }'>//<a
-												href="<c:url value='/admin/style/add'/>"><i
-												class="fa-thin fa-truck"></i> </a>
+											class="fa-solid fa-circle-info"></i></a> <c:if
+											test='${item.status=="Đã xác nhận" }'><a
+												href="<c:url value='/admin/order/${varstatus}/${index }/edit/${item._id }'/>"><i class="fa-solid fa-truck"></i> </a>
 										</c:if></td>
 								</tr>
 
@@ -124,6 +123,7 @@
 						</c:if>
 						<c:forEach begin="1" end="${page.getTotalPages()}" var="i">
 							<a id="currentpage"
+							<c:if test="${i==page.getNumber()+1 }"> style='background: rgb(0 0 0/ 20%); color: blue'</c:if>
 								href="${pageContext.request.contextPath}/admin/order/${varstatus}/${i}">${i}</a>
 						</c:forEach>
 						<c:if test="${page.getNumber()+1<page.getTotalPages()}">

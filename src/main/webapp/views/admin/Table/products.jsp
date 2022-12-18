@@ -68,7 +68,8 @@
 								<tr class="odd gradeX">
 
 									<td><c:forEach items="${item.listImages }" var="temp">
-											<img width="130px" height="100px" src="/vendor/store/product/images/${temp}">
+											<img width="130px" height="100px"
+												src="/vendor/store/product/images/${temp}">
 										</c:forEach></td>
 
 									<td>${item.name }</td>
@@ -97,24 +98,42 @@
 				</div>
 				<div class="main_content__footer">
 					<div class="pagination">
+						<a href="${pageContext.request.contextPath }/admin/product/all/1"
+							id="first-page"><i class="fa-solid fa-angles-left"></i></a>
 						<c:if test="${page.getNumber()+1>1}">
 							<a
-								href="${pageContext.request.contextPath }/admin/product/all/${page.getNumber()-2}"
-								id="first-page"><i class="fa-solid fa-angles-left"></i></a>
+								href="${pageContext.request.contextPath }/admin/product/all/${page.getNumber()}"
+								id="pre-page"><i class="fa-solid fa-angle-left"></i></a>
+						</c:if>
+						<c:if test="${page.getNumber()+1==1}">
+							<a id="pre-page"><i class="fa-solid fa-angle-left"></i></a>
 						</c:if>
 						<c:forEach begin="1" end="${page.getTotalPages()}" var="i">
-							<a id="currentpage"
+							<a id="currentpage" <c:if test="${i==page.getNumber()+1 }"> style='background: rgb(0 0 0/ 20%); color: blue'</c:if>
 								href="${pageContext.request.contextPath}/admin/product/all/${i}">${i}</a>
 						</c:forEach>
 						<c:if test="${page.getNumber()+1<page.getTotalPages()}">
 							<a
 								href="${pageContext.request.contextPath}/admin/product/all/${page.getNumber()+2}"
+								id="next-page"><i class="fa-solid fa-angle-right"></i></a>
+						</c:if>
+						<c:if test="${page.getNumber()+1>=page.getTotalPages()}">
+							<a id="next-page"><i class="fa-solid fa-angle-right"></i></i></a>
+						</c:if>
+						<c:if test="${page.getTotalPages()!=0}">
+							<a
+								href="${pageContext.request.contextPath }/admin/product/all/${page.getTotalPages()}"
 								id="last-page"><i class="fa-solid fa-angles-right"></i></a>
+						</c:if>
+						<c:if test="${page.getTotalPages()==0}">
+							<a id="last-page"><i class="fa-solid fa-angles-right"></i></a>
 						</c:if>
 					</div>
 				</div>
 
 				<!-- script for action in page -->
-				<script src="/views/admin/js/page.js">></script>
+				<script src="/views/admin/js/page.js">
+					>
+				</script>
 </body>
 </html>

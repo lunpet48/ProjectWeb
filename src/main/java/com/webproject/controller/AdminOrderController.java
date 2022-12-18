@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.webproject.entity.Order;
 import com.webproject.entity.OrderItem;
@@ -79,13 +80,15 @@ public class AdminOrderController {
 		return "admin/Table/orderItem";
 	}
 
-	@PostMapping("edit/{id}")
-	public String edit(ModelMap modelMap, @RequestParam("id") Long id) {
+	@GetMapping("{varstatus}/{index}/edit/{id}")
+	public ModelAndView edit(ModelMap modelMap, @PathVariable("varstatus") Integer var,
+			@PathVariable("index") Integer index, @PathVariable("id") Long id) {
 		Optional<Order> optional = orderService.findById(id);
 		Order order = optional.get();
 		order.setStatus("Đang giao");
-
-		return "redirect:/admin/order/all/1";
+		orderService.save(order);
+		modelMap.addAttribute("message", "Đã bàn giao cho đơn vị vận chuyển");
+		return new ModelAndView("forward:/admin/order/"+var+"/"+index);
 	}
 
 }
