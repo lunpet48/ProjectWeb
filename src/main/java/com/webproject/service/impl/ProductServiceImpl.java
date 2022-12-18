@@ -96,6 +96,11 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> findAllByCategoryId(Long categoryId) {
 		return productRepo.findAllByCategoryId(categoryId);
 	}
+
+	@Override
+	public List<Product> searchProductByName(String keyword) {
+		return productRepo.searchProductByName(keyword);
+	}
 	
 	
 }

@@ -35,10 +35,10 @@
 	
 	        <div class="collapse navbar-collapse justify-content-end" id="navbars">
 	        
-	        	<form class="form-inline my-2 my-lg-0">
+	        	<form class="form-inline my-2 my-lg-0" action="/search" method="post">
 	                <div class="input-group input-group-sm searchfield">
-	                    <input type="text" class="form-control" placeholder="Search...">
-	                    <select name="cars" id="cars">
+	                    <input type="text" class="form-control" id="search-key" name="search-key" placeholder="Search...">
+	                    <select name="option" id="option">
 						  	<option value="product">Sản phẩm</option>
 						  	<option value="category">Danh mục</option>
 						  	<option value="store">Cửa hàng</option>
@@ -172,6 +172,14 @@
 	    });
 		
 	});
+	$(document).on('keypress', '#search-key', function(event){
+		if(event.key === "Enter"){
+			let searchkey = $('#search-key').val()
+			if(searchkey == "" || searchkey == null){
+				event.preventDefault();
+			}
+		}
+	})
 	
 	//close message
 

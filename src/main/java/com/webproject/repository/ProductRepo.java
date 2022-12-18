@@ -20,4 +20,7 @@ public interface ProductRepo extends JpaRepository<Product, Long>{
 	
 	@Query(value = "Select * from Product where categoryId = ?", nativeQuery = true)
 	List<Product> findAllByCategoryId(Long categoryId);
+	
+	@Query(value = "Select * from Product where name LIKE ?", nativeQuery = true)
+	List<Product> searchProductByName(String keyword);
 }

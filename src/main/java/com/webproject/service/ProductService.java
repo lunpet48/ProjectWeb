@@ -34,5 +34,7 @@ public interface ProductService {
 
 	List<Product> findAllByCategoryId(Long categoryId);
 
+	List<Product> searchProductByName(String keyword);
+
 
 }
