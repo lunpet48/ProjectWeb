@@ -54,8 +54,11 @@ public class LoginController {
 			message = "không tìm thấy tài khoản";
 		}
 		else if(BCrypt.checkpw(user.getPassword(), entity.getHashedPassword())) {
-			System.err.println("đăng nhập thành công");
+			
 			session.setAttribute("user", entity);
+			if(entity.getRoles().equals("admin") ) {
+				return new ModelAndView("redirect:/admin");
+			}
 			return new ModelAndView("redirect:/");
 		}
 		else {
@@ -84,6 +87,7 @@ public class LoginController {
 		user.setPhone(user.getPhone().trim());
 		user.setPassword(user.getPassword().trim());
 		user.setPassword2(user.getPassword2().trim());
+		user.setRoles("user");
 		
 		if(!user.getPassword().equals(user.getPassword2())) {
 			System.err.println(!user.getPassword().toString().equals(user.getPassword2().toString()));
@@ -94,6 +98,9 @@ public class LoginController {
 			message = "dữ liệu nhập vào không được để trống!";
 		}
 		else {
+			//trungf 
+			
+			
 			try {
 				User userResp = new User();
 				BeanUtils.copyProperties(user, userResp);
