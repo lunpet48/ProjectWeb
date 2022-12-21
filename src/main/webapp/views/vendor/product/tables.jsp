@@ -149,7 +149,7 @@
 												<td>${item.categoryId.name}</td>
 
 												<td><c:forEach items="${item.listImages }" var="temp">
-														<img src="/vendor/store/product/images/${temp}">
+														<img src="/vendor/store/product/images/${temp}" style="width: 250px">
 													</c:forEach></td>
 												<td><a href="#"
 													class="btn btn-info btn-circle editProduct"

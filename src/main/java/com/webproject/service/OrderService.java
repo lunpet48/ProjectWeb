@@ -28,4 +28,6 @@ public interface OrderService {
 	List<Order> findAllSortDate();
 
 	List<Order> findAllByUserId(Long userId);
+
+	List<Order> findAllByStoreIdAndStatus(Long id, String status);
 }

@@ -117,21 +117,25 @@
 											<td scope="row">${store._id}</td>
 											<td>${store.name}</td>
 											<td>${store.bio}</td>
-											<td><img src="/vendor/store/images/${store.avatar}"></td>
-											<td><img src="/vendor/store/images/${store.cover}"></td>
+											<td><img src="/vendor/store/images/${store.avatar}"
+												style="width: 200px"></td>
+											<td><img src="/vendor/store/images/${store.cover}"
+												style="width: 200px"></td>
 
 											<td><c:forEach items="${store.featuredImages }"
 													var="temp">
-													<img src="/vendor/store/images/${temp}">
+													<img src="/vendor/store/images/${temp}"
+														style="width: 200px">
 												</c:forEach></td>
 											<td><a href="#" data-toggle="modal"
 												data-target="#editModal"
 												class="btn btn-outline-warning editStore"><i
 													class="fa fa-edit"></i></a>
-											<td><a href="#" data-toggle="modal"
+												<td><a href="#" data-toggle="modal"
 												data-target="#deleteModal"
 												class="btn btn-outline-danger deleteStore"><i
 													class="fa fa-trash"></i></a>
+										
 										</tr>
 									</tbody>
 								</table>
@@ -179,10 +183,11 @@
 					</button>
 				</div>
 				<div class="modal-body">Select "Logout" below if you are ready
-					to end your current session.</div>
-				<div class="modal-footer">
+					to end your current session.
+</div>
+												<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
-						data-dismiss="modal">Cancel</button>
+														data-dismiss="modal">Cancel</button>
 					<a class="btn btn-primary" href="login.html">Logout</a>
 				</div>
 			</div>
@@ -190,19 +195,19 @@
 	</div>
 
 	<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
+													aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button class="close" type="button" data-dismiss="modal"
-						aria-label="Close">
+																	aria-label="Close">
 						<span aria-hidden="true">×</span>
 					</button>
 				</div>
 				<div class="modal-body">Bạn có muốn xóa cửa hàng này không?</div>
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
-						data-dismiss="modal">Hủy</button>
+																	data-dismiss="modal">Hủy</button>
 					<a class="btn btn-primary" href="#" id="deleteYes">Có</a>
 				</div>
 
@@ -211,18 +216,19 @@
 	</div>
 
 	<div class="modal fade" id="editModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
+													aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button class="close" type="button" data-dismiss="modal"
-						aria-label="Close">
+																	aria-label="Close">
 						<span aria-hidden="true">×</span>
 					</button>
 				</div>
 				<div class="modal-body">
 					<form action="<c:url value="/vendor/store/update-info"/>"
-						id="editYes" method="post" enctype="multipart/form-data">
+																	id="editYes" method="post"
+																	enctype="multipart/form-data">
 						<div class="card">
 							<div class="card-header">
 								<h2>Chỉnh sửa cửa hàng</h2>
@@ -230,34 +236,38 @@
 							<div class="card-body">
 								<div>
 									<label for="_id" class="form-label">Store ID:</label> <input
-										type="text" readonly="readonly" class="form-control"
-										value="${store._id}" name="_id" id="_id">
+																					type="text" readonly="readonly"
+																					class="form-control" value="${store._id}"
+																					name="_id" id="_id">
 								</div>
 								<div>
 									<label for="name" class="form-label">Store's name:</label> <input
-										type="text" class="form-control" value="${store.name}"
-										name="name" id="name">
+																					type="text" class="form-control"
+																					value="${store.name}" name="name" id="name">
 								</div>
 								<div>
 									<label for="bio" class="form-label">Store's bio:</label> <input
-										type="text" class="form-control" name="bio"
-										value="${store.bio}" id="bio">
+																					type="text" class="form-control" name="bio"
+																					value="${store.bio}" id="bio">
 								</div>
 								<div>
 									<label for="avatarFile" class="form-label">Avatar:</label> <input
-										type="file" class="form-control-file" value="${avatarFile}"
-										accept=".jpg, .png" name="avatarFile" id="avatarFile">
+																					type="file" class="form-control-file"
+																					value="${avatarFile}" accept=".jpg, .png"
+																					name="avatarFile" id="avatarFile">
 								</div>
 								<div>
 									<label for="coverFile" class="form-label">Cover:</label> <input
-										type="file" class="form-control-file" value="${coverFile}"
-										name="coverFile" id="coverFile">
+																					type="file" class="form-control-file"
+																					value="${coverFile}" name="coverFile"
+																					id="coverFile">
 								</div>
 								<div>
 									<label for="featuredImagesFile" class="form-label">Featured
 										Images</label> <input type="file" class="form-control-file"
-										value="${featuredImagesFile}" name="featuredImagesFile"
-										id="featuredImagesFile" multiple="multiple">
+																					value="${featuredImagesFile}"
+																					name="featuredImagesFile" id="featuredImagesFile"
+																					multiple="multiple">
 								</div>
 
 							</div>
@@ -274,9 +284,9 @@
 	<script src="/js/bootstrap.bundle.min.js"></script>
 
 	<link rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-		integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-		crossorigin="anonymous" referrerpolicy="no-referrer" />
+													href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+													integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+													crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
 	<!-- Core plugin JavaScript-->
@@ -306,6 +316,7 @@
 			test.setAttribute("href", "/vendor/store/delete?_id=" + id);
 		})
 	</script>
-</body>
+
+											</body>
 
 </html>

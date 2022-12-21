@@ -217,21 +217,50 @@ public class StoreController {
 		Store store = storeService.findByOwnerId(user.get_id());
 		List<Product> result = productService.findAllByStoreId(store.get_id());
 		List<Order> order = orderService.findAllByStoreId(store.get_id());
+		double total = 0;
+		for (Order item : order) {
+			total = total + item.getAmountFromUser();
+		}
 		int countProduct = result.size();
 		int countOrder = order.size();
 		model.addAttribute("countProduct", countProduct);
 		model.addAttribute("countOrder", countOrder);
+		model.addAttribute("total", total);
 		return "vendor/index";
 	}
 
 	@GetMapping("orders")
-	public String getOrder(Model model) {
+	public String getOrder(Model model, @RequestParam(name = "status", defaultValue = "0") int statusId) {
 		User user = (User) session.getAttribute("user");
 		if (user == null)
 			return "redirect:/account/login";
 		Store store = storeService.findByOwnerId(user.get_id());
-		List<Order> listOrders = orderService.findAllByStoreId(store.get_id());
-		model.addAttribute("listOrders", listOrders);
+		if (statusId == 0) {
+			List<Order> listOrders = orderService.findAllByStoreId(store.get_id());
+			model.addAttribute("status", "Tất cả");
+			model.addAttribute("listOrders", listOrders);
+		} else if (statusId == 1) {
+			List<Order> listOrders = orderService.findAllByStoreIdAndStatus(store.get_id(), "Chưa xác nhận");
+			model.addAttribute("status", "Chưa xác nhận");
+			model.addAttribute("listOrders", listOrders);
+		} else if (statusId == 2) {
+			List<Order> listOrders = orderService.findAllByStoreIdAndStatus(store.get_id(), "Đã xác nhận");
+			model.addAttribute("status", "Đã xác nhận");
+			model.addAttribute("listOrders", listOrders);
+		} else if (statusId == 3) {
+			List<Order> listOrders = orderService.findAllByStoreIdAndStatus(store.get_id(), "Đang giao");
+			model.addAttribute("status", "Đang giao");
+			model.addAttribute("listOrders", listOrders);
+		} else if (statusId == 4) {
+			List<Order> listOrders = orderService.findAllByStoreIdAndStatus(store.get_id(), "Đã nhận hàng");
+			model.addAttribute("status", "Đã nhận hàng");
+			model.addAttribute("listOrders", listOrders);
+		} else {
+			List<Order> listOrders = orderService.findAllByStoreIdAndStatus(store.get_id(), "Bị hủy");
+			model.addAttribute("status", "Bị hủy");
+			model.addAttribute("listOrders", listOrders);
+		}
+
 		return "vendor/order/order";
 	}
 

@@ -66,6 +66,11 @@ public class OrderServiceImpl implements OrderService {
 	public List<Order> findAllByUserId(Long userId) {
 		return orderRepo.findAllByUserId(userId);
 	}
+
+	@Override
+	public List<Order> findAllByStoreIdAndStatus(Long id, String status) {
+		return orderRepo.findAllByStoreIdAndStatus(id, status);
+	}
 	
 	
 	

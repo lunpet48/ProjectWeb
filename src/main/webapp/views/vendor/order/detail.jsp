@@ -38,6 +38,7 @@
 						<thead>
 							<tr>
 								<th>Product name</th>
+								<th>Product image</th>
 								<th>Amount</th>
 								<th>Price</th>
 							</tr>
@@ -45,6 +46,7 @@
 						<tfoot>
 							<tr>
 								<th>Product name</th>
+								<th>Product image</th>
 								<th>Amount</th>
 								<th>Price</th>
 							</tr>
@@ -53,6 +55,7 @@
 							<c:forEach items="${listOrderItems }" var="item">
 								<tr>
 									<td scope="row">${item.productId.name}</td>
+									<td><img src="/vendor/store/images/${item.productId.listImages[0]}" style="width:250px"></td>
 									<td>${item.count}</td>
 									<td>${item.productId.price}</td>
 								</tr>

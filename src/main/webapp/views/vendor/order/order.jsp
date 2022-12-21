@@ -110,7 +110,29 @@
 									class="fa-solid fa-plus"></i>
 								</a>
 							</div>
+							<div class="dropdown">
+							<button class="btn btn-primary dropdown-toggle" type="button"
+								id="dropdownMenuButton" data-toggle="dropdown"
+								aria-haspopup="true" aria-expanded="false">Status: ${status}</button>
+							<div id="myDropdown" class="dropdown-menu">
+								<a class="dropdown-item"
+									href="<c:url value='/vendor/store/orders?status=0'/>">Tất
+									cả</a> <a class="dropdown-item"
+									href="<c:url value='/vendor/store/orders?status=1'/>">Chưa
+									xác nhận</a><a class="dropdown-item"
+									href="<c:url value='/vendor/store/orders?status=2'/>">Đã
+									xác nhận</a><a class="dropdown-item"
+									href="<c:url value='/vendor/store/orders?status=3'/>">Đang
+									giao</a><a class="dropdown-item"
+									href="<c:url value='/vendor/store/orders?status=4'/>">Đã
+									nhận hàng</a><a class="dropdown-item"
+									href="<c:url value='/vendor/store/orders?status=5'/>">Bị
+									hủy</a>
+							</div>
 						</div>
+						</div>
+						
+						
 						<div class="card-body">
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%"
@@ -153,11 +175,10 @@
 													data-toggle="modal" data-target="#editModal"> <i
 														class="fa-regular fa-pen-to-square"></i>
 												</a></td>
-												<td><a
-														href="/vendor/store/orders-item?id=${item._id}"
-														class="btn btn-info btn-circle" id="detailYes">
-														<i class="fa-solid fa-circle-info"></i>
-													</a></td>
+												<td><a href="/vendor/store/orders-item?id=${item._id}"
+													class="btn btn-info btn-circle" id="detailYes"> <i
+														class="fa-solid fa-circle-info"></i>
+												</a></td>
 											</tr>
 										</c:forEach>
 									</tbody>
